@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         },
         css: {
             files: '**/*.scss',
-            tasks: ['sass', 'uncss', 'concat:css', 'cssmin'],
+            tasks: ['sass', 'concat:css', 'cssmin'],
             options: {
                 debounceDelay: 250,
                 spawn: false

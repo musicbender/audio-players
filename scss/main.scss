@@ -5,10 +5,18 @@
 @import 'helpers/_mixins.scss';
 @import 'helpers/_placeholders.scss';
 
+@font-face {
+    font-family: themify;
+    src: url(fonts/themify.ttf);
+}
 /*******General*******/
 
+
 /*******Header*******/
+@import 'layout/_header.scss';
+
+/*******Player 1*******/
+@import 'layout/_player1.scss';
 
 /*******Media Queries*******/
-
 @import 'media/_media-queries.scss';
