@@ -17,14 +17,57 @@ header {
   font-size: 4em; }
 
 /*******Player 1*******/
-.player1-section {
+.player-1-section {
   margin: 0 auto;
   height: 400px;
-  background-color: darkred; }
+  background-color: #2ecc71;
+  overflow: hidden; }
 
-.play {
+.player-1 {
+  margin: 55px auto;
+  padding: 0;
+  height: 80px;
+  width: 600px; }
+
+.btn-div-1 {
+  margin: 0 -4px 0 0; }
+
+.btn-div-1, .volume-div-1 {
+  display: inline-block;
+  width: 80px;
+  height: 100%;
+  text-align: center;
+  background-color: #25a25a; }
+
+.progress-div-1 {
+  display: inline-block;
+  height: 100%;
+  width: calc(100% - 161px);
+  vertical-align: middle;
+  background-color: #a8ebc4; }
+
+.progress-1 {
+  display: 0; }
+
+.volume-div-1 {
+  margin: 0 0 0 -5px; }
+
+.play-1 {
+  margin: 0 auto;
+  line-height: 80px;
+  vertical-align: middle;
   font-family: themify;
-  font-size: 6em; }
+  font-size: 3.8em;
+  font-weight: lighter;
+  color: #ffffff; }
+
+.volume-1 {
+  margin: 0 auto;
+  line-height: 80px;
+  vertical-align: middle;
+  font-family: themify;
+  font-size: 3.8em;
+  color: #ffffff; }
 
 /*******Media Queries*******/
 
