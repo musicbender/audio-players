@@ -29,10 +29,10 @@ header {
   height: 80px;
   width: 600px; }
 
-.btn-div-1 {
+.play-div-1 {
   margin: 0 -4px 0 0; }
 
-.btn-div-1, .volume-div-1 {
+.play-div-1, .volume-div-1 {
   display: inline-block;
   width: 80px;
   height: 100%;
@@ -41,13 +41,18 @@ header {
 
 .progress-div-1 {
   display: inline-block;
-  height: 100%;
+  position: relative;
+  height: 80px;
   width: calc(100% - 161px);
   vertical-align: middle;
-  background-color: #a8ebc4; }
+  background-color: #a8ebc4;
+  z-index: 1; }
 
 .progress-1 {
-  display: 0; }
+  height: 100%;
+  width: 3%;
+  background-color: #54d98c;
+  overflow: hidden; }
 
 .volume-div-1 {
   margin: 0 0 0 -5px; }
@@ -68,6 +73,21 @@ header {
   font-family: themify;
   font-size: 3.8em;
   color: #ffffff; }
+
+.track-1 {
+  position: absolute;
+  margin: 10px;
+  font-size: 1.2em;
+  color: #0d0d0d;
+  z-index: 100; }
+
+.time-1 {
+  position: absolute;
+  top: 40px;
+  margin: 10px;
+  font-size: 1em;
+  color: #0d0d0d;
+  z-index: 100; }
 
 /*******Media Queries*******/
 
