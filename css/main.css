@@ -23,6 +23,7 @@ header {
   background-color: #2ecc71;
   overflow: hidden; }
 
+/*******Player*******/
 .player-1 {
   margin: 55px auto;
   padding: 0;
@@ -43,7 +44,7 @@ header {
   display: inline-block;
   position: relative;
   height: 80px;
-  width: calc(100% - 161px);
+  width: calc(100% - 160px);
   vertical-align: middle;
   background-color: #a8ebc4;
   z-index: 1; }
@@ -62,7 +63,7 @@ header {
   line-height: 80px;
   vertical-align: middle;
   font-family: themify;
-  font-size: 3.8em;
+  font-size: 3em;
   font-weight: lighter;
   color: #ffffff; }
 
@@ -71,7 +72,7 @@ header {
   line-height: 80px;
   vertical-align: middle;
   font-family: themify;
-  font-size: 3.8em;
+  font-size: 3em;
   color: #ffffff; }
 
 .track-1 {
@@ -88,6 +89,20 @@ header {
   font-size: 1em;
   color: #0d0d0d;
   z-index: 100; }
+
+/*******Volume Slider*******/
+.volume-slider-div-1 {
+  display: block;
+  margin: 0 auto;
+  width: 440px;
+  height: 80px;
+  background-color: #1b7943; }
+
+.volume-slider-1 {
+  position: absolute;
+  height: 100%;
+  width: 75%;
+  background-color: #124f2c; }
 
 /*******Media Queries*******/
 

@@ -5,6 +5,7 @@
     overflow: hidden;
 }
 
+/*******Player*******/
 .player-1 {
     margin: 55px auto;
     padding: 0;
@@ -22,14 +23,13 @@
     height: 100%;
     text-align: center;
     background-color: darken($color1, 10%);
-    
 }
 
 .progress-div-1 {
     display: inline-block;
     position: relative;
     height: 80px;
-    width: calc(100% - 161px);
+    width: calc(100% - 160px);
     vertical-align: middle;
     background-color: lighten($color1, 30%);
     z-index: 1;
@@ -51,7 +51,7 @@
     line-height: 80px;
     vertical-align: middle;
     font-family: themify;
-    font-size: 3.8em;
+    font-size: 3em;
     font-weight: lighter;
     color: $white;
 }
@@ -61,7 +61,7 @@
     line-height: 80px;
     vertical-align: middle;
     font-family: themify;
-    font-size: 3.8em;
+    font-size: 3em;
     color: $white;
 }
 
@@ -80,4 +80,21 @@
     font-size: 1em;
     color: lighten($black, 5%);
     z-index: 100;
+}
+
+/*******Volume Slider*******/
+
+.volume-slider-div-1 {
+    display: block;
+    margin: 0 auto;
+    width: 440px;
+    height: 80px;
+    background-color: darken($color1, 20%);
+}
+
+.volume-slider-1 {
+    position: absolute;
+    height: 100%;
+    width: 75%;
+    background-color: darken($color1, 30%);
 }
