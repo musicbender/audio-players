@@ -96,13 +96,27 @@ header {
   margin: 0 auto;
   width: 440px;
   height: 80px;
-  background-color: #1b7943; }
+  background-color: #e6f9ee; }
 
 .volume-slider-1 {
-  position: absolute;
   height: 100%;
   width: 75%;
-  background-color: #124f2c; }
+  background-color: #d1f5e0; }
+
+.plus-1, .minus-1 {
+  display: inline-block;
+  font-size: 2.5em;
+  color: #25a25a; }
+
+.minus-1 {
+  position: relative;
+  top: -58px;
+  left: 20px; }
+
+.plus-1 {
+  position: relative;
+  top: -58px;
+  left: 330px; }
 
 /*******Media Queries*******/
 

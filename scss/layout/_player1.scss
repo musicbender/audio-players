@@ -89,12 +89,29 @@
     margin: 0 auto;
     width: 440px;
     height: 80px;
-    background-color: darken($color1, 20%);
+    background-color: lighten($color1, 45%);
 }
 
 .volume-slider-1 {
-    position: absolute;
     height: 100%;
     width: 75%;
-    background-color: darken($color1, 30%);
+    background-color: lighten($color1, 40%);
+}
+
+.plus-1, .minus-1 {
+    display: inline-block;
+    font-size: 2.5em;
+    color: darken($color1, 10%);
+}
+
+.minus-1 {
+    position: relative;
+    top: -58px;
+    left: 20px;
+}
+
+.plus-1 {
+    position: relative;
+    top: -58px;
+    left: 330px;
 }
