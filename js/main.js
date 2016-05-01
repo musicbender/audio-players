@@ -3,19 +3,21 @@ $(document).ready(function(){
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playSound = undefined;
     
-    $('.hide-volume-1').on('click', function(e) {
+    var clickState1 = false;
+    
+    $('.volume-div-1').on('click', function(e) {
         e.preventDefault();
-        $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
-        $('.volume-div-1').addClass('show-volume-1').removeClass('hide-volume-1');
+        if (!clickState1) {
+            $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
+            clickState1 = true;
+            return;
+        } else {
+            $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
+            clickState1 = false;
+            return;
+        }  
     });
-    $('.show-volume-1').on('click', function(e) {
-        e.preventDefault();
-        console.log('clicked again');
-        $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
-        $('.volume-div-1').addClass('hide-volume-1').removeClass('show-volume-1');
-        
-    });
-     
+  
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.fileDirectory = fileDirectory;
