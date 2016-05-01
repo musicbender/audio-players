@@ -85,6 +85,12 @@ header {
   font-weight: lighter;
   color: #ffffff; }
 
+.ti-control-play {
+  display: inline-block; }
+
+.ti-control-pause {
+  display: none; }
+
 .volume-1 {
   margin: 0 auto;
   line-height: 80px;
@@ -128,6 +134,9 @@ header {
   display: inline-block;
   font-size: 2.5em;
   color: #25a25a; }
+  .plus-1:hover, .minus-1:hover {
+    cursor: pointer;
+    color: #176437; }
 
 .minus-1 {
   position: relative;

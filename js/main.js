@@ -3,20 +3,33 @@ $(document).ready(function(){
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playSound = undefined;
     
-    var clickState1 = false;
+    /*******Player 1*******/
+    var clickState1 = false,
+        playState1 = false;
     
     $('.volume-div-1').on('click', function(e) {
         e.preventDefault();
         if (!clickState1) {
             $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
             clickState1 = true;
-            return;
         } else {
             $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
             clickState1 = false;
-            return;
         }  
     });
+    
+    $('.play-1').on('click', function(e) {
+        e.preventDefault();
+        if(!playState1) {
+            $('.ti-control-play').hide();
+            $('.ti-control-pause').show();
+            playState1 = true;
+        } else {
+            $('.ti-control-pause').hide();
+            $('.ti-control-play').show();
+            playState1 = false;
+        }    
+    })
   
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
