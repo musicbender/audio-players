@@ -3,6 +3,19 @@ $(document).ready(function(){
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playSound = undefined;
     
+    $('.hide-volume-1').on('click', function(e) {
+        e.preventDefault();
+        $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
+        $('.volume-div-1').addClass('show-volume-1').removeClass('hide-volume-1');
+    });
+    $('.show-volume-1').on('click', function(e) {
+        e.preventDefault();
+        console.log('clicked again');
+        $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
+        $('.volume-div-1').addClass('hide-volume-1').removeClass('show-volume-1');
+        
+    });
+     
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.fileDirectory = fileDirectory;
@@ -68,33 +81,5 @@ $(document).ready(function(){
     
     /*-----Trigger sounds-----*/
     
-    //Trigger with mouse click.
-    $('.trigger').mousedown(function(){
-        if ($(this).hasClass('boom')){
-            roundRobinPlay(sound.boom, null, null, $('.boom'));
-        } else if ($(this).hasClass('smack')){
-            roundRobinPlay(sound.smack1, sound.smack2, sound.smack3, $('.smack'));
-        } else if ($(this).hasClass('tsst')){
-            roundRobinPlay(sound.tsst1, sound.tsst2, sound.tsst3, $('.tsst'));
-        } else {
-            console.log('ERROR');
-        }
-    });
-    
-    $('.trigger').mouseup(function(){
-        $('.trigger').removeClass('hit');
-    });
-        
-    //Trigger with keydown b, n, and m. 
-    $(document).keydown(function(e){
-        if (e.which == 66){
-            roundRobinPlay(sound.boom, null, null, $('.boom'));
-        } else if (e.which == 78){
-            roundRobinPlay(sound.smack1, sound.smack2, sound.smack3, $('.smack'));
-        } else if (e.which == 77) {
-            roundRobinPlay(sound.tsst1, sound.tsst2, sound.tsst3, $('.tsst'));
-        } else {
-            console.log('ERROR');
-        }
-    });
+   
 }); 

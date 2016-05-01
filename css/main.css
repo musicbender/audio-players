@@ -1,4 +1,18 @@
 /*******Imports*******/
+@keyframes show-animate-1 {
+  0% {
+    opacity: 0;
+    top: -80px; }
+  100% {
+    opacity: 1;
+    top: 0; } }
+@keyframes hide-animate-1 {
+  0% {
+    opacity: 1;
+    top: 0; }
+  100% {
+    opacity: 0;
+    top: -80px; } }
 @font-face {
   font-family: themify;
   src: url(fonts/themify.ttf); }
@@ -32,6 +46,8 @@ header {
 
 .play-div-1 {
   margin: 0 -4px 0 0; }
+  .play-div-1:hover {
+    cursor: pointer; }
 
 .play-div-1, .volume-div-1 {
   display: inline-block;
@@ -57,6 +73,8 @@ header {
 
 .volume-div-1 {
   margin: 0 0 0 -5px; }
+  .volume-div-1:hover {
+    cursor: pointer; }
 
 .play-1 {
   margin: 0 auto;
@@ -73,7 +91,8 @@ header {
   vertical-align: middle;
   font-family: themify;
   font-size: 3em;
-  color: #ffffff; }
+  color: #ffffff;
+  pointer-events: none; }
 
 .track-1 {
   position: absolute;
@@ -92,8 +111,10 @@ header {
 
 /*******Volume Slider*******/
 .volume-slider-div-1 {
-  display: block;
-  margin: 0 auto;
+  opacity: 0;
+  position: relative;
+  left: 80px;
+  top: -80px;
   width: 440px;
   height: 80px;
   background-color: #e6f9ee; }
@@ -117,6 +138,30 @@ header {
   position: relative;
   top: -58px;
   left: 330px; }
+
+@keyframes show-animate-1 {
+  0% {
+    opacity: 0;
+    top: -80px; }
+  100% {
+    opacity: 1;
+    top: 0; } }
+@keyframes hide-animate-1 {
+  0% {
+    opacity: 1;
+    top: 0; }
+  100% {
+    opacity: 0;
+    top: -80px; } }
+.volume-hidden-1 {
+  animation-name: hide-animate-1;
+  animation-duration: 0.25s;
+  animation-fill-mode: forwards; }
+
+.volume-shown-1 {
+  animation-name: show-animate-1;
+  animation-duration: 0.25s;
+  animation-fill-mode: forwards; }
 
 /*******Media Queries*******/
 

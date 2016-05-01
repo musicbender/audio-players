@@ -1,0 +1,5 @@
+@mixin animate($name, $time) {
+    animation-name: $name;
+    animation-duration: $time;
+    animation-fill-mode: forwards;
+}
