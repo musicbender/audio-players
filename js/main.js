@@ -49,7 +49,6 @@ $(document).ready(function(){
         soundObj.play = function() {
             playSound = context.createBufferSource();
             playSound.buffer = soundObj.soundToPlay;
-            playSound.playbackRate.value = (Math.random() * (1.04 - 0.96) + 0.96); //random pitch
             playSound.connect(context.destination)
             playSound.start(context.currentTime)
         }
@@ -71,30 +70,15 @@ $(document).ready(function(){
 
     //batch audio loader
      var sound = audioBatchLoader({
-       //audio files here
+       track1: 'audio/track1.mp3'
      });
-    
-    //Random number between 1 and 3 for Round Robin
-    function randomNum () {
-        var num = Math.floor(Math.random() * 3);
-        return num;
-    }
 
-    //Play sound with Round Robin
-    function roundRobinPlay (sound1, sound2, sound3, trigger) {
-        var sounds = [sound1, sound2, sound3],
-            rr = randomNum();
-        
-        if ((sound2 !== null) && (sound3 !== null)){
-            sounds[rr].play(context.currentTime);
-            trigger.addClass('hit');
-        } else {
-            sound1.play(context.currentTime);
-            trigger.addClass('hit');
-        }
+
+    //Play sound 
+    function playNow (sound) {
+            sound.play(context.currentTime);
     }
     
     /*-----Trigger sounds-----*/
     
-   
 }); 
