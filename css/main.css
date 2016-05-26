@@ -148,6 +148,7 @@ header {
   top: -58px;
   left: 330px; }
 
+/*******Animation*******/
 @keyframes show-animate-1 {
   0% {
     opacity: 0;
