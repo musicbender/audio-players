@@ -25,6 +25,7 @@ $(document).ready(function(){
             playSound = context.createBufferSource();
             playSound.buffer = soundObj.soundToPlay;
             playSound.connect(context.destination);
+            playSound.duration = Math.round((playSound.buffer.duration / 60) * 100) / 100;
             playSound.start(context.currentTime);
             context.resume();
         }
@@ -32,7 +33,6 @@ $(document).ready(function(){
         soundObj.stop = function() {
             playSound.stop(context.currentTime);
             context.suspend();
-            console.log(context.currentTime);
         }
         
         return soundObj;
@@ -94,6 +94,8 @@ $(document).ready(function(){
     $('.ti-control-pause').on('click', function(e) {
         e.preventDefault();
         sound.track1.stop();
+        console.log('Current Time: ' + context.currentTime);
+        console.log('Total Track Time: ' + playSound.duration); 
     })
      
 }); 
