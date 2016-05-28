@@ -4,7 +4,8 @@ $(document).ready(function(){
     /*******Web Audio API*******/
     
     var context = new (window.AudioContext || window.webkitAudioContext)(),
-    playSound = undefined;
+    playSound = undefined,
+    playInit = false;
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -22,17 +23,24 @@ $(document).ready(function(){
         getSound.send();
 
         soundObj.play = function() {
+            if (!playInit) {
             playSound = context.createBufferSource();
             playSound.buffer = soundObj.soundToPlay;
             playSound.connect(context.destination);
             playSound.duration = Math.round((playSound.buffer.duration / 60) * 100) / 100;
             playSound.start(context.currentTime);
-            context.resume();
+            playInit = true;
+            } else {
+                context.resume();
+            }
         }
 
         soundObj.stop = function() {
-            playSound.stop(context.currentTime);
-            context.suspend();
+            if (!playInit) {
+                playSound.stop(context.currentTime);
+            } else {
+                context.suspend();
+            }
         }
         
         return soundObj;
