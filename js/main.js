@@ -6,6 +6,8 @@ $(document).ready(function(){
     var context = new (window.AudioContext || window.webkitAudioContext)(),
     playSound = undefined,
     playInit = false;
+    
+    console.log('CT Start: ' + context.currentTime);
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -23,12 +25,14 @@ $(document).ready(function(){
         getSound.send();
 
         soundObj.play = function() {
+            context.currentTime = 0;
+            console.log('CT Play: ' + context.currentTime);
             if (!playInit) {
             playSound = context.createBufferSource();
             playSound.buffer = soundObj.soundToPlay;
             playSound.connect(context.destination);
             playSound.duration = Math.round((playSound.buffer.duration / 60) * 100) / 100;
-            playSound.start(context.currentTime);
+            playSound.start(context.currentTime + 0,21);
             playInit = true;
             } else {
                 context.resume();
@@ -85,25 +89,16 @@ $(document).ready(function(){
         if(!playState1) {
             $('.ti-control-play').hide();
             $('.ti-control-pause').show();
+            sound.track1.play(context.currentTime);
             playState1 = true;
         } else {
             $('.ti-control-pause').hide();
             $('.ti-control-play').show();
+            sound.track1.stop();
+            console.log('Current Time: ' + context.currentTime);
+            console.log('Total Track Time: ' + playSound.duration); 
             playState1 = false;
         }    
-    })
-    
-    /*-----Trigger sounds-----*/
-    
-    $('.ti-control-play').on('click', function(e) {
-        e.preventDefault();
-        sound.track1.play(context.currentTime);
-    });
-    $('.ti-control-pause').on('click', function(e) {
-        e.preventDefault();
-        sound.track1.stop();
-        console.log('Current Time: ' + context.currentTime);
-        console.log('Total Track Time: ' + playSound.duration); 
     })
      
 }); 
