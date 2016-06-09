@@ -1,13 +1,14 @@
 
 $(document).ready(function(){
 
+    
     /*******Web Audio API*******/
     
     var context = new (window.AudioContext || window.webkitAudioContext)(),
     playSound = undefined,
     playInit = false;
     
-    console.log('CT Start: ' + context.currentTime);
+    console.log('Start CT: ' + context.currentTime);
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -25,13 +26,11 @@ $(document).ready(function(){
         getSound.send();
 
         soundObj.play = function() {
-            context.currentTime = 0;
-            console.log('CT Play: ' + context.currentTime);
             if (!playInit) {
             playSound = context.createBufferSource();
             playSound.buffer = soundObj.soundToPlay;
             playSound.connect(context.destination);
-            playSound.duration = Math.round((playSound.buffer.duration / 60) * 100) / 100;
+            playSound.duration = Math.round(playSound.buffer.duration); 
             playSound.start(context.currentTime + 0,21);
             playInit = true;
             } else {
@@ -46,7 +45,6 @@ $(document).ready(function(){
                 context.suspend();
             }
         }
-        
         return soundObj;
     };
 
@@ -62,17 +60,30 @@ $(document).ready(function(){
      var sound = audioBatchLoader({
        track1: 'audio/track1.mp3'
      });
-
-
-    //Play sound 
-    function playGo (sound) {
-            sound.play(context.currentTime);
+    
+    
+    /*******General Player Stuff*******/
+    
+    //progress-slider initialization 
+    $('.progress-div-1').slider({
+        max: 172,
+        range: 'min'
+    });
+    
+    //turn seconds into minutes/seconds format
+    function getMinutesSeconds(time) {
+        var minutes = Math.floor(time / 60),
+            seconds = time - minutes * 60;
+        
+        return minutes + ':' + seconds;
     }
 
     /*******Player 1*******/
+    
     var clickState1 = false,
         playState1 = false;
     
+    //volume slider
     $('.volume-div-1').on('click', function(e) {
         e.preventDefault();
         if (!clickState1) {
@@ -84,21 +95,30 @@ $(document).ready(function(){
         }  
     });
     
+    //trigger sounds
     $('.play-1').on('click', function(e) {
         e.preventDefault();
         if(!playState1) {
             $('.ti-control-play').hide();
             $('.ti-control-pause').show();
-            sound.track1.play(context.currentTime);
+            sound.track1.play();
             playState1 = true;
+            
+            console.log('CT Play: ' + context.currentTime);
         } else {
             $('.ti-control-pause').hide();
             $('.ti-control-play').show();
             sound.track1.stop();
-            console.log('Current Time: ' + context.currentTime);
-            console.log('Total Track Time: ' + playSound.duration); 
             playState1 = false;
+            
+            console.log('CT Pause: ' + context.currentTime);
+            console.log('Total Track Time: ' + playSound.duration); 
         }    
-    })
-     
+    });   
+    
+    //slider
+    
+    
+    
+   
 }); 

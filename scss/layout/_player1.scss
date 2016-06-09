@@ -29,23 +29,6 @@
     background-color: darken($color1, 10%);
 }
 
-.progress-div-1 {
-    display: inline-block;
-    position: relative;
-    height: 80px;
-    width: calc(100% - 160px);
-    vertical-align: middle;
-    background-color: lighten($color1, 30%);
-    z-index: 1;
-}
-
-.progress-1 {
-    height: 100%;
-    width: 3%;
-    background-color: lighten($color1, 10%);
-    overflow: hidden;
-}
-
 .volume-div-1 {
     margin: 0 0 0 -5px;
     &:hover {
@@ -95,8 +78,12 @@
     margin: 10px;
     font-size: 1em;
     color: lighten($black, 5%);
-    z-index: 100;
+    z-index: 100; 
 }
+
+/*******Progress Slider*******/
+
+@import '_player1-slider.scss';
 
 /*******Volume Slider*******/
 

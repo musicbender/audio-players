@@ -56,21 +56,6 @@ header {
   text-align: center;
   background-color: #25a25a; }
 
-.progress-div-1 {
-  display: inline-block;
-  position: relative;
-  height: 80px;
-  width: calc(100% - 160px);
-  vertical-align: middle;
-  background-color: #a8ebc4;
-  z-index: 1; }
-
-.progress-1 {
-  height: 100%;
-  width: 3%;
-  background-color: #54d98c;
-  overflow: hidden; }
-
 .volume-div-1 {
   margin: 0 0 0 -5px; }
   .volume-div-1:hover {
@@ -114,6 +99,37 @@ header {
   font-size: 1em;
   color: #0d0d0d;
   z-index: 100; }
+
+/*******Progress Slider*******/
+.progress-div-1 {
+  display: inline-block;
+  position: relative;
+  height: 80px;
+  width: calc(100% - 160px);
+  vertical-align: middle;
+  background-color: #a8ebc4;
+  z-index: 1; }
+
+.progress-div-1 .ui-slider-range {
+  height: 100%;
+  width: 0%;
+  background-color: #54d98c;
+  overflow: hidden; }
+
+/*******Jquiry UI Slider Overrides*******/
+.ui-widget-content {
+  border: 0; }
+
+.ui-slider-handle {
+  opacity: 0; }
+
+.ui-slider .ui-slider-handle {
+  height: 100%; }
+  .ui-slider .ui-slider-handle:hover {
+    cursor: pointer; }
+
+.ui-slider-horizontal .ui-slider-handle {
+  top: 0; }
 
 /*******Volume Slider*******/
 .volume-slider-div-1 {
