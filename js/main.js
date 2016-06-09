@@ -9,6 +9,7 @@ $(document).ready(function(){
     playInit = false;
     
     console.log('Start CT: ' + context.currentTime);
+    
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -20,17 +21,26 @@ $(document).ready(function(){
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
                 soundObj.soundToPlay = buffer;
+                console.log('TEST: file loaded');
+                playSound = context.createBufferSource();
+                playSound.buffer = soundObj.soundToPlay;
+                playSound.duration = Math.round(playSound.buffer.duration); 
+                
+                //progress-slider initialization 
+                $('.progress-div-1').slider({
+                    max: playSound.duration,
+                    range: 'min'
+                });
             });
+            
         }
 
         getSound.send();
 
         soundObj.play = function() {
             if (!playInit) {
-            playSound = context.createBufferSource();
-            playSound.buffer = soundObj.soundToPlay;
+            
             playSound.connect(context.destination);
-            playSound.duration = Math.round(playSound.buffer.duration); 
             playSound.start(context.currentTime + 0,21);
             playInit = true;
             } else {
@@ -64,11 +74,7 @@ $(document).ready(function(){
     
     /*******General Player Stuff*******/
     
-    //progress-slider initialization 
-    $('.progress-div-1').slider({
-        max: 172,
-        range: 'min'
-    });
+    
     
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
@@ -117,6 +123,7 @@ $(document).ready(function(){
     });   
     
     //slider
+    
     
     
     
