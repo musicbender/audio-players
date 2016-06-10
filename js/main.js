@@ -22,6 +22,7 @@ $(document).ready(function(){
             context.decodeAudioData(getSound.response, function(buffer) {
                 soundObj.soundToPlay = buffer;
                 console.log('TEST: file loaded');
+                
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
@@ -32,26 +33,33 @@ $(document).ready(function(){
                     range: 'min'
                 });
             });
-            
         }
 
         getSound.send();
 
         soundObj.play = function() {
             if (!playInit) {
-            
-            playSound.connect(context.destination);
-            playSound.start(context.currentTime + 0,21);
-            playInit = true;
+                playSound = context.createBufferSource();
+                playSound.buffer = soundObj.soundToPlay; 
+                playSound.duration = Math.round(playSound.buffer.duration); 
+                playSound.connect(context.destination);
+                playSound.start(0);
+                console.log('TEST: playing');
+                playInit = true;
+                context.suspend();
+                context.resume();
             } else {
+                console.log('TEST: resume');
                 context.resume();
             }
         }
 
         soundObj.stop = function() {
             if (!playInit) {
-                playSound.stop(context.currentTime);
+                playSound.stop();
+                console.log('TEST: stopped');
             } else {
+                console.log('TEST: suspended');
                 context.suspend();
             }
         }
@@ -73,8 +81,6 @@ $(document).ready(function(){
     
     
     /*******General Player Stuff*******/
-    
-    
     
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
@@ -101,7 +107,7 @@ $(document).ready(function(){
         }  
     });
     
-    //trigger sounds
+    //play and pause track
     $('.play-1').on('click', function(e) {
         e.preventDefault();
         if(!playState1) {
@@ -122,10 +128,19 @@ $(document).ready(function(){
         }    
     });   
     
-    //slider
-    
-    
-    
+    //slider events
+    $('.progress-div-1').on('slidestart', function(event, ui) {
+        playInit = false; 
+        sound.track1.stop(); 
+    });
+    $('.progress-div-1').on('slidestop', function(event, ui) {
+        var value = $(this).slider('value');
+        console.log('VALUE: ' + value + ' PLAYSTATE: ' + playState1);
+        
+        if (playState1) {
+            sound.track1.play(0, 100);
+        }
+    });
     
    
 }); 
