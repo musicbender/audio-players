@@ -37,20 +37,20 @@ $(document).ready(function(){
 
         getSound.send();
 
-        soundObj.play = function() {
+        soundObj.play = function(startTime) {
             if (!playInit) {
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay; 
                 playSound.duration = Math.round(playSound.buffer.duration); 
                 playSound.connect(context.destination);
-                playSound.start(0);
-                console.log('TEST: playing');
+                playSound.start(0, startTime);
                 playInit = true;
                 context.suspend();
                 context.resume();
+                console.log('TEST: playing');
             } else {
-                console.log('TEST: resume');
                 context.resume();
+                console.log('TEST: resume');
             }
         }
 
@@ -110,10 +110,11 @@ $(document).ready(function(){
     //play and pause track
     $('.play-1').on('click', function(e) {
         e.preventDefault();
+        var value = $('.progress-div-1').slider('value');
         if(!playState1) {
             $('.ti-control-play').hide();
             $('.ti-control-pause').show();
-            sound.track1.play();
+            sound.track1.play(value);
             playState1 = true;
             
             console.log('CT Play: ' + context.currentTime);
@@ -138,9 +139,7 @@ $(document).ready(function(){
         console.log('VALUE: ' + value + ' PLAYSTATE: ' + playState1);
         
         if (playState1) {
-            sound.track1.play(0, 100);
+            sound.track1.play(value);
         }
     });
-    
-   
 }); 
