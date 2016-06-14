@@ -1,16 +1,15 @@
 
 $(document).ready(function(){
 
-    
     /*******Web Audio API*******/
     
     var context = new (window.AudioContext || window.webkitAudioContext)(),
-    playSound = undefined,
-    playInit = false;
+        playSound = undefined,
+        playInit = false,
+        clickState = false,
+        playState = false,
+        progressSlider;
     
-    console.log('Start CT: ' + context.currentTime);
-    
-
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.fileDirectory = fileDirectory;
@@ -20,24 +19,20 @@ $(document).ready(function(){
         getSound.responseType = "arraybuffer";
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
-                soundObj.soundToPlay = buffer;
+                //after file is loaded into the memory buffer do these things
                 console.log('TEST: file loaded');
-                
+                soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
-                
-                //progress-slider initialization 
-                $('.progress-div-1').slider({
-                    max: playSound.duration,
-                    range: 'min'
-                });
+                sliderInit();
             });
         }
 
         getSound.send();
 
         soundObj.play = function(startTime) {
+            sliderPlay();
             if (!playInit) {
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay; 
@@ -47,19 +42,16 @@ $(document).ready(function(){
                 playInit = true;
                 context.suspend();
                 context.resume();
-                console.log('TEST: playing');
             } else {
                 context.resume();
-                console.log('TEST: resume');
             }
         }
 
         soundObj.stop = function() {
+            sliderStop();
             if (!playInit) {
                 playSound.stop();
-                console.log('TEST: stopped');
             } else {
-                console.log('TEST: suspended');
                 context.suspend();
             }
         }
@@ -82,6 +74,19 @@ $(document).ready(function(){
     
     /*******General Player Stuff*******/
     
+    //progress-slider initialization 
+    function sliderInit() {
+        $('.progress-div-1').slider({
+            max: playSound.duration,
+            range: 'min',
+            step: 0.25
+        });
+    }
+    
+    function getSliderValue() {
+        return $('.progress-div-1').slider('value');
+    }
+                
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
         var minutes = Math.floor(time / 60),
@@ -89,43 +94,47 @@ $(document).ready(function(){
         
         return minutes + ':' + seconds;
     }
-
-    /*******Player 1*******/
     
-    var clickState1 = false,
-        playState1 = false;
+    function sliderPlay () {
+        var value = getSliderValue();
+        progressSlider = setInterval(function(){
+            value += 0.25;
+            $('.progress-div-1').slider('value', value);
+            console.log(value);
+        }, 250);
+    }
+        
+    function sliderStop () {
+        clearInterval(progressSlider);
+    }
+    
+    /*******Player 1*******/
     
     //volume slider
     $('.volume-div-1').on('click', function(e) {
         e.preventDefault();
-        if (!clickState1) {
+        if (!clickState) {
             $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
-            clickState1 = true;
+            clickState = true;
         } else {
             $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
-            clickState1 = false;
+            clickState = false;
         }  
     });
     
     //play and pause track
     $('.play-1').on('click', function(e) {
         e.preventDefault();
-        var value = $('.progress-div-1').slider('value');
-        if(!playState1) {
+        if (!playState) {
             $('.ti-control-play').hide();
             $('.ti-control-pause').show();
-            sound.track1.play(value);
-            playState1 = true;
-            
-            console.log('CT Play: ' + context.currentTime);
+            sound.track1.play(getSliderValue());
+            playState = true;
         } else {
             $('.ti-control-pause').hide();
             $('.ti-control-play').show();
             sound.track1.stop();
-            playState1 = false;
-            
-            console.log('CT Pause: ' + context.currentTime);
-            console.log('Total Track Time: ' + playSound.duration); 
+            playState = false;
         }    
     });   
     
@@ -135,11 +144,8 @@ $(document).ready(function(){
         sound.track1.stop(); 
     });
     $('.progress-div-1').on('slidestop', function(event, ui) {
-        var value = $(this).slider('value');
-        console.log('VALUE: ' + value + ' PLAYSTATE: ' + playState1);
-        
-        if (playState1) {
-            sound.track1.play(value);
+        if (playState) {
+            sound.track1.play(getSliderValue());
         }
     });
 }); 
