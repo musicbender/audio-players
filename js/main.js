@@ -4,7 +4,6 @@ $(document).ready(function(){
     /*******Web Audio API*******/
     
     var context = new (window.AudioContext || window.webkitAudioContext)(),
-        playSound = undefined,
         playInit = false,
         clickState = false,
         playState = false,
@@ -25,14 +24,14 @@ $(document).ready(function(){
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
-                sliderInit();
+                slider.init();
             });
         }
 
         getSound.send();
 
         soundObj.play = function(startTime) {
-            sliderPlay();
+            slider.play();
             if (!playInit) {
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay; 
@@ -48,7 +47,7 @@ $(document).ready(function(){
         }
 
         soundObj.stop = function() {
-            sliderStop();
+            slider.stop();
             if (!playInit) {
                 playSound.stop();
             } else {
@@ -72,10 +71,12 @@ $(document).ready(function(){
      });
     
     
-    /*******General Player Stuff*******/
+    /*******Slider Stuff*******/
+    
+    var slider = {};
     
     //progress-slider initialization 
-    function sliderInit() {
+    slider.init = function() {
         $('.progress-div-1').slider({
             max: playSound.duration,
             range: 'min',
@@ -83,29 +84,32 @@ $(document).ready(function(){
         });
     }
     
-    function getSliderValue() {
+    slider.progress;
+    
+    slider.getValue = function() {
         return $('.progress-div-1').slider('value');
     }
-                
+    
+    slider.play = function() {
+        var value = slider.getValue();
+        progressSlider = setInterval(function(){
+            value += 0.25;
+            $('.progress-div-1').slider('value', value);
+        }, 250);
+    }
+        
+    slider.stop = function() {
+        clearInterval(progressSlider);
+    }
+    
+    /*******General Stuff*******/
+    
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
         var minutes = Math.floor(time / 60),
             seconds = time - minutes * 60;
         
         return minutes + ':' + seconds;
-    }
-    
-    function sliderPlay () {
-        var value = getSliderValue();
-        progressSlider = setInterval(function(){
-            value += 0.25;
-            $('.progress-div-1').slider('value', value);
-            console.log(value);
-        }, 250);
-    }
-        
-    function sliderStop () {
-        clearInterval(progressSlider);
     }
     
     /*******Player 1*******/
@@ -128,7 +132,7 @@ $(document).ready(function(){
         if (!playState) {
             $('.ti-control-play').hide();
             $('.ti-control-pause').show();
-            sound.track1.play(getSliderValue());
+            sound.track1.play(slider.getValue());
             playState = true;
         } else {
             $('.ti-control-pause').hide();
@@ -145,7 +149,7 @@ $(document).ready(function(){
     });
     $('.progress-div-1').on('slidestop', function(event, ui) {
         if (playState) {
-            sound.track1.play(getSliderValue());
+            sound.track1.play(slider.getValue());
         }
     });
 }); 

@@ -20,26 +20,26 @@
 /*******Header*******/
 header {
   margin: 0 auto;
-  height: 400px;
+  height: 250px;
   background-color: #ffffff;
   text-align: center;
   overflow: hidden; }
 
 .title {
-  margin: 120px auto 0 auto;
+  margin: 80px auto 0 auto;
   color: #a7a7a7;
   font-size: 4em; }
 
 /*******Player 1*******/
 .player-1-section {
   margin: 0 auto;
-  height: 400px;
+  height: 550px;
   background-color: #2ecc71;
   overflow: hidden; }
 
 /*******Player*******/
 .player-1 {
-  margin: 55px auto;
+  margin: 100px auto;
   padding: 0;
   height: 80px;
   width: 600px; }
