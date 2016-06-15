@@ -6,8 +6,7 @@ $(document).ready(function(){
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playInit = false,
         clickState = false,
-        playState = false,
-        progressSlider;
+        playState = false;
     
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -25,6 +24,7 @@ $(document).ready(function(){
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
                 slider.init();
+                volume.init();
             });
         }
 
@@ -75,7 +75,6 @@ $(document).ready(function(){
     
     var slider = {};
     
-    //progress-slider initialization 
     slider.init = function() {
         $('.progress-div-1').slider({
             max: playSound.duration,
@@ -92,15 +91,38 @@ $(document).ready(function(){
     
     slider.play = function() {
         var value = slider.getValue();
-        progressSlider = setInterval(function(){
+        slider.progress = setInterval(function(){
             value += 0.25;
             $('.progress-div-1').slider('value', value);
         }, 250);
     }
         
     slider.stop = function() {
-        clearInterval(progressSlider);
+        clearInterval(slider.progress);
     }
+    
+    /*******Volume Slider*******/
+    
+    var volume = {
+        init: function() {
+            $('.volume-slider-div-1').slider({
+                max: 100,
+                range: 'min',
+                step: 1
+            });
+        }
+    }
+    
+    $('.volume-div-1').on('click', function(e) {
+        e.preventDefault();
+        if (!clickState) {
+            $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
+            clickState = true;
+        } else {
+            $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
+            clickState = false;
+        }  
+    });
     
     /*******General Stuff*******/
     
@@ -112,19 +134,9 @@ $(document).ready(function(){
         return minutes + ':' + seconds;
     }
     
-    /*******Player 1*******/
+    /*******Player*******/
     
-    //volume slider
-    $('.volume-div-1').on('click', function(e) {
-        e.preventDefault();
-        if (!clickState) {
-            $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
-            clickState = true;
-        } else {
-            $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
-            clickState = false;
-        }  
-    });
+    
     
     //play and pause track
     $('.play-1').on('click', function(e) {
