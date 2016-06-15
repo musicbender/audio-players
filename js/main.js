@@ -124,6 +124,9 @@ $(document).ready(function(){
         },
         getValue: function() {
             return $('.volume-slider-div-1').slider('value');
+        },
+        setValue: function(value) {
+            $('.volume-slider-div-1').slider('value', value);
         }
     }
     
@@ -166,6 +169,14 @@ $(document).ready(function(){
         }    
     });   
     
+    $('.volume-btn').on('click', function(e) {
+        e.preventDefault();
+        if ($(this).hasClass('.plus-1')) {
+            volume.setValue(volume.getValue + 1);
+            gain.gain.value = volume.getValue;
+        }
+    })
+    
     //slider events
     $('.progress-div-1').on('slidestart', function(event, ui) {
         playInit = false; 
@@ -183,4 +194,4 @@ $(document).ready(function(){
         console.log(gain.gain.value);
     })
     
-}); 
+});
