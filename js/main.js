@@ -6,7 +6,8 @@ $(document).ready(function(){
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playInit = false,
         clickState = false,
-        playState = false;
+        playState = false,
+        gain;
     
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -32,6 +33,7 @@ $(document).ready(function(){
 
         soundObj.play = function(startTime) {
             slider.play();
+            
             if (!playInit) {
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay; 
@@ -39,6 +41,7 @@ $(document).ready(function(){
                 playSound.connect(context.destination);
                 playSound.start(0, startTime);
                 playInit = true;
+                volume.gainNodeInit();
                 context.suspend();
                 context.resume();
             } else {
@@ -111,6 +114,16 @@ $(document).ready(function(){
                 range: 'min',
                 step: 1
             });
+        },
+        gainNodeInit: function() {
+            var value = volume.getValue() / 100;
+            gain = context.createGain();
+            playSound.connect(gain);
+            gain.connect(context.destination);
+            gain.gain.value = value;
+        },
+        getValue: function() {
+            return $('.volume-slider-div-1').slider('value');
         }
     }
     
@@ -136,8 +149,6 @@ $(document).ready(function(){
     }
     
     /*******Player*******/
-    
-    
     
     //play and pause track
     $('.play-1').on('click', function(e) {
@@ -165,4 +176,11 @@ $(document).ready(function(){
             sound.track1.play(slider.getValue());
         }
     });
+    
+    //volume slider events
+    $('.volume-slider-div-1').on('slide', function(event, ui) {
+        gain.gain.value = ui.value / 10;
+        console.log('TEST: ' + gain.gain.value);
+    })
+    
 }); 
