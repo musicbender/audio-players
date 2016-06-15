@@ -3,3 +3,10 @@
     animation-duration: $time;
     animation-fill-mode: forwards;
 }
+
+@mixin slider-range($percent) {
+    height: 100%;
+    width: 0%;
+    background-color: lighten($color1, $percent);
+    overflow: hidden;
+}

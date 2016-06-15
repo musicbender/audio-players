@@ -116,6 +116,12 @@ header {
   background-color: #54d98c;
   overflow: hidden; }
 
+.volume-slider-div-1 .ui-slider-range {
+  height: 100%;
+  width: 0%;
+  background-color: #c1f1d5;
+  overflow: hidden; }
+
 /*******Jquiry UI Slider Overrides*******/
 .ui-widget-content {
   border: 0; }
@@ -143,13 +149,14 @@ header {
 
 .volume-slider-1 {
   height: 100%;
-  width: 75%;
-  background-color: #d1f5e0; }
+  width: 0; }
 
 .plus-1, .minus-1 {
+  position: relative;
   display: inline-block;
   font-size: 2.5em;
-  color: #25a25a; }
+  color: #25a25a;
+  z-index: 20; }
   .plus-1:hover, .minus-1:hover {
     cursor: pointer;
     color: #176437; }

@@ -107,6 +107,7 @@ $(document).ready(function(){
         init: function() {
             $('.volume-slider-div-1').slider({
                 max: 100,
+                value: 75,
                 range: 'min',
                 step: 1
             });
