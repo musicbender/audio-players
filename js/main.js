@@ -116,7 +116,7 @@ $(document).ready(function(){
             });
         },
         gainNodeInit: function() {
-            var value = volume.getValue() / 100;
+            var value = volume.getValue() / 10;
             gain = context.createGain();
             playSound.connect(gain);
             gain.connect(context.destination);
@@ -179,8 +179,8 @@ $(document).ready(function(){
     
     //volume slider events
     $('.volume-slider-div-1').on('slide', function(event, ui) {
-        gain.gain.value = ui.value / 10;
-        console.log('TEST: ' + gain.gain.value);
+        gain.gain.value = (ui.value / 10) - 1;
+        console.log(gain.gain.value);
     })
     
 }); 
