@@ -13,6 +13,36 @@
   100% {
     opacity: 0;
     top: -80px; } }
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0; }
+  100% {
+    background-position: 468px 0; } }
+.loading-placeholder {
+  display: block;
+  margin: 100px auto;
+  padding: 0;
+  height: 80px;
+  width: 600px;
+  text-align: center; }
+
+.animated-placeholder {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 1000px 104px;
+  position: relative; }
+
+.loading-track {
+  margin: 20px auto;
+  color: gray;
+  font-size: 2.25em;
+  line-height: 80px; }
+
 @font-face {
   font-family: themify;
   src: url(fonts/themify.ttf); }
@@ -42,6 +72,7 @@ header {
 
 /*******Player*******/
 .player-1 {
+  display: none;
   margin: 100px auto;
   padding: 0;
   height: 80px;
@@ -162,8 +193,7 @@ header {
   z-index: 20; }
   .plus-1:hover, .minus-1:hover {
     cursor: pointer;
-    color: #176437;
-    border: 2px solid black; }
+    color: #176437; }
 
 .minus-1 {
   position: relative;

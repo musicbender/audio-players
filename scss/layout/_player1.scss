@@ -8,6 +8,7 @@
 /*******Player*******/
 
 .player-1 {
+    display: none;
     margin: 100px auto;
     padding: 0;
     height: 80px;
@@ -111,15 +112,13 @@
     &:hover {
         cursor: pointer;
         color: darken($color1, 25%);
-        border: 2px solid black;
     }
 }
 
 .minus-1 {
     position: relative;
     top: -58px;
-    left: 20px;
-    
+    left: 20px;  
 }
 
 .plus-1 {

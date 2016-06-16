@@ -24,6 +24,7 @@ $(document).ready(function(){
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
+                showTracks();
                 slider.init();
                 volume.init();
             });
@@ -151,6 +152,11 @@ $(document).ready(function(){
         return minutes + ':' + seconds;
     }
     
+    function showTracks() {
+        $('.loading-placeholder').hide();
+        $('.player-1').show();
+    }
+    
     /*******Player*******/
     
     //play and pause track
@@ -188,7 +194,7 @@ $(document).ready(function(){
         if (volume.getValue() > 0) {
             volume.setValue(volume.getValue() - 5);
             gain.gain.value = (volume.getValue() / 10) - 1;
-        }
+        } 
     });
     
     //slider events
