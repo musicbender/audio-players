@@ -6,6 +6,7 @@
 @import 'helpers/_placeholders.scss';
 @import 'components/_animation.scss';
 @import 'components/_loading-placeholders.scss';
+
 @font-face {
     font-family: themify;
     src: url(fonts/themify.ttf);
@@ -21,6 +22,7 @@ body, html {
 
 /*******Player 1*******/
 @import 'layout/_player1.scss';
+
 
 /*******Media Queries*******/
 @import 'media/_media-queries.scss';

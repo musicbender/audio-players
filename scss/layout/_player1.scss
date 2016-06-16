@@ -23,11 +23,13 @@
 }
 
 .play-div-1, .volume-div-1 {
+     ; 
     display: inline-block;
     width: 80px;
     height: 100%;
     text-align: center;
     background-color: darken($color1, 10%);
+    
 }
 
 .volume-div-1 {
@@ -116,6 +118,7 @@
 }
 
 .minus-1 {
+    @extend %unselectable;
     position: relative;
     top: -58px;
     left: 20px;  
