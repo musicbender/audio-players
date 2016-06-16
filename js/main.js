@@ -169,13 +169,27 @@ $(document).ready(function(){
         }    
     });   
     
-    $('.volume-btn').on('click', function(e) {
-        e.preventDefault();
-        if ($(this).hasClass('.plus-1')) {
-            volume.setValue(volume.getValue + 1);
-            gain.gain.value = volume.getValue;
+    //disables slider when hovering over volume buttons so they work
+    $('.volume-btn').on('mouseenter', function() {
+        $('.volume-slider-div-1').slider('disable');
+    });
+    $('.volume-btn').on('mouseleave', function() {
+        $('.volume-slider-div-1').slider('enable');
+    });
+    
+    //use volume buttons to increase/decrease gain
+    $('.plus-1').on('click', function(e) {
+        if (volume.getValue() < 100) {
+            volume.setValue(volume.getValue() + 5);
+            gain.gain.value = (volume.getValue() / 10) - 1;
+        } 
+    });
+    $('.minus-1').on('click', function(e) {
+        if (volume.getValue() > 0) {
+            volume.setValue(volume.getValue() - 5);
+            gain.gain.value = (volume.getValue() / 10) - 1;
         }
-    })
+    });
     
     //slider events
     $('.progress-div-1').on('slidestart', function(event, ui) {
@@ -191,7 +205,6 @@ $(document).ready(function(){
     //volume slider events
     $('.volume-slider-div-1').on('slide', function(event, ui) {
         gain.gain.value = (ui.value / 10) - 1;
-        console.log(gain.gain.value);
     })
     
 });

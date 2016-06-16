@@ -17,6 +17,9 @@
   font-family: themify;
   src: url(fonts/themify.ttf); }
 /*******General*******/
+body, html {
+  font-family: "Muli", sans-serif; }
+
 /*******Header*******/
 header {
   margin: 0 auto;
@@ -105,7 +108,7 @@ header {
   display: inline-block;
   position: relative;
   height: 80px;
-  width: calc(100% - 160px);
+  width: calc(100% - 161px);
   vertical-align: middle;
   background-color: #a8ebc4;
   z-index: 1; }
@@ -113,13 +116,13 @@ header {
 .progress-div-1 .ui-slider-range {
   height: 100%;
   width: 0%;
-  background-color: #54d98c;
+  background-color: #4cd787;
   overflow: hidden; }
 
 .volume-slider-div-1 .ui-slider-range {
   height: 100%;
   width: 0%;
-  background-color: #c1f1d5;
+  background-color: #cdf4de;
   overflow: hidden; }
 
 /*******Jquiry UI Slider Overrides*******/
@@ -159,7 +162,8 @@ header {
   z-index: 20; }
   .plus-1:hover, .minus-1:hover {
     cursor: pointer;
-    color: #176437; }
+    color: #176437;
+    border: 2px solid black; }
 
 .minus-1 {
   position: relative;

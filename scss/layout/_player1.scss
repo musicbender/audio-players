@@ -111,6 +111,7 @@
     &:hover {
         cursor: pointer;
         color: darken($color1, 25%);
+        border: 2px solid black;
     }
 }
 

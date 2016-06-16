@@ -12,6 +12,9 @@
 }
 /*******General*******/
 
+body, html {
+    font-family: $mainFont;
+}
 
 /*******Header*******/
 @import 'layout/_header.scss';

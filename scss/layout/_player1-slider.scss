@@ -2,18 +2,18 @@
     display: inline-block;
     position: relative;
     height: 80px;
-    width: calc(100% - 160px);
+    width: calc(100% - 161px);
     vertical-align: middle;
     background-color: lighten($color1, 30%);
     z-index: 1;
 }
 
 .progress-div-1 .ui-slider-range {
-    @include slider-range(10%);
+    @include slider-range(8%);
 }
 
 .volume-slider-div-1 .ui-slider-range {
-    @include slider-range(36%);
+    @include slider-range(39%);
 }
 
 /*******Jquiry UI Slider Overrides*******/
