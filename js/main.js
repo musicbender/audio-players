@@ -212,5 +212,4 @@ $(document).ready(function(){
     $('.volume-slider-div-1').on('slide', function(event, ui) {
         gain.gain.value = (ui.value / 10) - 1;
     })
-    
 });
