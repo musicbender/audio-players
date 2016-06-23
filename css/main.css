@@ -135,8 +135,8 @@ header {
 .track-1 {
   position: absolute;
   margin: 10px;
-  font-size: 1.2em;
-  color: #0d0d0d;
+  font-size: 1.3em;
+  color: rgba(0, 0, 0, 0.6);
   z-index: 100; }
 
 .time-1 {

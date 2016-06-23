@@ -2,12 +2,10 @@
 $(document).ready(function(){
 
     /*******Web Audio API*******/
-    
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playInit = false,
         clickState = false,
-        playState = false,
-        gain;
+        playState = false;
     
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -33,8 +31,7 @@ $(document).ready(function(){
         getSound.send();
 
         soundObj.play = function(startTime) {
-            slider.play();
-            
+            slider.play();  
             if (!playInit) {
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay; 
@@ -74,39 +71,32 @@ $(document).ready(function(){
        track1: 'audio/track1.mp3'
      });
     
-    
     /*******Slider Stuff*******/
-    
-    var slider = {};
-    
-    slider.init = function() {
-        $('.progress-div-1').slider({
-            max: playSound.duration,
-            range: 'min',
-            step: 0.25
-        });
-    }
-    
-    slider.progress;
-    
-    slider.getValue = function() {
-        return $('.progress-div-1').slider('value');
-    }
-    
-    slider.play = function() {
-        var value = slider.getValue();
-        slider.progress = setInterval(function(){
-            value += 0.25;
-            $('.progress-div-1').slider('value', value);
-        }, 250);
-    }
-        
-    slider.stop = function() {
-        clearInterval(slider.progress);
-    }
+    var slider = {
+        init: function() {
+            $('.progress-div-1').slider({
+                max: playSound.duration,
+                range: 'min',
+                step: 0.25
+            });
+        },
+        progress: undefined,
+        getValue: function() {
+            return $('.progress-div-1').slider('value');
+        },
+        play: function() {
+            var value = slider.getValue();
+            slider.progress = setInterval(function(){
+                value += 0.25;
+                $('.progress-div-1').slider('value', value);
+            }, 250);
+        },
+        stop: function() {
+            clearInterval(slider.progress);
+        }
+    };
     
     /*******Volume Slider*******/
-    
     var volume = {
         init: function() {
             $('.volume-slider-div-1').slider({
@@ -116,12 +106,13 @@ $(document).ready(function(){
                 step: 1
             });
         },
+        gain: undefined,
         gainNodeInit: function() {
             var value = volume.getValue() / 10;
-            gain = context.createGain();
-            playSound.connect(gain);
-            gain.connect(context.destination);
-            gain.gain.value = value;
+            this.gain = context.createGain();
+            playSound.connect(volume.gain);
+            this.gain.connect(context.destination);
+            this.gain.gain.value = value;
         },
         getValue: function() {
             return $('.volume-slider-div-1').slider('value');
@@ -143,7 +134,6 @@ $(document).ready(function(){
     });
     
     /*******General Stuff*******/
-    
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
         var minutes = Math.floor(time / 60),
@@ -158,7 +148,6 @@ $(document).ready(function(){
     }
     
     /*******Player*******/
-    
     //play and pause track
     $('.play-1').on('click', function(e) {
         e.preventDefault();
@@ -187,13 +176,13 @@ $(document).ready(function(){
     $('.plus-1').on('click', function(e) {
         if (volume.getValue() < 100) {
             volume.setValue(volume.getValue() + 5);
-            gain.gain.value = (volume.getValue() / 10) - 1;
+            volume.gain.gain.value = (volume.getValue() / 10) - 1;
         } 
     });
     $('.minus-1').on('click', function(e) {
         if (volume.getValue() > 0) {
             volume.setValue(volume.getValue() - 5);
-            gain.gain.value = (volume.getValue() / 10) - 1;
+            volume.gain.gain.value = (volume.getValue() / 10) - 1;
         } 
     });
     
@@ -210,6 +199,6 @@ $(document).ready(function(){
     
     //volume slider events
     $('.volume-slider-div-1').on('slide', function(event, ui) {
-        gain.gain.value = (ui.value / 10) - 1;
+        volume.gain.gain.value = (ui.value / 10) - 1;
     })
 });
