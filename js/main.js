@@ -1,7 +1,6 @@
-
 $(document).ready(function(){
 
-    /*******Web Audio API*******/
+/*******Web Audio API*******/
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         playInit = false,
         clickState = false,
@@ -27,9 +26,8 @@ $(document).ready(function(){
                 volume.init();
             });
         }
-
         getSound.send();
-
+        //play sound
         soundObj.play = function(startTime) {
             slider.play();  
             if (!playInit) {
@@ -46,7 +44,7 @@ $(document).ready(function(){
                 context.resume();
             }
         }
-
+        //stop sound
         soundObj.stop = function() {
             slider.stop();
             if (!playInit) {
@@ -71,7 +69,7 @@ $(document).ready(function(){
        track1: 'audio/track1.mp3'
      });
     
-    /*******Slider Stuff*******/
+/*******Slider Stuff*******/
     var slider = {
         init: function() {
             $('.progress-div-1').slider({
@@ -84,11 +82,15 @@ $(document).ready(function(){
         getValue: function() {
             return $('.progress-div-1').slider('value');
         },
+        setValue: function(v) {
+            $('.progress-div-1').slider('value', v);
+        },
         play: function() {
             var value = slider.getValue();
             slider.progress = setInterval(function(){
                 value += 0.25;
-                $('.progress-div-1').slider('value', value);
+                slider.setValue(value);
+                console.log(value + '/' + playSound.duration);
             }, 250);
         },
         stop: function() {
@@ -96,7 +98,7 @@ $(document).ready(function(){
         }
     };
     
-    /*******Volume Slider*******/
+/*******Volume Slider*******/
     var volume = {
         init: function() {
             $('.volume-slider-div-1').slider({
@@ -117,10 +119,10 @@ $(document).ready(function(){
         getValue: function() {
             return $('.volume-slider-div-1').slider('value');
         },
-        setValue: function(value) {
-            $('.volume-slider-div-1').slider('value', value);
+        setValue: function(v) {
+            $('.volume-slider-div-1').slider('value', v);
         }
-    }
+    };
     
     $('.volume-div-1').on('click', function(e) {
         e.preventDefault();
@@ -133,7 +135,7 @@ $(document).ready(function(){
         }  
     });
     
-    /*******General Stuff*******/
+/*******General Stuff*******/
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
         var minutes = Math.floor(time / 60),
@@ -147,7 +149,8 @@ $(document).ready(function(){
         $('.player-1').show();
     }
     
-    /*******Player*******/
+    
+/*******Player 1*******/
     //play and pause track
     $('.play-1').on('click', function(e) {
         e.preventDefault();
@@ -162,16 +165,24 @@ $(document).ready(function(){
             sound.track1.stop();
             playState = false;
         }    
-    });   
-    
-    //disables slider when hovering over volume buttons so they work
-    $('.volume-btn').on('mouseenter', function() {
-        $('.volume-slider-div-1').slider('disable');
-    });
-    $('.volume-btn').on('mouseleave', function() {
-        $('.volume-slider-div-1').slider('enable');
     });
     
+    //scrub slider events
+    $('.progress-div-1').on('slidestart', function(event, ui) {
+        playInit = false; 
+        sound.track1.stop(); 
+    });
+    $('.progress-div-1').on('slidestop', function(event, ui) {
+        if (playState) {
+            sound.track1.play(slider.getValue());
+        }
+    });
+
+    //volume slider events
+    $('.volume-slider-div-1').on('slide', function(event, ui) {
+        volume.gain.gain.value = (ui.value / 10) - 1;
+    });
+
     //use volume buttons to increase/decrease gain
     $('.plus-1').on('click', function(e) {
         if (volume.getValue() < 100) {
@@ -184,21 +195,13 @@ $(document).ready(function(){
             volume.setValue(volume.getValue() - 5);
             volume.gain.gain.value = (volume.getValue() / 10) - 1;
         } 
+    }); 
+
+    //disables slider when hovering over volume buttons so they work
+    $('.volume-btn').on('mouseenter', function() {
+        $('.volume-slider-div-1').slider('disable');
     });
-    
-    //slider events
-    $('.progress-div-1').on('slidestart', function(event, ui) {
-        playInit = false; 
-        sound.track1.stop(); 
+    $('.volume-btn').on('mouseleave', function() {
+        $('.volume-slider-div-1').slider('enable');
     });
-    $('.progress-div-1').on('slidestop', function(event, ui) {
-        if (playState) {
-            sound.track1.play(slider.getValue());
-        }
-    });
-    
-    //volume slider events
-    $('.volume-slider-div-1').on('slide', function(event, ui) {
-        volume.gain.gain.value = (ui.value / 10) - 1;
-    })
 });

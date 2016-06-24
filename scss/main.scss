@@ -10,6 +10,7 @@ html, body {
 @import 'helpers/_placeholders.scss';
 @import 'components/_animation.scss';
 @import 'components/_loading-placeholders.scss';
+@import 'media/_reset.scss';
 
 @font-face {
     font-family: themify;
@@ -19,6 +20,7 @@ html, body {
 
 body {
     font-family: $mainFont;
+    margin: 0;
 }
 
 /*******Header*******/

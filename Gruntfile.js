@@ -27,11 +27,6 @@ module.exports = function(grunt) {
                 debounceDelay: 250,
                 spawn: false
             }
-        },
-        images: {
-            files: 'images/*.{png,jpg,gif}',
-            tasks: ['clean:images', 'imagemin'],
-            spawn: false
         }
     },
     sass: {
