@@ -16,6 +16,15 @@
     @extend %notselectable;
 }
 
+.player-1-container {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    @include material-shadow(1);
+}
+
 .play-div-1 {
     margin: 0 -4px 0 0;
     &:hover {
@@ -24,13 +33,11 @@
 }
 
 .play-div-1, .volume-div-1 {
-     ; 
+    width: 80.3px;
     display: inline-block;
-    width: 80px;
     height: 100%;
     text-align: center;
-    background-color: darken($color1, 10%);
-    
+    background-color: darken($color1, 10%); 
 }
 
 .volume-div-1 {
