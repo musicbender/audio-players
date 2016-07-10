@@ -11,13 +11,11 @@ html, body {
 @import 'components/_animation.scss';
 @import 'components/_loading-placeholders.scss';
 @import 'media/_reset.scss';
-
 @font-face {
     font-family: themify;
     src: url(fonts/themify.ttf);
 }
 /*******General*******/
-
 body {
     font-family: $mainFont;
     margin: 0;
@@ -27,8 +25,20 @@ body {
 @import 'layout/_header.scss';
 
 /*******Player 1*******/
+.player-1-section {
+    @extend %player-section;
+    background-color: $color1;
+}
+
 @import 'layout/_player1.scss';
 
+/*******Player 2*******/
+.player-2-section {
+    @extend %player-section;
+    background-color: $color2;
+}
+
+@import 'layout/_player2.scss';
 
 /*******Media Queries*******/
 @import 'media/_media-queries.scss';

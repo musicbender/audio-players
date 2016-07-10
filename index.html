@@ -19,6 +19,9 @@
         <header>
             <h1 class="title">Custom Audio Player</h1> 
         </header>
+
+        <!---Player 1--->
+
         <section class="player-1-section">
             <div class="player-1">
                 <div class="player-1-container">
@@ -53,6 +56,45 @@
                 <h5 class="loading-track">Loading Track...</h5> 
             </div>
         </section>
+
+        <!---Player 2--->
+
+        <section class="player-2-section">
+            <div class="player-2">
+                <div class="player-2-container">
+                    <!--play btn-->
+                    <div class="play-div-2">
+                        <span class="ti-control-play play-2"></span> 
+                        <span class="ti-control-pause play-2"></span> 
+                    </div>
+                    <!--progress slider-->
+                    <div class="progress-div-2 ui-slider">
+                        <div class="progress-2">
+                            <div class="ui-slider-handle"></div>
+                            <div class="track-2">Process of Realization</div>
+                            <div class="time-2"></div>
+                        </div>
+                    </div>
+                    <!--volume btn-->
+                    <div class="volume-div-2">
+                        <span class="ti-volume volume-2"></span>
+                    </div>
+                </div>
+                <!--volume slider-->
+                <div class="volume-slider-div-2 ui-slider">
+                    <div class="volume-slider-2">
+                        <div class="ui-slider-handle"></div>
+                    </div> 
+                    <span class="ti-minus minus-2 volume-btn"></span> 
+                    <span class="ti-plus plus-2 volume-btn"></span>
+                </div>
+            </div>
+            <div class="loading-placeholder animated-placeholder">
+                <h5 class="loading-track">Loading Track...</h5> 
+            </div>
+        </section>
+
+        <!---scripts--->
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>
             window.jQuery || document.write('<script src="build/vendor/jquery-1.12.0.min.js"><\/script>')

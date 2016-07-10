@@ -1,7 +1,7 @@
-%box-shadow {
-    -webkit-box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.27);
-    -moz-box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.27);
-    box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.27);
+%player-section {
+    margin: 0 auto;
+    height: 450px;
+    overflow: hidden;
 }
 
 %notselectable {
