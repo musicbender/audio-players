@@ -16,13 +16,15 @@ $(document).ready(function(){
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer do these things
+                
                 soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
                 showTracks();
-                slider.init();
-                volume.init();
+                var track1 = newTrack(1, sound.track1);
+                track1.volume.init();
+                track1.slider.init();
             });
         }
         getSound.send();
@@ -51,58 +53,58 @@ $(document).ready(function(){
         }
 
         return soundObj;
-    };
+    }
 
     //loop through list of audio files
     function audioBatchLoader(obj) {
         for (prop in obj) {
             obj[prop] = audioFileLoader(obj[prop])
         }
-        return obj
+        return obj;
     }
 
     //batch audio loader
     var sound = audioBatchLoader({
-        track1: 'audio/track1.mp3',
-        track2: 'audio/track1.mp3'
+        track1: 'audio/track1.mp3'
     });
 
     /*******Audio Track Constructor*******/
 
-    var Track = function(n, t) {
-        var _this = this;
+    var newTrack = function(n, t) {
+        
+        var track = {};
 
-        _this.track = t,
-            _this.num = n || 1;
-        _this.playInit = false;
-        _this.clickState = false;
-        _this.playState = false;
-        _this.vDiv = $('.volume-slider-div-' + _this.num);
-        _this.pDiv = $('.progress-div-' + _this.num);
+        track.audio = t;
+        track.num = n || 1;
+        track.playInit = false;
+        track.clickState = false;
+        track.playState = false;
+        track.vDiv = $('.volume-slider-div-' + track.num);
+        track.pDiv = $('.progress-div-' + track.num);
 
-        _this.play = function() {
-            _this.slider.play(); 
-            if (!_this.playInit) {
-                _this.track.play(_this.slider.getValue());
-                _this.playInit = true;
-                _this.volume.gainNodeInit();
+        track.play = function() {
+            track.slider.play(); 
+            if (!track.playInit) {
+                track.audio.play(track.slider.getValue());
+                track.playInit = true;
+                track.volume.gainNodeInit();
             } else {
-                _this.track.resume();
+                track.audio.resume();
             }   
         };
 
-        _this.stop = function() {
-            _this.slider.stop();
+        track.stop = function() {
+            track.slider.stop();
             if (!playInit) {
-                _this.track.stop();
+                track.audio.stop();
             } else {
-                _this.track.suspend();
+                track.audio.suspend();
             }
         };
 
-        _this.volume = {
+        track.volume = {
             init: function() {
-                _this.vDiv.slider({
+                track.vDiv.slider({
                     max: 100,
                     value: 75,
                     range: 'min',
@@ -111,23 +113,23 @@ $(document).ready(function(){
             },
             gain: undefined,
             gainNodeInit: function() {
-                var value = _this.volume.getValue() / 10;
+                var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
-                playSound.connect(_this.volume.gain);
+                playSound.connect(track.volume.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
             },
             getValue: function() {
-                return _this.vDiv.slider('value');
+                return track.vDiv.slider('value');
             },
             setValue: function(v) {
-                _this.vDiv.slider('value', v);
+                track.vDiv.slider('value', v);
             }
         }
 
-        _this.slider = {
+        track.slider = {
             init: function() {
-                _this.pDiv.slider({
+                track.pDiv.slider({
                     max: playSound.duration,
                     range: 'min',
                     step: 0.25
@@ -135,83 +137,83 @@ $(document).ready(function(){
             },
             progress: undefined,
             getValue: function() {
-                return _this.pDiv.slider('value');
+                return track.pDiv.slider('value');
             },
             setValue: function(v) {
-                _this.pDiv.slider('value', v);
+                track.pDiv.slider('value', v);
             },
             play: function() {
                 var value = slider.getValue();
-                _this.slider.progress = setInterval(function(){
+                track.slider.progress = setInterval(function(){
                     value += 0.25;
-                    _this.slider.setValue(value);
+                    track.slider.setValue(value);
                 }, 250);
             },
             stop: function() {
-                clearInterval(_this.slider.progress);
+                clearInterval(track.slider.progress);
             }
         }
 
-        _this.onEvent = {
+        track.onEvent = {
             clickPlay: function() {
-                $('.play-' + _this.num).on('click', function(e) {
+                $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
-                    if (!_this.playState) {
+                    if (!track.playState) {
                         $('.ti-control-play').hide();
                         $('.ti-control-pause').show();
-                        _this.play();
-                        _this.playState = true;
+                        track.play();
+                        track.playState = true;
                     } else {
                         $('.ti-control-pause').hide();
                         $('.ti-control-play').show();
-                        _this.stop();
-                        _this.playState = false;
+                        track.stop();
+                        track.playState = false;
                     }    
                 });
             },
             onScrub: function() {
-                _this.pDiv.on('slidestart', function(event, ui) {
-                    _this.playInit = false; 
-                    _this.stop();
+                track.pDiv.on('slidestart', function(event, ui) {
+                    track.playInit = false; 
+                    track.stop();
                 });
-                _this.pDiv.on('slidestop', function(event, ui) {
-                    if (_this.playState) {
-                        _this.play();
+                track.pDiv.on('slidestop', function(event, ui) {
+                    if (track.playState) {
+                        track.play();
                     }
                 });
             },
             showVolume: function() {
-                $('.volume-div-' + _this.num).on('click', function(e) {
+                $('.volume-div-' + track.num).on('click', function(e) {
                     e.preventDefault();
-                    if (!_this.clickState) {
-                        _this.vDiv.addClass('volume-shown-' + _this.num).removeClass('volume-hidden-' + _this.num);
-                        _this.clickState = true;
+                    if (!track.clickState) {
+                        track.vDiv.addClass('volume-shown-' + track.num).removeClass('volume-hidden-' + track.num);
+                        track.clickState = true;
                     } else {
-                        _this.vDiv.addClass('volume-hidden-' + _this.num).removeClass('volume-shown-' + _this.num);
-                        _this.clickState = false;
+                        track.vDiv.addClass('volume-hidden-' + track.num).removeClass('volume-shown-' + track.num);
+                        track.clickState = false;
                     }  
                 });
             },
             slideVolume: function() {
-                _this.vDiv.on('slide', function(event, ui) {
+                track.vDiv.on('slide', function(event, ui) {
                     volume.gain.gain.value = (ui.value / 10) - 1;
                 });
                 $('.volume-btn').on('mouseenter', function() {
-                    _this.vDiv.slider('disable');
+                    track.vDiv.slider('disable');
                 });
                 $('.volume-btn').on('mouseleave', function() {
-                    _this.vDiv.slider('enable');
+                    track.vDiv.slider('enable');
                 });
 
             },
             clickVolume: function() {
-                $('.plus-' + _this.num).on('click', function(e) {
+                $('.plus-' + track.num).on('click', function(e) {
                     if (volume.getValue() < 100) {
                         volume.setValue(volume.getValue() + 5);
                         volume.gain.gain.value = (volume.getValue() / 10) - 1;
                     } 
                 });
-                $('.minus-' + _this.num).on('click', function(e) {
+                $('.minus-' + track.num).on('click', function(e) {
                     if (volume.getValue() > 0) {
                         volume.setValue(volume.getValue() - 5);
                         volume.gain.gain.value = (volume.getValue() / 10) - 1;
@@ -219,15 +221,20 @@ $(document).ready(function(){
                 }); 
             }
         }
-        _this.onEvent.clickPlay();
-        _this.onEvent.onScrub();
-        _this.onEvent.showVolume();
-        _this.onEvent.slideVolume();
-        _this.onEvent.clickVolume();
+        
+        track.slider.init();
+        track.volume.init();
+        track.onEvent.clickPlay();
+        track.onEvent.onScrub();
+        track.onEvent.showVolume();
+        track.onEvent.slideVolume();
+        track.onEvent.clickVolume();
+        
+        return track;
     }
-    
-    var track1 = new Track(1, sound.track1);
 
+     
+    
     /*******General Stuff*******/
 
     //turn seconds into minutes/seconds format
