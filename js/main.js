@@ -16,7 +16,6 @@ $(document).ready(function(){
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer do these things
-                console.log('TEST: file loaded');
                 soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
@@ -64,41 +63,46 @@ $(document).ready(function(){
 
     //batch audio loader
     var sound = audioBatchLoader({
-        track1: 'audio/track1.mp3'
+        track1: 'audio/track1.mp3',
+        track2: 'audio/track1.mp3'
     });
 
     /*******Audio Track Constructor*******/
 
-    var Track = function(track) {
+    var Track = function(n, t) {
         var _this = this;
-        _this.track = track,
-            _this.playInit = false,
-            _this.clickState = false,
-            _this.playState = false;
+
+        _this.track = t,
+            _this.num = n || 1;
+        _this.playInit = false;
+        _this.clickState = false;
+        _this.playState = false;
+        _this.vDiv = $('.volume-slider-div-' + _this.num);
+        _this.pDiv = $('.progress-div-' + _this.num);
 
         _this.play = function() {
-            slider.play(); 
+            _this.slider.play(); 
             if (!_this.playInit) {
                 _this.track.play(_this.slider.getValue());
                 _this.playInit = true;
                 _this.volume.gainNodeInit();
             } else {
-                track.resume();
+                _this.track.resume();
             }   
         };
 
         _this.stop = function() {
-            slider.stop();
+            _this.slider.stop();
             if (!playInit) {
-                track.stop();
+                _this.track.stop();
             } else {
-                track.suspend();
+                _this.track.suspend();
             }
         };
 
         _this.volume = {
             init: function() {
-                $('.volume-slider-div-1').slider({
+                _this.vDiv.slider({
                     max: 100,
                     value: 75,
                     range: 'min',
@@ -107,36 +111,23 @@ $(document).ready(function(){
             },
             gain: undefined,
             gainNodeInit: function() {
-                var value = volume.getValue() / 10;
+                var value = _this.volume.getValue() / 10;
                 this.gain = context.createGain();
-                playSound.connect(volume.gain);
+                playSound.connect(_this.volume.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
             },
             getValue: function() {
-                return $('.volume-slider-div-1').slider('value');
+                return _this.vDiv.slider('value');
             },
             setValue: function(v) {
-                $('.volume-slider-div-1').slider('value', v);
-            },
-            onClick: function() {
-                $('.volume-div-1').on('click', function(e) {
-                    e.preventDefault();
-                    if (!clickState) {
-                        $('.volume-slider-div-1').addClass('volume-shown-1').removeClass('volume-hidden-1');
-                        clickState = true;
-                    } else {
-                        $('.volume-slider-div-1').addClass('volume-hidden-1').removeClass('volume-shown-1');
-                        clickState = false;
-                    }  
-                });
+                _this.vDiv.slider('value', v);
             }
-        };
-        volume.onClick();
+        }
 
         _this.slider = {
             init: function() {
-                $('.progress-div-1').slider({
+                _this.pDiv.slider({
                     max: playSound.duration,
                     range: 'min',
                     step: 0.25
@@ -144,118 +135,98 @@ $(document).ready(function(){
             },
             progress: undefined,
             getValue: function() {
-                return $('.progress-div-1').slider('value');
+                return _this.pDiv.slider('value');
             },
             setValue: function(v) {
-                $('.progress-div-1').slider('value', v);
+                _this.pDiv.slider('value', v);
             },
             play: function() {
                 var value = slider.getValue();
-                slider.progress = setInterval(function(){
+                _this.slider.progress = setInterval(function(){
                     value += 0.25;
-                    slider.setValue(value);
+                    _this.slider.setValue(value);
                 }, 250);
             },
             stop: function() {
-                clearInterval(slider.progress);
+                clearInterval(_this.slider.progress);
             }
-        };
-
-        
-
-    }
-
-    /*******Slider Stuff*******/
-
-    /*((( .progress-div-1 )))*/
-    /*((( playSound.duration )))*/
-
-
-    /*******Volume Slider*******/
-
-    /*((( .volume-slider-div-1 )))*/
-    /*((( .volume-div-1 )))*/
-    /*((( volume-shown-1 )))*/
-    /*((( volume-hidden-1 )))*/
-    /*((( context.createGain() )))*/
-    /*((( playSound.connect() )))*/
-    /*((( context.destination )))*/
-    /*((( clickState )))*/
-
-
-    /*******Player 1*******/
-
-    //play and pause track
-    /*((( .play-1 )))*/
-    /*((( .ti-control-play )))*/
-    /*((( .ti-control-pause )))*/
-    /*((( sound.track1 )))*/
-    /*((( slider.getValue() )))*/
-    /*((( playState )))*/
-    $('.play-1').on('click', function(e) {
-        e.preventDefault();
-        if (!playState) {
-            $('.ti-control-play').hide();
-            $('.ti-control-pause').show();
-            playTest(sound.track1);
-            playState = true;
-        } else {
-            $('.ti-control-pause').hide();
-            $('.ti-control-play').show();
-            sound.track1.stop();
-            playState = false;
-        }    
-    });
-
-    //scrub slider events
-    /*((( .progress-div-1 )))*/
-    /*((( sound.track1 )))*/
-    /*((( playInit )))*/
-    /*((( playState )))*/
-    /*((( slider (object) )))*/
-    $('.progress-div-1').on('slidestart', function(event, ui) {
-        playInit = false; 
-        sound.track1.stop(); 
-    });
-    $('.progress-div-1').on('slidestop', function(event, ui) {
-        if (playState) {
-            playTest(sound.track1);
         }
-    });
 
-    //volume slider events
-    /*((( .volume-slider-div-1 )))*/
-    /*((( volume (object) )))*/
-    $('.volume-slider-div-1').on('slide', function(event, ui) {
-        volume.gain.gain.value = (ui.value / 10) - 1;
-    });
+        _this.onEvent = {
+            clickPlay: function() {
+                $('.play-' + _this.num).on('click', function(e) {
+                    e.preventDefault();
+                    if (!_this.playState) {
+                        $('.ti-control-play').hide();
+                        $('.ti-control-pause').show();
+                        _this.play();
+                        _this.playState = true;
+                    } else {
+                        $('.ti-control-pause').hide();
+                        $('.ti-control-play').show();
+                        _this.stop();
+                        _this.playState = false;
+                    }    
+                });
+            },
+            onScrub: function() {
+                _this.pDiv.on('slidestart', function(event, ui) {
+                    _this.playInit = false; 
+                    _this.stop();
+                });
+                _this.pDiv.on('slidestop', function(event, ui) {
+                    if (_this.playState) {
+                        _this.play();
+                    }
+                });
+            },
+            showVolume: function() {
+                $('.volume-div-' + _this.num).on('click', function(e) {
+                    e.preventDefault();
+                    if (!_this.clickState) {
+                        _this.vDiv.addClass('volume-shown-' + _this.num).removeClass('volume-hidden-' + _this.num);
+                        _this.clickState = true;
+                    } else {
+                        _this.vDiv.addClass('volume-hidden-' + _this.num).removeClass('volume-shown-' + _this.num);
+                        _this.clickState = false;
+                    }  
+                });
+            },
+            slideVolume: function() {
+                _this.vDiv.on('slide', function(event, ui) {
+                    volume.gain.gain.value = (ui.value / 10) - 1;
+                });
+                $('.volume-btn').on('mouseenter', function() {
+                    _this.vDiv.slider('disable');
+                });
+                $('.volume-btn').on('mouseleave', function() {
+                    _this.vDiv.slider('enable');
+                });
 
-    //use volume buttons to increase/decrease gain
-    /*((( .plus-1 )))*/
-    /*((( .minus-1 )))*/
-    /*((( volume (object) )))*/
-    $('.plus-1').on('click', function(e) {
-        if (volume.getValue() < 100) {
-            volume.setValue(volume.getValue() + 5);
-            volume.gain.gain.value = (volume.getValue() / 10) - 1;
-        } 
-    });
-    $('.minus-1').on('click', function(e) {
-        if (volume.getValue() > 0) {
-            volume.setValue(volume.getValue() - 5);
-            volume.gain.gain.value = (volume.getValue() / 10) - 1;
-        } 
-    }); 
-
-    //disables slider when hovering over volume buttons so they work
-    /*(((  .volume-btn )))*/
-    /*(((  .volume-slider-div-1 )))*/
-    $('.volume-btn').on('mouseenter', function() {
-        $('.volume-slider-div-1').slider('disable');
-    });
-    $('.volume-btn').on('mouseleave', function() {
-        $('.volume-slider-div-1').slider('enable');
-    });
+            },
+            clickVolume: function() {
+                $('.plus-' + _this.num).on('click', function(e) {
+                    if (volume.getValue() < 100) {
+                        volume.setValue(volume.getValue() + 5);
+                        volume.gain.gain.value = (volume.getValue() / 10) - 1;
+                    } 
+                });
+                $('.minus-' + _this.num).on('click', function(e) {
+                    if (volume.getValue() > 0) {
+                        volume.setValue(volume.getValue() - 5);
+                        volume.gain.gain.value = (volume.getValue() / 10) - 1;
+                    } 
+                }); 
+            }
+        }
+        _this.onEvent.clickPlay();
+        _this.onEvent.onScrub();
+        _this.onEvent.showVolume();
+        _this.onEvent.slideVolume();
+        _this.onEvent.clickVolume();
+    }
+    
+    var track1 = new Track(1, sound.track1);
 
     /*******General Stuff*******/
 
@@ -269,20 +240,15 @@ $(document).ready(function(){
 
     function showTracks() {
         $('.loading-placeholder').hide();
-        $('.player-1').show();
+        $('.player').show();
     }
-
-    //    function playTest(track) {
-    //            slider.play(); 
-    //            if (!playInit) {
-    //                track.play(slider.getValue());
-    //                playInit = true;
-    //                volume.gainNodeInit();
-    //            } else {
-    //                track.resume();
-    //            }   
-    //        }
 });
+
+
+
+
+
+
 
 /*
 
@@ -291,8 +257,8 @@ $(document).ready(function(){
 
 .progress-div-1 
 .play-1 
-.ti-control-play 
-.ti-control-pause 
+---->.ti-control-play 
+---->.ti-control-pause 
 .volume-btn 
 .volume-slider-div-1 
 .volume-div-1 
