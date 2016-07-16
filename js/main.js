@@ -6,7 +6,7 @@ $(document).ready(function(){
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.fileDirectory = fileDirectory;
-        playSound = undefined;
+//        soundObj.playSound = undefined;
         var getSound = new XMLHttpRequest();
         getSound.open("GET", soundObj.fileDirectory, true);
         getSound.responseType = "arraybuffer";
@@ -14,23 +14,24 @@ $(document).ready(function(){
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer do these things
                 soundObj.soundToPlay = buffer;
-                playSound = context.createBufferSource();
-                playSound.buffer = soundObj.soundToPlay;
-                playSound.duration = Math.round(playSound.buffer.duration); 
+//                soundObj.playSound = context.createBufferSource();
+//                soundObj.playSound.buffer = soundObj.soundToPlay;
+//                soundObj.duration = Math.round(soundObj.playSound.buffer.duration); 
                 showTracks();
                 var audioPlayers = {
-                    track1: newTrack(1, sound.track1)
+                    track1: newTrack(1, sound.track1),
+                    track2: newTrack(2, sound.track2)
                 }
             });
         }
         getSound.send();
         //play sound
         soundObj.play = function(startTime) { 
-            playSound = context.createBufferSource();
-            playSound.buffer = soundObj.soundToPlay; 
-            playSound.duration = Math.round(playSound.buffer.duration); 
-            playSound.connect(context.destination);
-            playSound.start(0, startTime);
+            soundObj.playSound = context.createBufferSource();
+            soundObj.playSound.buffer = soundObj.soundToPlay; 
+            soundObj.duration = Math.round(soundObj.playSound.buffer.duration); 
+            soundObj.playSound.connect(context.destination);
+            soundObj.playSound.start(0, startTime);
             context.suspend();
             context.resume();
         }
@@ -41,7 +42,7 @@ $(document).ready(function(){
 
         //stop sound
         soundObj.stop = function() {
-            playSound.stop();
+            soundObj.playSound.stop();
         }
 
         soundObj.suspend = function() {
@@ -61,18 +62,10 @@ $(document).ready(function(){
 
     //batch audio loader
     var sound = audioBatchLoader({
-        track1: 'audio/track1.mp3'
+        track1: 'audio/track1.mp3',
+        track2: 'audio/track2.mp3'
     });
 
-    /*******Audio Tracks*******/
-    
-//    function playerLoader(obj) {
-//        for (prop in obj) {
-//            obj[prop](1, sound.track1);
-//        }
-//    }
-    
-    
     /*******Audio Track Factory Function*******/
 
     var newTrack = function(n, t) {
@@ -121,7 +114,7 @@ $(document).ready(function(){
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
-                playSound.connect(track.volume.gain);
+                track.audio.playSound.connect(track.volume.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
             },
@@ -136,7 +129,7 @@ $(document).ready(function(){
         track.slider = {
             init: function() {
                 track.pDiv.slider({
-                    max: playSound.duration,
+                    max: track.audio.duration,
                     range: 'min',
                     step: 0.25
                 });
@@ -164,14 +157,17 @@ $(document).ready(function(){
             clickPlay: function() {
                 $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
+                    var play = $('.control-play-' + track.num),
+                        pause = $('.control-pause-' + track.num);
+                    
                     if (!track.playState) {
-                        $('.ti-control-play').hide();
-                        $('.ti-control-pause').show();
+                        play.hide();
+                        pause.show();
                         track.play();
                         track.playState = true;
                     } else {
-                        $('.ti-control-pause').hide();
-                        $('.ti-control-play').show();
+                        pause.hide();
+                        play.show();
                         track.stop();
                         track.playState = false;
                     }    
@@ -235,6 +231,10 @@ $(document).ready(function(){
         track.onEvent.showVolume();
         track.onEvent.slideVolume();
         track.onEvent.clickVolume();
+        
+        track.audio.playSound = context.createBufferSource();
+        track.audio.playSound.buffer = track.audio.soundToPlay;
+        track.audio.duration = Math.round(track.audio.playSound.buffer.duration); 
         
         return track;
     }
