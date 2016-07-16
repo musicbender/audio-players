@@ -19,8 +19,6 @@ $(document).ready(function(){
                 playSound.duration = Math.round(playSound.buffer.duration); 
                 showTracks();
                 var track1 = newTrack(1, sound.track1);
-                track1.volume.init();
-                track1.slider.init();
             });
         }
         getSound.send();
@@ -225,7 +223,9 @@ $(document).ready(function(){
                 }); 
             }
         }
-
+        
+        track.volume.init();
+        track.slider.init();
         track.onEvent.clickPlay();
         track.onEvent.onScrub();
         track.onEvent.showVolume();
@@ -250,51 +250,3 @@ $(document).ready(function(){
         $('.player').show();
     }
 });
-
-
-
-
-
-
-
-/*
-
-
-///classes///
-
-.progress-div-1 
-.play-1 
----->.ti-control-play 
----->.ti-control-pause 
-.volume-btn 
-.volume-slider-div-1 
-.volume-div-1 
-volume-shown-1 
-volume-hidden-1 
-.plus-1
-.minus-1
-
-
-///web audio api///
-
-sound.track1 
-playSound.duration
-playSound.connect() 
-context.destination 
-context.createGain() 
-
-
-///variables///
-
-clickState 
-playState
-playInit 
-
-
-///objects///
-
-slider (object)
-volume (object) 
-
-
-*/
