@@ -1,10 +1,7 @@
 $(document).ready(function(){
 
     /*******Web Audio API*******/
-    var context = new (window.AudioContext || window.webkitAudioContext)(),
-        playInit = false,
-        clickState = false,
-        playState = false;
+    var context = new (window.AudioContext || window.webkitAudioContext)();
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -101,8 +98,9 @@ $(document).ready(function(){
 
         track.stop = function() {
             track.slider.stop();
-            if (!playInit) {
+            if (!track.playInit) {
                 track.audio.stop();
+
             } else {
                 track.audio.suspend();
             }
@@ -202,7 +200,7 @@ $(document).ready(function(){
             },
             slideVolume: function() {
                 track.vDiv.on('slide', function(event, ui) {
-                    volume.gain.gain.value = (ui.value / 10) - 1;
+                    track.volume.gain.gain.value = (ui.value / 10) - 1;
                 });
                 $('.volume-btn').on('mouseenter', function() {
                     track.vDiv.slider('disable');
@@ -214,15 +212,15 @@ $(document).ready(function(){
             },
             clickVolume: function() {
                 $('.plus-' + track.num).on('click', function(e) {
-                    if (volume.getValue() < 100) {
-                        volume.setValue(volume.getValue() + 5);
-                        volume.gain.gain.value = (volume.getValue() / 10) - 1;
+                    if (track.volume.getValue() < 100) {
+                        track.volume.setValue(track.volume.getValue() + 5);
+                        track.volume.gain.gain.value = (track.volume.getValue() / 10) - 1;
                     } 
                 });
                 $('.minus-' + track.num).on('click', function(e) {
-                    if (volume.getValue() > 0) {
-                        volume.setValue(volume.getValue() - 5);
-                        volume.gain.gain.value = (volume.getValue() / 10) - 1;
+                    if (track.volume.getValue() > 0) {
+                        track.volume.setValue(track.volume.getValue() - 5);
+                        track.volume.gain.gain.value = (track.volume.getValue() / 10) - 1;
                     } 
                 }); 
             }
