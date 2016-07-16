@@ -6,7 +6,7 @@ $(document).ready(function(){
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.fileDirectory = fileDirectory;
-//        soundObj.playSound = undefined;
+        var playSound;
         var getSound = new XMLHttpRequest();
         getSound.open("GET", soundObj.fileDirectory, true);
         getSound.responseType = "arraybuffer";
@@ -14,24 +14,24 @@ $(document).ready(function(){
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer do these things
                 soundObj.soundToPlay = buffer;
-//                soundObj.playSound = context.createBufferSource();
-//                soundObj.playSound.buffer = soundObj.soundToPlay;
-//                soundObj.duration = Math.round(soundObj.playSound.buffer.duration); 
+//                playSound = context.createBufferSource();
+//                playSound.buffer = soundObj.soundToPlay;
+//                soundObj.duration = Math.round(playSound.buffer.duration); 
                 showTracks();
                 var audioPlayers = {
-                    track1: newTrack(1, sound.track1),
-                    track2: newTrack(2, sound.track2)
+                    track1: newTrack(1, sound.track1, playSound),
+                    track2: newTrack(2, sound.track2, playSound)
                 }
             });
         }
         getSound.send();
         //play sound
         soundObj.play = function(startTime) { 
-            soundObj.playSound = context.createBufferSource();
-            soundObj.playSound.buffer = soundObj.soundToPlay; 
-            soundObj.duration = Math.round(soundObj.playSound.buffer.duration); 
-            soundObj.playSound.connect(context.destination);
-            soundObj.playSound.start(0, startTime);
+            playSound = context.createBufferSource();
+            playSound.buffer = soundObj.soundToPlay; 
+            soundObj.duration = Math.round(playSound.buffer.duration); 
+            playSound.connect(context.destination);
+            playSound.start(0, startTime);
             context.suspend();
             context.resume();
         }
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
         //stop sound
         soundObj.stop = function() {
-            soundObj.playSound.stop();
+            playSound.stop();
         }
 
         soundObj.suspend = function() {
@@ -68,7 +68,7 @@ $(document).ready(function(){
 
     /*******Audio Track Factory Function*******/
 
-    var newTrack = function(n, t) {
+    var newTrack = function(n, t, p) {
         
         var track = {};
 
@@ -114,7 +114,7 @@ $(document).ready(function(){
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
-                track.audio.playSound.connect(track.volume.gain);
+                p.connect(track.volume.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
             },
@@ -232,9 +232,9 @@ $(document).ready(function(){
         track.onEvent.slideVolume();
         track.onEvent.clickVolume();
         
-        track.audio.playSound = context.createBufferSource();
-        track.audio.playSound.buffer = track.audio.soundToPlay;
-        track.audio.duration = Math.round(track.audio.playSound.buffer.duration); 
+        p = context.createBufferSource();
+        p.buffer = track.audio.soundToPlay;
+        track.audio.duration = Math.round(p.buffer.duration); 
         
         return track;
     }
