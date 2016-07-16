@@ -18,7 +18,9 @@ $(document).ready(function(){
                 playSound.buffer = soundObj.soundToPlay;
                 playSound.duration = Math.round(playSound.buffer.duration); 
                 showTracks();
-                var track1 = newTrack(1, sound.track1);
+                var audioPlayers = {
+                    track1: newTrack(1, sound.track1)
+                }
             });
         }
         getSound.send();
@@ -64,9 +66,11 @@ $(document).ready(function(){
 
     /*******Audio Tracks*******/
     
-//    var audioPlayers = playerLoader({
-//        track1: newTrack(1, sound.track1)
-//    });
+//    function playerLoader(obj) {
+//        for (prop in obj) {
+//            obj[prop](1, sound.track1);
+//        }
+//    }
     
     
     /*******Audio Track Factory Function*******/
