@@ -16,7 +16,6 @@ $(document).ready(function(){
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer do these things
-                
                 soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
@@ -68,7 +67,14 @@ $(document).ready(function(){
         track1: 'audio/track1.mp3'
     });
 
-    /*******Audio Track Constructor*******/
+    /*******Audio Tracks*******/
+    
+//    var audioPlayers = playerLoader({
+//        track1: newTrack(1, sound.track1)
+//    });
+    
+    
+    /*******Audio Track Factory Function*******/
 
     var newTrack = function(n, t) {
         
@@ -111,7 +117,7 @@ $(document).ready(function(){
                     step: 1
                 });
             },
-            gain: undefined,
+            gain: 0,
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
@@ -125,7 +131,7 @@ $(document).ready(function(){
             setValue: function(v) {
                 track.vDiv.slider('value', v);
             }
-        }
+        };
 
         track.slider = {
             init: function() {
@@ -135,7 +141,7 @@ $(document).ready(function(){
                     step: 0.25
                 });
             },
-            progress: undefined,
+            progress: 0,
             getValue: function() {
                 return track.pDiv.slider('value');
             },
@@ -143,7 +149,7 @@ $(document).ready(function(){
                 track.pDiv.slider('value', v);
             },
             play: function() {
-                var value = slider.getValue();
+                var value = track.slider.getValue();
                 track.slider.progress = setInterval(function(){
                     value += 0.25;
                     track.slider.setValue(value);
@@ -152,7 +158,7 @@ $(document).ready(function(){
             stop: function() {
                 clearInterval(track.slider.progress);
             }
-        }
+        };
 
         track.onEvent = {
             clickPlay: function() {
@@ -221,9 +227,7 @@ $(document).ready(function(){
                 }); 
             }
         }
-        
-        track.slider.init();
-        track.volume.init();
+
         track.onEvent.clickPlay();
         track.onEvent.onScrub();
         track.onEvent.showVolume();
@@ -232,8 +236,6 @@ $(document).ready(function(){
         
         return track;
     }
-
-     
     
     /*******General Stuff*******/
 
