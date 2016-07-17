@@ -17,21 +17,21 @@ $(document).ready(function(){
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer, do these things
-                
+
                 soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 soundObj.duration = Math.round(playSound.buffer.duration); 
-                
+
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
-                
+
                 //show tracks after audio files load into memory
                 showTracks();
             });
         }
         getSound.send();
-        
+
         //play sound
         soundObj.play = function(startTime) { 
             playSound = context.createBufferSource();
@@ -87,7 +87,7 @@ $(document).ready(function(){
     ///////*******AUDIO PLAYER FACTORY FUNCTION*******////////
 
     var newTrack = function(obj, path) {
-        
+
         var track = {};
 
         //properties
@@ -96,13 +96,13 @@ $(document).ready(function(){
         track.playInit = false;
         track.clickState = false;
         track.playState = false;
-        
+
         //DOM selectors
         track.vDiv = $('.volume-slider-div-' + track.num);
         track.pDiv = $('.progress-div-' + track.num);
         track.playBtn = $('.control-play-' + track.num);
         track.pauseBtn = $('.control-pause-' + track.num);
-        
+
         //functions
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
@@ -129,12 +129,12 @@ $(document).ready(function(){
                 track.audio.suspend();
             }
         };
-        
+
         track.switchTracks = function() {
             var oldTrack = 'sound.track' + currentTrack,
                 oldPlayBtn = trackList[currentTrack]["playBtn"],
                 oldPauseBtn = trackList[currentTrack]["pauseBtn"];
-            
+
             //stop previous track
             eval(oldTrack).stop();
             trackList[currentTrack]["playInit"] = false;
@@ -142,12 +142,12 @@ $(document).ready(function(){
             trackList[currentTrack]["slider"]["stop"]();
             oldPlayBtn.show();
             oldPauseBtn.hide();
-            
+
             //put the now current track in stop-mode in cause it was paused
             track.playInit = false;
             track.audio.stop();
         };
-        
+
         //objects
         track.volume = {
             init: function() {
@@ -190,10 +190,10 @@ $(document).ready(function(){
                 track.pDiv.slider('value', v);
             },
             play: function() {
-                var value = track.slider.getValue();
-                track.slider.progress = setInterval(function(){
+                var value = this.getValue();
+                this.progress = setInterval(function(){
                     value += 0.25;
-                    track.slider.setValue(value);
+                    this.setValue(value);
                 }, 250);
             },
             stop: function() {
@@ -201,13 +201,13 @@ $(document).ready(function(){
             }
         };
 
+        //event listener function declarations
         track.onEvent = {
-            //event listener functions
-            
+            //when clicking play/pause button
             clickPlay: function() {
                 $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
-                    
+
                     if (!track.playState) {
                         track.playBtn.hide();
                         track.pauseBtn.show();
@@ -221,6 +221,7 @@ $(document).ready(function(){
                     }    
                 });
             }, 
+            //when scrubbing audio
             onScrub: function() {
                 track.pDiv.on('slidestart', function(event, ui) {
                     track.playInit = false; 
@@ -232,6 +233,7 @@ $(document).ready(function(){
                     }
                 });
             },
+            //when clicking show volume button
             showVolume: function() {
                 $('.volume-div-' + track.num).on('click', function(e) {
                     e.preventDefault();
@@ -244,6 +246,7 @@ $(document).ready(function(){
                     }  
                 });
             },
+            //when scrubbing volume slider
             slideVolume: function() {
                 track.vDiv.on('slide', function(event, ui) {
                     track.volume.gain.gain.value = (ui.value / 10) - 1;
@@ -256,6 +259,7 @@ $(document).ready(function(){
                 });
 
             },
+            //when clicking plus/minus volume buttons
             clickVolume: function() {
                 $('.plus-' + track.num).on('click', function(e) {
                     if (track.volume.getValue() < 100) {
@@ -271,7 +275,7 @@ $(document).ready(function(){
                 }); 
             }
         }
-        
+
         //calling event listener and initializing functions
         track.volume.init();
         track.slider.init();
@@ -280,11 +284,11 @@ $(document).ready(function(){
         track.onEvent.showVolume();
         track.onEvent.slideVolume();
         track.onEvent.clickVolume();
-        
+
         //return this entire track object
         return track;
     }
-    
+
     ///////*******OTHER FUNCTIONS*******///////
 
     //turn seconds into minutes/seconds format
