@@ -99,17 +99,8 @@ $(document).ready(function(){
         
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
-                var oldTrack = 'sound.track' + currentTrack;
-                var oldPlayBtn = trackList[currentTrack]["playBtn"];
-                var oldPauseBtn = trackList[currentTrack]["pauseBtn"];
-                eval(oldTrack).stop();
-                trackList[currentTrack]["playInit"] = false;
-                trackList[currentTrack]["playState"] = false;
-                trackList[currentTrack]["slider"]["stop"]();
-                oldPlayBtn.show();
-                oldPauseBtn.hide();
-                track.playInit = false;
-                track.audio.stop();
+                //if switching to another track
+                track.switchTracks();
             }
             track.slider.play(); 
             if (!track.playInit) {
@@ -131,7 +122,25 @@ $(document).ready(function(){
                 track.audio.suspend();
             }
         };
-
+        
+        track.switchTracks = function() {
+            var oldTrack = 'sound.track' + currentTrack,
+                oldPlayBtn = trackList[currentTrack]["playBtn"],
+                oldPauseBtn = trackList[currentTrack]["pauseBtn"];
+            
+            //stop previous track
+            eval(oldTrack).stop();
+            trackList[currentTrack]["playInit"] = false;
+            trackList[currentTrack]["playState"] = false;
+            trackList[currentTrack]["slider"]["stop"]();
+            oldPlayBtn.show();
+            oldPauseBtn.hide();
+            
+            //put the now current track in stop-mode in cause it was paused
+            track.playInit = false;
+            track.audio.stop();
+        };
+        
         track.volume = {
             init: function() {
                 track.vDiv.slider({
