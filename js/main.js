@@ -25,7 +25,6 @@ $(document).ready(function(){
                 
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
-                console.log(trackList);
                 
                 //show tracks after audio files load into memory
                 showTracks();
@@ -87,16 +86,20 @@ $(document).ready(function(){
         
         var track = {};
 
+        //properties
         track.audio = eval(path);
         track.num = obj.num; 
         track.playInit = false;
         track.clickState = false;
         track.playState = false;
+        
+        //DOM selectors
         track.vDiv = $('.volume-slider-div-' + track.num);
         track.pDiv = $('.progress-div-' + track.num);
         track.playBtn = $('.control-play-' + track.num);
         track.pauseBtn = $('.control-pause-' + track.num);
         
+        //functions
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
                 //if switching to another track
@@ -141,6 +144,7 @@ $(document).ready(function(){
             track.audio.stop();
         };
         
+        //objects
         track.volume = {
             init: function() {
                 track.vDiv.slider({
@@ -194,6 +198,8 @@ $(document).ready(function(){
         };
 
         track.onEvent = {
+            //event listener functions
+            
             clickPlay: function() {
                 $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
@@ -262,6 +268,7 @@ $(document).ready(function(){
             }
         }
         
+        //calling event listener and initializing functions
         track.volume.init();
         track.slider.init();
         track.onEvent.clickPlay();
@@ -270,6 +277,7 @@ $(document).ready(function(){
         track.onEvent.slideVolume();
         track.onEvent.clickVolume();
         
+        //return this entire track object
         return track;
     }
     
@@ -283,6 +291,7 @@ $(document).ready(function(){
         return minutes + ':' + seconds;
     }
 
+    //shows tracks while hiding the loading placeholder
     function showTracks() {
         $('.loading-placeholder').hide();
         $('.player').show();
