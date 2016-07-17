@@ -89,15 +89,16 @@ $(document).ready(function(){
         track.vDiv = $('.volume-slider-div-' + track.num);
         track.pDiv = $('.progress-div-' + track.num);
         
-        console.log(obj);
-        console.log(track.audio);
-        
         track.play = function() {
             if (currentTrack !== track.num) {
-                console.log(currentTrack);
+                console.log('old: ' + currentTrack);
                 var oldTrack = 'sound.track' + currentTrack;
                 eval(oldTrack).stop();
+                track.playInit = false;
+                track.audio.stop()
+                
                 currentTrack = track.num;
+                console.log('new: ' + currentTrack);
             }
             track.slider.play(); 
             if (!track.playInit) {
