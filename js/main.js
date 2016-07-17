@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     /*******Web Audio API*******/
     var context = new (window.AudioContext || window.webkitAudioContext)();
+    var currentTrack = 1;
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -183,7 +184,7 @@ $(document).ready(function(){
                         track.playState = false;
                     }    
                 });
-            },
+            }, 
             onScrub: function() {
                 track.pDiv.on('slidestart', function(event, ui) {
                     track.playInit = false; 

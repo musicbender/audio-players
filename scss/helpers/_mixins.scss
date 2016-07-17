@@ -4,10 +4,10 @@
     animation-fill-mode: forwards;
 }
 
-@mixin slider-range($percent) {
+@mixin slider-range($percent, $color) {
     height: 100%;
     width: 0%;
-    background-color: lighten($color1, $percent);
+    background-color: lighten($color, $percent);
     overflow: hidden;
 }
 

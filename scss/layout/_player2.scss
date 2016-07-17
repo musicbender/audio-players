@@ -31,7 +31,7 @@
     display: inline-block;
     height: 100%;
     text-align: center;
-    background-color: darken($color1, 10%); 
+    background-color: darken($color2, 10%); 
 }
 
 .volume-div-2 {
@@ -51,11 +51,11 @@
     color: $white;
 }
 
-.ti-control-play {
+.control-play-2 {
     display: inline-block;
 }
 
-.ti-control-pause {
+.control-pause-2 {
     display: none;
 }
 
@@ -88,7 +88,7 @@
 
 /*******Progress Slider*******/
 
-@import '_player1-slider.scss';
+@import '_player2-slider.scss';
 
 /*******Volume Slider*******/
 
@@ -99,7 +99,7 @@
     top: -80px;
     width: 440px;
     height: 80px;
-    background-color: lighten($color1, 45%);
+    background-color: lighten($color2, 45%);
 }
 
 .volume-slider-2 {
@@ -111,11 +111,11 @@
     position: relative;
     display: inline-block;
     font-size: 2.5em;
-    color: darken($color1, 10%);
+    color: darken($color2, 10%);
     z-index: 20;
     &:hover {
         cursor: pointer;
-        color: darken($color1, 25%);
+        color: darken($color2, 25%);
     }
 }
 
@@ -161,4 +161,4 @@
 
 .volume-shown-2 {
     @include animate(show-animate-2, 0.25s);
-}
+} 

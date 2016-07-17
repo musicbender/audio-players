@@ -4,16 +4,16 @@
     height: 80px;
     width: calc(100% - 161px);
     vertical-align: middle;
-    background-color: lighten($color1, 30%);
+    background-color: lighten($color2, 30%);
     z-index: 1;
 }
 
 .progress-div-2 .ui-slider-range {
-    @include slider-range(8%);
+    @include slider-range(8%, $color2);
 }
 
 .volume-slider-div-2 .ui-slider-range {
-    @include slider-range(39%);
+    @include slider-range(39%, $color2);
 }
 
 /*******Jquiry UI Slider Overrides*******/
@@ -26,7 +26,7 @@
     opacity: 0;
 }
 
-.ui-slider .ui-slider-handle {
+volume-slider-div-2.ui-slider .ui-slider-handle {
     height: 100%;
     &:hover {
         cursor: pointer;
@@ -35,4 +35,4 @@
 
 .ui-slider-horizontal .ui-slider-handle {
     top: 0;
-}
+} 

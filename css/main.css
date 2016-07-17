@@ -297,7 +297,7 @@ header {
   display: inline-block;
   height: 100%;
   text-align: center;
-  background-color: #25a25a; }
+  background-color: #8f4bab; }
 
 .volume-div-2 {
   margin: 0 0 0 -5px; }
@@ -313,10 +313,10 @@ header {
   font-weight: lighter;
   color: #ffffff; }
 
-.ti-control-play {
+.control-play-2 {
   display: inline-block; }
 
-.ti-control-pause {
+.control-pause-2 {
   display: none; }
 
 .volume-2 {
@@ -344,25 +344,25 @@ header {
   z-index: 100; }
 
 /*******Progress Slider*******/
-.progress-div-1 {
+.progress-div-2 {
   display: inline-block;
   position: relative;
   height: 80px;
   width: calc(100% - 161px);
   vertical-align: middle;
-  background-color: #a8ebc4;
+  background-color: #e6d5ed;
   z-index: 1; }
 
-.progress-div-1 .ui-slider-range {
+.progress-div-2 .ui-slider-range {
   height: 100%;
   width: 0%;
-  background-color: #4cd787;
+  background-color: #b787ca;
   overflow: hidden; }
 
-.volume-slider-div-1 .ui-slider-range {
+.volume-slider-div-2 .ui-slider-range {
   height: 100%;
   width: 0%;
-  background-color: #cdf4de;
+  background-color: #f9f5fb;
   overflow: hidden; }
 
 /*******Jquiry UI Slider Overrides*******/
@@ -372,9 +372,9 @@ header {
 .ui-slider-handle {
   opacity: 0; }
 
-.ui-slider .ui-slider-handle {
+volume-slider-div-2.ui-slider .ui-slider-handle {
   height: 100%; }
-  .ui-slider .ui-slider-handle:hover {
+  volume-slider-div-2.ui-slider .ui-slider-handle:hover {
     cursor: pointer; }
 
 .ui-slider-horizontal .ui-slider-handle {
@@ -388,7 +388,7 @@ header {
   top: -80px;
   width: 440px;
   height: 80px;
-  background-color: #e6f9ee; }
+  background-color: white; }
 
 .volume-slider-2 {
   height: 100%;
@@ -398,11 +398,11 @@ header {
   position: relative;
   display: inline-block;
   font-size: 2.5em;
-  color: #25a25a;
+  color: #8f4bab;
   z-index: 20; }
   .plus-2:hover, .minus-2:hover {
     cursor: pointer;
-    color: #176437; }
+    color: #633476; }
 
 .minus-2 {
   position: relative;

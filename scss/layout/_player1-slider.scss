@@ -9,11 +9,11 @@
 }
 
 .progress-div-1 .ui-slider-range {
-    @include slider-range(8%);
+    @include slider-range(8%, $color1);
 }
 
 .volume-slider-div-1 .ui-slider-range {
-    @include slider-range(39%);
+    @include slider-range(39%, $color1);
 }
 
 /*******Jquiry UI Slider Overrides*******/
