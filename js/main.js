@@ -1,35 +1,38 @@
 $(document).ready(function(){
 
-    /*******Web Audio API*******/
-    var context = new (window.AudioContext || window.webkitAudioContext)();
-    var currentTrack = 0;
-    var trackList = {};
+    ///////*******GLOBALS*******///////
+    var context = new (window.AudioContext || window.webkitAudioContext)(),
+        currentTrack = 0,
+        trackList = {};
 
+    ///////*******WEB AUDIO API FACTORY FUNCTION*******///////
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.audio = fileDirectory.audio;
         soundObj.num = fileDirectory.num;
         soundObj.path = 'sound.track' + soundObj.num;
-//        playSound = {};
         var getSound = new XMLHttpRequest();
         getSound.open("GET", soundObj.audio, true);
         getSound.responseType = "arraybuffer";
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
-                //after file is loaded into the memory buffer do these things
-                console.log('file loaded: ' + JSON.stringify(fileDirectory));
+                //after file is loaded into the memory buffer, do these things
+                
                 soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 soundObj.duration = Math.round(playSound.buffer.duration); 
                 
+                //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
-                
                 console.log(trackList);
+                
+                //show tracks after audio files load into memory
                 showTracks();
             });
         }
         getSound.send();
+        
         //play sound
         soundObj.play = function(startTime) { 
             playSound = context.createBufferSource();
@@ -40,7 +43,7 @@ $(document).ready(function(){
             context.suspend();
             context.resume();
         }
-
+        //resume from pause
         soundObj.resume = function() {
             context.resume();
         }
@@ -50,6 +53,7 @@ $(document).ready(function(){
             playSound.stop();
         }
 
+        //pause
         soundObj.suspend = function() {
             context.suspend();
         }
@@ -77,15 +81,14 @@ $(document).ready(function(){
         }
     });
 
-    /*******Audio Track Factory Function*******/
+    ///////*******AUDIO PLAYER FACTORY FUNCTION*******////////
 
     var newTrack = function(obj, path) {
         
         var track = {};
 
         track.audio = eval(path);
-        track.num = obj.num;
-        
+        track.num = obj.num; 
         track.playInit = false;
         track.clickState = false;
         track.playState = false;
@@ -94,8 +97,6 @@ $(document).ready(function(){
         track.playBtn = $('.control-play-' + track.num);
         track.pauseBtn = $('.control-pause-' + track.num);
         
-        
-        
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
                 var oldTrack = 'sound.track' + currentTrack;
@@ -103,6 +104,8 @@ $(document).ready(function(){
                 var oldPauseBtn = trackList[currentTrack]["pauseBtn"];
                 eval(oldTrack).stop();
                 trackList[currentTrack]["playInit"] = false;
+                trackList[currentTrack]["playState"] = false;
+                trackList[currentTrack]["slider"]["stop"]();
                 oldPlayBtn.show();
                 oldPauseBtn.hide();
                 track.playInit = false;
@@ -261,9 +264,7 @@ $(document).ready(function(){
         return track;
     }
     
-    console.log(newTrack);
-    
-    /*******General Stuff*******/
+    ///////*******OTHER FUNCTIONS*******///////
 
     //turn seconds into minutes/seconds format
     function getMinutesSeconds(time) {
