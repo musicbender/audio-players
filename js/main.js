@@ -93,6 +93,12 @@ $(document).ready(function(){
         console.log(track.audio);
         
         track.play = function() {
+            if (currentTrack !== track.num) {
+                console.log(currentTrack);
+                var oldTrack = 'sound.track' + currentTrack;
+                eval(oldTrack).stop();
+                currentTrack = track.num;
+            }
             track.slider.play(); 
             if (!track.playInit) {
                 track.audio.play(track.slider.getValue());
