@@ -127,7 +127,7 @@ $(document).ready(function(){
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
-                console.log(this.gain);
+                console.log(p.connect);
                 p.connect(track.volume.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
