@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     /*******Web Audio API*******/
     var context = new (window.AudioContext || window.webkitAudioContext)();
-    var currentTrack = 1;
+    var currentTrack = 0;
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -89,19 +89,22 @@ $(document).ready(function(){
         track.vDiv = $('.volume-slider-div-' + track.num);
         track.pDiv = $('.progress-div-' + track.num);
         
+        
+        
         track.play = function() {
-            if (currentTrack !== track.num) {
+            if (currentTrack !== track.num && currentTrack !== 0) {
                 console.log('old: ' + currentTrack);
                 var oldTrack = 'sound.track' + currentTrack;
                 eval(oldTrack).stop();
                 track.playInit = false;
                 track.audio.stop()
                 
-                currentTrack = track.num;
+                
                 console.log('new: ' + currentTrack);
             }
             track.slider.play(); 
             if (!track.playInit) {
+                currentTrack = track.num;
                 track.audio.play(track.slider.getValue());
                 track.playInit = true;
                 track.volume.gainNodeInit();
@@ -253,6 +256,8 @@ $(document).ready(function(){
         
         return track;
     }
+    
+    console.log(newTrack);
     
     /*******General Stuff*******/
 
