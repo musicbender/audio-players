@@ -5,23 +5,24 @@ $(document).ready(function(){
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
-        soundObj.fileDirectory = fileDirectory;
+        soundObj.audio = fileDirectory.audio;
+        soundObj.num = fileDirectory.num;
+        soundObj.path = 'sound.track' + soundObj.num;
         var playSound;
         var getSound = new XMLHttpRequest();
-        getSound.open("GET", soundObj.fileDirectory, true);
+        getSound.open("GET", soundObj.audio, true);
         getSound.responseType = "arraybuffer";
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
                 //after file is loaded into the memory buffer do these things
+                console.log('file loaded: ' + JSON.stringify(fileDirectory));
                 soundObj.soundToPlay = buffer;
-//                playSound = context.createBufferSource();
-//                playSound.buffer = soundObj.soundToPlay;
-//                soundObj.duration = Math.round(playSound.buffer.duration); 
+                playSound = context.createBufferSource();
+                playSound.buffer = soundObj.soundToPlay;
+                soundObj.duration = Math.round(playSound.buffer.duration); 
+                
+                newTrack(fileDirectory, soundObj.path, playSound);
                 showTracks();
-                var audioPlayers = {
-                    track1: newTrack(1, sound.track1, playSound),
-                    track2: newTrack(2, sound.track2, playSound)
-                }
             });
         }
         getSound.send();
@@ -62,24 +63,36 @@ $(document).ready(function(){
 
     //batch audio loader
     var sound = audioBatchLoader({
-        track1: 'audio/track1.mp3',
-        track2: 'audio/track2.mp3'
+        track1: {
+            num: 1,
+            audio: 'audio/track1.mp3'
+        },
+        track2: {
+            num: 2,
+            audio: 'audio/track2.mp3'
+        }
     });
 
     /*******Audio Track Factory Function*******/
 
-    var newTrack = function(n, t, p) {
+    var newTrack = function(obj, path, p) {
         
         var track = {};
 
-        track.audio = t;
-        track.num = n || 1;
+        track.audio = eval(path);
+        track.num = obj.num;
+        
         track.playInit = false;
         track.clickState = false;
         track.playState = false;
         track.vDiv = $('.volume-slider-div-' + track.num);
         track.pDiv = $('.progress-div-' + track.num);
+        
+        console.log(obj);
+        console.log(track.audio);
+        console.log(p);
 
+        
         track.play = function() {
             track.slider.play(); 
             if (!track.playInit) {
@@ -114,9 +127,11 @@ $(document).ready(function(){
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
+                console.log(this.gain);
                 p.connect(track.volume.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
+                console.log(this.gain);
             },
             getValue: function() {
                 return track.vDiv.slider('value');
@@ -232,10 +247,6 @@ $(document).ready(function(){
         track.onEvent.slideVolume();
         track.onEvent.clickVolume();
         
-        p = context.createBufferSource();
-        p.buffer = track.audio.soundToPlay;
-        track.audio.duration = Math.round(p.buffer.duration); 
-        
         return track;
     }
     
@@ -254,3 +265,5 @@ $(document).ready(function(){
         $('.player').show();
     }
 });
+
+
