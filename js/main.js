@@ -8,7 +8,7 @@ $(document).ready(function(){
         soundObj.audio = fileDirectory.audio;
         soundObj.num = fileDirectory.num;
         soundObj.path = 'sound.track' + soundObj.num;
-        var playSound;
+//        playSound = {};
         var getSound = new XMLHttpRequest();
         getSound.open("GET", soundObj.audio, true);
         getSound.responseType = "arraybuffer";
@@ -21,7 +21,7 @@ $(document).ready(function(){
                 playSound.buffer = soundObj.soundToPlay;
                 soundObj.duration = Math.round(playSound.buffer.duration); 
                 
-                newTrack(fileDirectory, soundObj.path, playSound);
+                newTrack(fileDirectory, soundObj.path);
                 showTracks();
             });
         }
@@ -75,7 +75,7 @@ $(document).ready(function(){
 
     /*******Audio Track Factory Function*******/
 
-    var newTrack = function(obj, path, p) {
+    var newTrack = function(obj, path) {
         
         var track = {};
 
@@ -90,8 +90,6 @@ $(document).ready(function(){
         
         console.log(obj);
         console.log(track.audio);
-        console.log(p);
-
         
         track.play = function() {
             track.slider.play(); 
@@ -127,11 +125,9 @@ $(document).ready(function(){
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
                 this.gain = context.createGain();
-                console.log(p.connect);
-                p.connect(track.volume.gain);
+                playSound.connect(this.gain);
                 this.gain.connect(context.destination);
                 this.gain.gain.value = value;
-                console.log(this.gain);
             },
             getValue: function() {
                 return track.vDiv.slider('value');
