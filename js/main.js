@@ -3,6 +3,7 @@ $(document).ready(function(){
     /*******Web Audio API*******/
     var context = new (window.AudioContext || window.webkitAudioContext)();
     var currentTrack = 0;
+    var trackList = {};
 
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
@@ -22,7 +23,9 @@ $(document).ready(function(){
                 playSound.buffer = soundObj.soundToPlay;
                 soundObj.duration = Math.round(playSound.buffer.duration); 
                 
-                newTrack(fileDirectory, soundObj.path);
+                trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
+                
+                console.log(trackList);
                 showTracks();
             });
         }
@@ -88,19 +91,22 @@ $(document).ready(function(){
         track.playState = false;
         track.vDiv = $('.volume-slider-div-' + track.num);
         track.pDiv = $('.progress-div-' + track.num);
+        track.playBtn = $('.control-play-' + track.num);
+        track.pauseBtn = $('.control-pause-' + track.num);
         
         
         
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
-                console.log('old: ' + currentTrack);
                 var oldTrack = 'sound.track' + currentTrack;
+                var oldPlayBtn = trackList[currentTrack]["playBtn"];
+                var oldPauseBtn = trackList[currentTrack]["pauseBtn"];
                 eval(oldTrack).stop();
+                trackList[currentTrack]["playInit"] = false;
+                oldPlayBtn.show();
+                oldPauseBtn.hide();
                 track.playInit = false;
-                track.audio.stop()
-                
-                
-                console.log('new: ' + currentTrack);
+                track.audio.stop();
             }
             track.slider.play(); 
             if (!track.playInit) {
@@ -179,17 +185,15 @@ $(document).ready(function(){
             clickPlay: function() {
                 $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
-                    var play = $('.control-play-' + track.num),
-                        pause = $('.control-pause-' + track.num);
                     
                     if (!track.playState) {
-                        play.hide();
-                        pause.show();
+                        track.playBtn.hide();
+                        track.pauseBtn.show();
                         track.play();
                         track.playState = true;
                     } else {
-                        pause.hide();
-                        play.show();
+                        track.pauseBtn.hide();
+                        track.playBtn.show();
                         track.stop();
                         track.playState = false;
                     }    
