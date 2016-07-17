@@ -4,12 +4,12 @@ html, body {
 /*******Imports*******/
 /*Colors*/
 /*Fonts*/
-.player-1-section, .player-2-section {
+.player-1-section, .player-2-section, .player-3-section {
   margin: 0 auto;
   height: 450px;
   overflow: hidden; }
 
-.player-1, .player-2 {
+.player-1, .player-2, .player-3 {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -274,7 +274,7 @@ header {
 /*******Player*******/
 .player-2 {
   display: none;
-  margin: 100px auto;
+  margin: 175px auto;
   padding: 0;
   height: 80px;
   width: 600px; }
@@ -436,6 +436,178 @@ volume-slider-div-2.ui-slider .ui-slider-handle {
 
 .volume-shown-2 {
   animation-name: show-animate-2;
+  animation-duration: 0.25s;
+  animation-fill-mode: forwards; }
+
+/*******Player 3*******/
+.player-3-section {
+  background-color: #EA6153; }
+
+/*******Player*******/
+.player-3 {
+  display: none;
+  margin: 175px auto;
+  padding: 0;
+  height: 80px;
+  width: 600px; }
+
+.player-3-container {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  z-index: 2;
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+
+.play-div-3 {
+  margin: 0 -4px 0 0; }
+  .play-div-3:hover {
+    cursor: pointer; }
+
+.play-div-3, .volume-div-3 {
+  width: 80.3px;
+  display: inline-block;
+  height: 100%;
+  text-align: center;
+  background-color: #e43726; }
+
+.volume-div-3 {
+  margin: 0 0 0 -5px; }
+  .volume-div-3:hover {
+    cursor: pointer; }
+
+.play-3 {
+  margin: 0 auto;
+  line-height: 80px;
+  vertical-align: middle;
+  font-family: themify;
+  font-size: 3em;
+  font-weight: lighter;
+  color: #ffffff; }
+
+.ti-control-play {
+  display: inline-block; }
+
+.ti-control-pause {
+  display: none; }
+
+.volume-3 {
+  margin: 0 auto;
+  line-height: 80px;
+  vertical-align: middle;
+  font-family: themify;
+  font-size: 3em;
+  color: #ffffff;
+  pointer-events: none; }
+
+.track-3 {
+  position: absolute;
+  margin: 10px;
+  font-size: 1.3em;
+  color: rgba(0, 0, 0, 0.6);
+  z-index: 100; }
+
+.time-3 {
+  position: absolute;
+  top: 40px;
+  margin: 10px;
+  font-size: 1em;
+  color: #0d0d0d;
+  z-index: 100; }
+
+/*******Progress Slider*******/
+.progress-div-3 {
+  display: inline-block;
+  position: relative;
+  height: 80px;
+  width: calc(100% - 161px);
+  vertical-align: middle;
+  background-color: #fbdedb;
+  z-index: 1; }
+
+.progress-div-3 .ui-slider-range {
+  height: 100%;
+  width: 0%;
+  background-color: #ee8277;
+  overflow: hidden; }
+
+.volume-slider-div-3 .ui-slider-range {
+  height: 100%;
+  width: 0%;
+  background-color: white;
+  overflow: hidden; }
+
+/*******Jquiry UI Slider Overrides*******/
+.ui-widget-content {
+  border: 0; }
+
+.ui-slider-handle {
+  opacity: 0; }
+
+.ui-slider .ui-slider-handle {
+  height: 100%; }
+  .ui-slider .ui-slider-handle:hover {
+    cursor: pointer; }
+
+.ui-slider-horizontal .ui-slider-handle {
+  top: 0; }
+
+/*******Volume Slider*******/
+.volume-slider-div-3 {
+  opacity: 0;
+  position: relative;
+  left: 80px;
+  top: -80px;
+  width: 440px;
+  height: 80px;
+  background-color: white; }
+
+.volume-slider-3 {
+  height: 100%;
+  width: 0; }
+
+.plus-3, .minus-3 {
+  position: relative;
+  display: inline-block;
+  font-size: 2.5em;
+  color: #e43726;
+  z-index: 20; }
+  .plus-3:hover, .minus-3:hover {
+    cursor: pointer;
+    color: #a92215; }
+
+.minus-3 {
+  position: relative;
+  top: -58px;
+  left: 20px; }
+
+.plus-3 {
+  position: relative;
+  top: -58px;
+  left: 330px; }
+
+/*******Animation*******/
+@keyframes show-animate-3 {
+  0% {
+    opacity: 0;
+    top: -80px; }
+  100% {
+    opacity: 1;
+    top: 0; } }
+@keyframes hide-animate-3 {
+  0% {
+    opacity: 1;
+    top: 0; }
+  100% {
+    opacity: 0;
+    top: -80px; } }
+.volume-hidden-3 {
+  animation-name: hide-animate-3;
+  animation-duration: 0.25s;
+  animation-fill-mode: forwards; }
+
+.volume-shown-3 {
+  animation-name: show-animate-3;
   animation-duration: 0.25s;
   animation-fill-mode: forwards; }
 

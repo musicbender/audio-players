@@ -1,0 +1,38 @@
+.progress-div-3 {
+    display: inline-block;
+    position: relative;
+    height: 80px;
+    width: calc(100% - 161px);
+    vertical-align: middle;
+    background-color: lighten($color3, 30%);
+    z-index: 1;
+}
+
+.progress-div-3 .ui-slider-range {
+    @include slider-range(8%, $color3);
+}
+
+.volume-slider-div-3 .ui-slider-range {
+    @include slider-range(39%, $color3);
+}
+
+/*******Jquiry UI Slider Overrides*******/
+
+.ui-widget-content {
+    border: 0;
+}
+
+.ui-slider-handle {
+    opacity: 0;
+}
+
+.ui-slider .ui-slider-handle {
+    height: 100%;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    top: 0;
+}

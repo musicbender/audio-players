@@ -40,5 +40,14 @@ body {
 
 @import 'layout/_player2.scss';
 
+/*******Player 3*******/
+
+.player-3-section {
+    @extend %player-section;
+    background-color: $color3;
+}
+
+@import 'layout/_player3.scss';
+
 /*******Media Queries*******/
 @import 'media/_media-queries.scss';

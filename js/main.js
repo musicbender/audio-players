@@ -66,7 +66,7 @@ $(document).ready(function(){
             obj[prop] = audioFileLoader(obj[prop])
         }
         return obj;
-    }
+    } 
 
     //batch audio loader
     var sound = audioBatchLoader({
@@ -77,6 +77,10 @@ $(document).ready(function(){
         track2: {
             num: 2,
             audio: 'audio/track2.mp3'
+        },
+        track3: {
+            num: 3,
+            audio: 'audio/track3.mp3'
         }
     });
 
