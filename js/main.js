@@ -118,7 +118,7 @@ $(document).ready(function(){
             } else {
                 track.audio.resume();
             }   
-        };
+        }; 
 
         track.stop = function() {
             track.slider.stop();
@@ -193,7 +193,7 @@ $(document).ready(function(){
                 var value = this.getValue();
                 this.progress = setInterval(function(){
                     value += 0.25;
-                    this.setValue(value);
+                    track.slider.setValue(value);
                 }, 250);
             },
             stop: function() {
