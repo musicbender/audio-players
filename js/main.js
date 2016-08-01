@@ -1,11 +1,15 @@
 $(document).ready(function(){
 
+    
     ///////*******GLOBALS*******///////
+    
     var context = new (window.AudioContext || window.webkitAudioContext)(),
         currentTrack = 0,
         trackList = {};
 
+    
     ///////*******WEB AUDIO API FACTORY FUNCTION*******///////
+    
     function audioFileLoader(fileDirectory) {
         var soundObj = {};
         soundObj.audio = fileDirectory.audio;
@@ -68,7 +72,7 @@ $(document).ready(function(){
         return obj;
     } 
 
-    //batch audio loader
+    //batch audio and track loader. add all tracks you want loaded here
     var sound = audioBatchLoader({
         track1: {
             num: 1,
@@ -84,6 +88,7 @@ $(document).ready(function(){
         }
     });
 
+    
     ///////*******AUDIO PLAYER FACTORY FUNCTION*******////////
 
     var newTrack = function(obj, path) {
@@ -289,6 +294,7 @@ $(document).ready(function(){
         return track;
     }
 
+    
     ///////*******OTHER FUNCTIONS*******///////
 
     //turn seconds into minutes/seconds format
@@ -305,5 +311,3 @@ $(document).ready(function(){
         $('.player').show();
     }
 });
-
-

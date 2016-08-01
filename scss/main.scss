@@ -25,27 +25,14 @@ body {
 @import 'layout/_header.scss';
 
 /*******Player 1*******/
-.player-1-section {
-    @extend %player-section;
-    background-color: $color1;
-} 
 
 @import 'layout/_player1.scss';
 
 /*******Player 2*******/
-.player-2-section {
-    @extend %player-section;
-    background-color: $color2;
-}
 
 @import 'layout/_player2.scss';
 
 /*******Player 3*******/
-
-.player-3-section {
-    @extend %player-section;
-    background-color: $color3;
-}
 
 @import 'layout/_player3.scss';
 

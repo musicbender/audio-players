@@ -1,3 +1,7 @@
+.player-3-section {
+    @extend %player-section;
+    background-color: $color3;
+}
 
 /*******Player*******/
 

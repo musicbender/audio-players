@@ -176,7 +176,7 @@ header {
   display: inline-block;
   position: relative;
   height: 80px;
-  width: calc(100% - 161px);
+  width: calc(100% - 160.93px);
   vertical-align: middle;
   background-color: #a8ebc4;
   z-index: 1; }
@@ -214,7 +214,7 @@ header {
   position: relative;
   left: 80px;
   top: -80px;
-  width: 440px;
+  width: calc(100% - 161px);
   height: 80px;
   background-color: #e6f9ee; }
 
@@ -223,7 +223,8 @@ header {
   width: 0; }
 
 .plus-1, .minus-1 {
-  position: relative;
+  position: absolute;
+  top: 21px;
   display: inline-block;
   font-size: 2.5em;
   color: #25a25a;
@@ -233,14 +234,12 @@ header {
     color: #176437; }
 
 .minus-1 {
-  position: relative;
-  top: -58px;
   left: 20px; }
 
 .plus-1 {
-  position: relative;
-  top: -58px;
-  left: 330px; }
+  position: absolute;
+  top: 21px;
+  left: calc(86% + 1px); }
 
 /*******Animation*******/
 @keyframes show-animate-1 {
@@ -267,6 +266,32 @@ header {
   animation-duration: 0.25s;
   animation-fill-mode: forwards; }
 
+/*******Media Queries*******/
+@media only screen and (max-width: 650px) {
+  .player-1 {
+    width: 95%; }
+
+  .track-1 {
+    font-size: 1em; }
+
+  .plus-1 {
+    left: calc(86% + -20px); } }
+@media only screen and (max-width: 450px) {
+  .player-1 {
+    width: 100%; }
+
+  .play-div-1, .volume-div-1 {
+    width: 60.3px; }
+
+  .track-1 {
+    font-size: 0.9em; }
+
+  .progress-div-1 {
+    width: calc(100% - 120.93px); }
+
+  .volume-slider-div-1 {
+    position: relative;
+    left: 61px; } }
 /*******Player 2*******/
 .player-2-section {
   background-color: #A66BBE; }

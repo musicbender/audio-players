@@ -1,3 +1,7 @@
+.player-1-section {
+    @extend %player-section;
+    background-color: $color1;
+} 
 
 /*******Player*******/
 
@@ -97,7 +101,7 @@
     position: relative;
     left: 80px;
     top: -80px;
-    width: 440px;
+    width: calc(100% - 161px);
     height: 80px;
     background-color: lighten($color1, 45%);
 }
@@ -108,7 +112,8 @@
 }
 
 .plus-1, .minus-1 {
-    position: relative;
+    position: absolute;
+    top: 21px;
     display: inline-block;
     font-size: 2.5em;
     color: darken($color1, 10%);
@@ -120,15 +125,13 @@
 }
 
 .minus-1 {
-    position: relative;
-    top: -58px;
     left: 20px;  
 }
 
 .plus-1 {
-    position: relative;
-    top: -58px;
-    left: 330px;
+    position: absolute;
+    top: 21px;
+    left: calc(86% + 1px);
 }
 
 /*******Animation*******/ 
@@ -161,4 +164,38 @@
 
 .volume-shown-1 {
     @include animate(show-animate-1, 0.25s);
+}
+
+
+/*******Media Queries*******/
+
+@media only screen and (max-width: 650px) {
+    .player-1 {
+        width: 95%;
+    }
+    .track-1 {
+        font-size: 1em;
+    }
+    .plus-1 {
+        left: calc(86% + -20px);
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .player-1 {
+        width: 100%;
+    }
+    .play-div-1, .volume-div-1 {
+        width: 60.3px;
+    }
+    .track-1 {
+        font-size: 0.9em;
+    }
+    .progress-div-1 {
+        width: calc(100% - 120.93px);
+    }
+    .volume-slider-div-1 {
+        position: relative;
+        left: 61px;
+    }
 }
