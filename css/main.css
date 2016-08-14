@@ -366,7 +366,7 @@ header {
 .progress-div-2 {
   display: inline-block;
   position: relative;
-  height: 3px;
+  height: 0.22em;
   width: calc(100% - 161px);
   vertical-align: middle;
   background-color: #fff;
@@ -379,8 +379,9 @@ header {
   opacity: 1;
   height: 3em;
   top: -3em;
-  width: 3px;
-  margin-left: 0.01px; }
+  width: 0.25em;
+  margin-left: 0.01px;
+  border: 0; }
   .progress-2 .ui-slider-handle:hover {
     cursor: pointer; }
 
@@ -410,7 +411,7 @@ header {
   border: 0;
   background: #804399;
   top: 0;
-  width: 4px;
+  width: 0.25em;
   height: 3em; }
   .volume-slider-2 .ui-slider-handle:hover {
     cursor: pointer; }
@@ -419,14 +420,15 @@ header {
   background-color: transparent; }
 
 .plus-2, .minus-2 {
+  opacity: 0;
   position: relative;
   display: inline-block;
   font-size: 2.5em;
-  color: #8f4bab;
+  color: rgba(255, 255, 255, 0.3);
   z-index: 20; }
   .plus-2:hover, .minus-2:hover {
     cursor: pointer;
-    color: #723c87; }
+    color: #542c64; }
 
 .minus-2 {
   position: relative;
@@ -437,6 +439,9 @@ header {
   position: relative;
   top: -1.75em;
   left: 8em; }
+
+.js-show-volume-2 {
+  opacity: 1; }
 
 /*******Animation*******/
 /*******Player 3*******/

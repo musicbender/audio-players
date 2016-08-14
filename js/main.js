@@ -296,6 +296,22 @@ $(document).ready(function(){
     }
 
     
+    ///////*******PLAYER SPECIFIC EVENTS*******///////
+    
+    //player 2 show volume
+    $('.volume-slider-div-2').on('mouseenter', function(e) {
+        e.preventDefault();
+        $('.plus-2').addClass('js-show-volume-2');
+        $('.minus-2').addClass('js-show-volume-2');
+    });
+    $('.volume-slider-div-2').on('mouseleave', function(e) {
+        e.preventDefault();
+        $('.plus-2').removeClass('js-show-volume-2');
+        $('.minus-2').removeClass('js-show-volume-2');
+    });
+    
+    
+    
     ///////*******OTHER FUNCTIONS*******///////
 
     //turn seconds into minutes/seconds format

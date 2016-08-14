@@ -114,7 +114,7 @@
     border: 0;
     background: darken($color2, 15%);
     top: 0;
-    width: 4px;
+    width: 0.25em;
     height: 3em;
     &:hover {
         cursor: pointer;
@@ -127,14 +127,15 @@
 
 
 .plus-2, .minus-2 {
+    opacity: 0;
     position: relative;
     display: inline-block;
     font-size: 2.5em;
-    color: darken($color2, 10%);
+    color: rgba(255,255,255,0.3);
     z-index: 20;
     &:hover {
         cursor: pointer;
-        color: darken($color2, 20%);
+        color: darken($color2, 30%);
     }
 }
 
@@ -148,6 +149,10 @@
     position: relative;
     top: -1.75em;
     left: 8em;
+}
+
+.js-show-volume-2 {
+    opacity: 1;
 }
 
 /*******Animation*******/ 

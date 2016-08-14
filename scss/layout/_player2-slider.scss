@@ -1,7 +1,7 @@
 .progress-div-2 {
     display: inline-block;
     position: relative;
-    height: 3px;
+    height: 0.22em;
     width: calc(100% - 161px);
     vertical-align: middle;
     background-color: #fff;
@@ -21,8 +21,9 @@
     opacity: 1;
     height: 3em;
     top: -3em;
-    width: 3px;
+    width: 0.25em;
     margin-left: 0.01px;
+    border: 0;
     &:hover {
         cursor: pointer;
     }
