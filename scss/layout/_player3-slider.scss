@@ -22,17 +22,11 @@
     border: 0;
 }
 
-.ui-slider-handle {
+.progress-3 .ui-slider-handle {
     opacity: 0;
-}
-
-.ui-slider .ui-slider-handle {
     height: 100%;
+    top: 0;
     &:hover {
         cursor: pointer;
     }
-}
-
-.ui-slider-horizontal .ui-slider-handle {
-    top: 0;
 }

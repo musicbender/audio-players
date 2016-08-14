@@ -3,6 +3,7 @@
     background-color: $color2;
 }
 
+
 /*******Player*******/
 
 .player-2 {
@@ -20,7 +21,6 @@
     padding: 0;
     margin: 0;
     z-index: 2;
-    @include material-shadow(1);
 }
 
 .play-div-2 {
@@ -35,14 +35,12 @@
     display: inline-block;
     height: 100%;
     text-align: center;
-    background-color: darken($color2, 10%); 
+    background-color: transparent;  
 }
 
 .volume-div-2 {
+    display: none;
     margin: 0 0 0 -5px;
-    &:hover {
-        cursor: pointer;
-    }
 }
 
 .play-2 {
@@ -99,17 +97,32 @@
 .volume-slider-div-2 {
     opacity: 0;
     position: relative;
-    left: 80px;
-    top: -80px;
+    left: 5em;
+    top: -3.18em;
     width: 440px;
     height: 80px;
-    background-color: lighten($color2, 45%);
+    background-color: transparent;
 }
 
 .volume-slider-2 {
     height: 100%;
     width: 0; 
 }
+
+.volume-slider-2 .ui-slider-handle {
+    border: 0;
+    background: #fff;
+    font-weight: 400;
+    color: #454545;
+    top: 0.75em;
+    width: 3px;
+    height: 4em;
+}
+
+.volume-slider-div-2 .ui-slider-range {
+    background-color: transparent;
+}
+
 
 .plus-2, .minus-2 {
     position: relative;

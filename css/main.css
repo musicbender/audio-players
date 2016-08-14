@@ -176,7 +176,7 @@ header {
   display: inline-block;
   position: relative;
   height: 80px;
-  width: calc(100% - 160.93px);
+  width: calc(100% - 161px);
   vertical-align: middle;
   background-color: #a8ebc4;
   z-index: 1; }
@@ -197,16 +197,12 @@ header {
 .ui-widget-content {
   border: 0; }
 
-.ui-slider-handle {
-  opacity: 0; }
-
-.ui-slider .ui-slider-handle {
+.progress-1 .ui-slider-handle {
+  opacity: 0;
+  top: 0;
   height: 100%; }
-  .ui-slider .ui-slider-handle:hover {
+  .progress-1 .ui-slider-handle:hover {
     cursor: pointer; }
-
-.ui-slider-horizontal .ui-slider-handle {
-  top: 0; }
 
 /*******Volume Slider*******/
 .volume-slider-div-1 {
@@ -214,7 +210,7 @@ header {
   position: relative;
   left: 80px;
   top: -80px;
-  width: calc(100% - 161px);
+  width: 440px;
   height: 80px;
   background-color: #e6f9ee; }
 
@@ -223,8 +219,7 @@ header {
   width: 0; }
 
 .plus-1, .minus-1 {
-  position: absolute;
-  top: 21px;
+  position: relative;
   display: inline-block;
   font-size: 2.5em;
   color: #25a25a;
@@ -234,12 +229,14 @@ header {
     color: #176437; }
 
 .minus-1 {
+  position: relative;
+  top: -58px;
   left: 20px; }
 
 .plus-1 {
-  position: absolute;
-  top: 21px;
-  left: calc(86% + 1px); }
+  position: relative;
+  top: -58px;
+  left: 330px; }
 
 /*******Animation*******/
 @keyframes show-animate-1 {
@@ -266,32 +263,6 @@ header {
   animation-duration: 0.25s;
   animation-fill-mode: forwards; }
 
-/*******Media Queries*******/
-@media only screen and (max-width: 650px) {
-  .player-1 {
-    width: 95%; }
-
-  .track-1 {
-    font-size: 1em; }
-
-  .plus-1 {
-    left: calc(86% + -20px); } }
-@media only screen and (max-width: 450px) {
-  .player-1 {
-    width: 100%; }
-
-  .play-div-1, .volume-div-1 {
-    width: 60.3px; }
-
-  .track-1 {
-    font-size: 0.9em; }
-
-  .progress-div-1 {
-    width: calc(100% - 120.93px); }
-
-  .volume-slider-div-1 {
-    position: relative;
-    left: 61px; } }
 /*******Player 2*******/
 .player-2-section {
   background-color: #A66BBE; }
@@ -309,8 +280,7 @@ header {
   width: 100%;
   padding: 0;
   margin: 0;
-  z-index: 2;
-  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  z-index: 2; }
 
 .play-div-2 {
   margin: 0 -4px 0 0; }
@@ -322,12 +292,11 @@ header {
   display: inline-block;
   height: 100%;
   text-align: center;
-  background-color: #8f4bab; }
+  background-color: transparent; }
 
 .volume-div-2 {
+  display: none;
   margin: 0 0 0 -5px; }
-  .volume-div-2:hover {
-    cursor: pointer; }
 
 .play-2 {
   margin: 0 auto;
@@ -372,10 +341,10 @@ header {
 .progress-div-2 {
   display: inline-block;
   position: relative;
-  height: 80px;
+  height: 3px;
   width: calc(100% - 161px);
   vertical-align: middle;
-  background-color: #e6d5ed;
+  background-color: #fff;
   z-index: 1; }
 
 .progress-div-2 .ui-slider-range {
@@ -390,34 +359,48 @@ header {
   background-color: #f9f5fb;
   overflow: hidden; }
 
-/*******Jquiry UI Slider Overrides*******/
-.ui-widget-content {
-  border: 0; }
-
-.ui-slider-handle {
-  opacity: 0; }
-
-volume-slider-div-2.ui-slider .ui-slider-handle {
-  height: 100%; }
-  volume-slider-div-2.ui-slider .ui-slider-handle:hover {
+.progress-2 .ui-slider-handle {
+  opacity: 1;
+  height: 6em;
+  top: -3em;
+  width: 3px;
+  margin-left: 0.01px; }
+  .progress-2 .ui-slider-handle:hover {
     cursor: pointer; }
 
-.ui-slider-horizontal .ui-slider-handle {
-  top: 0; }
+.progress-2 .ui-state-active {
+  background: #fff;
+  border: 0; }
+
+/*******jQuery UI override*******/
+.ui-widget-content {
+  border: 0; }
 
 /*******Volume Slider*******/
 .volume-slider-div-2 {
   opacity: 0;
   position: relative;
-  left: 80px;
-  top: -80px;
+  left: 5em;
+  top: -3.18em;
   width: 440px;
   height: 80px;
-  background-color: white; }
+  background-color: transparent; }
 
 .volume-slider-2 {
   height: 100%;
   width: 0; }
+
+.volume-slider-2 .ui-slider-handle {
+  border: 0;
+  background: #fff;
+  font-weight: 400;
+  color: #454545;
+  top: 0.75em;
+  width: 3px;
+  height: 4em; }
+
+.volume-slider-div-2 .ui-slider-range {
+  background-color: transparent; }
 
 .plus-2, .minus-2 {
   position: relative;
@@ -566,16 +549,12 @@ volume-slider-div-2.ui-slider .ui-slider-handle {
 .ui-widget-content {
   border: 0; }
 
-.ui-slider-handle {
-  opacity: 0; }
-
-.ui-slider .ui-slider-handle {
-  height: 100%; }
-  .ui-slider .ui-slider-handle:hover {
-    cursor: pointer; }
-
-.ui-slider-horizontal .ui-slider-handle {
+.progress-3 .ui-slider-handle {
+  opacity: 0;
+  height: 100%;
   top: 0; }
+  .progress-3 .ui-slider-handle:hover {
+    cursor: pointer; }
 
 /*******Volume Slider*******/
 .volume-slider-div-3 {

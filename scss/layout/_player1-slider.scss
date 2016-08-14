@@ -2,7 +2,7 @@
     display: inline-block;
     position: relative;
     height: 80px;
-    width: calc(100% - 160.93px);
+    width: calc(100% - 161px);
     vertical-align: middle;
     background-color: lighten($color1, 30%);
     z-index: 1;
@@ -22,17 +22,11 @@
     border: 0;
 }
 
-.ui-slider-handle {
+.progress-1 .ui-slider-handle {
     opacity: 0;
-}
-
-.ui-slider .ui-slider-handle {
+    top: 0;
     height: 100%;
     &:hover {
         cursor: pointer;
     }
-}
-
-.ui-slider-horizontal .ui-slider-handle {
-    top: 0;
 }

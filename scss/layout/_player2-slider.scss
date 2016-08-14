@@ -1,10 +1,10 @@
 .progress-div-2 {
     display: inline-block;
     position: relative;
-    height: 80px;
+    height: 3px;
     width: calc(100% - 161px);
     vertical-align: middle;
-    background-color: lighten($color2, 30%);
+    background-color: #fff;
     z-index: 1;
 }
 
@@ -16,23 +16,25 @@
     @include slider-range(39%, $color2);
 }
 
-/*******Jquiry UI Slider Overrides*******/
+.progress-2 .ui-slider-handle {
+    opacity: 1;
+    height: 6em;
+    top: -3em;
+    width: 3px;
+    margin-left: 0.01px;
+    &:hover {
+        cursor: pointer;
+    }
+} 
+
+.progress-2 .ui-state-active {
+    background: #fff;
+    border: 0;
+}
+
+
+/*******jQuery UI override*******/
 
 .ui-widget-content {
     border: 0;
 }
-
-.ui-slider-handle {
-    opacity: 0;
-}
-
-volume-slider-div-2.ui-slider .ui-slider-handle {
-    height: 100%;
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.ui-slider-horizontal .ui-slider-handle {
-    top: 0;
-} 
