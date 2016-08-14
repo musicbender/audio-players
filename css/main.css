@@ -22,6 +22,9 @@ html, body {
   width: 0%;
   overflow: hidden; }
 
+.ui-widget-content {
+  border: 0; }
+
 @keyframes show-animate-1 {
   0% {
     opacity: 0;
@@ -193,7 +196,7 @@ header {
   background-color: #cdf4de; }
 
 /*******Jquiry UI Slider Overrides*******/
-.ui-widget-content {
+.progress-div-1.ui-widget-content {
   border: 0; }
 
 .progress-1 .ui-slider-handle {
@@ -212,6 +215,9 @@ header {
   width: calc(100% - 161px);
   height: 80px;
   background-color: #e6f9ee; }
+
+.volume-slider-div-1 .ui-slider-handle {
+  opacity: 0; }
 
 .volume-slider-1 {
   height: 100%;
@@ -363,6 +369,8 @@ header {
   z-index: 100; }
 
 /*******Progress Slider*******/
+/*******jQuery UI override*******/
+/*******Slider*******/
 .progress-div-2 {
   display: inline-block;
   position: relative;
@@ -370,6 +378,7 @@ header {
   width: calc(100% - 161px);
   vertical-align: middle;
   background-color: #fff;
+  border-right: 3em solid #fff;
   z-index: 1; }
 
 .progress-div-2 .ui-slider-range {
@@ -377,7 +386,7 @@ header {
 
 .progress-2 .ui-slider-handle {
   opacity: 1;
-  height: 3em;
+  height: 0;
   top: -3em;
   width: 0.25em;
   margin-left: 0.01px;
@@ -389,9 +398,18 @@ header {
   background: #fff;
   border: 0; }
 
-/*******jQuery UI override*******/
-.ui-widget-content {
-  border: 0; }
+.handle-1-2 {
+  color: #fff;
+  position: absolute;
+  left: -0.65em;
+  top: 0.22em;
+  z-index: 12; }
+
+.handle-2-2 {
+  position: absolute;
+  left: -0.7em;
+  top: 0.3em;
+  z-index: 11; }
 
 /*******Volume Slider*******/
 .volume-slider-div-2 {
@@ -425,7 +443,8 @@ header {
   display: inline-block;
   font-size: 2.5em;
   color: rgba(255, 255, 255, 0.3);
-  z-index: 20; }
+  z-index: 20;
+  transition: 0.25s; }
   .plus-2:hover, .minus-2:hover {
     cursor: pointer;
     color: #542c64; }
@@ -537,7 +556,7 @@ header {
   background-color: white; }
 
 /*******Jquiry UI Slider Overrides*******/
-.ui-widget-content {
+progress-div-3.ui-widget-content {
   border: 0; }
 
 .progress-3 .ui-slider-handle {
@@ -556,6 +575,9 @@ header {
   width: 440px;
   height: 80px;
   background-color: white; }
+
+.volume-slider-div-3 .ui-slider-handle {
+  opacity: 0; }
 
 .volume-slider-3 {
   height: 100%;

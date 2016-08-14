@@ -106,6 +106,10 @@
     background-color: lighten($color1, 45%);
 }
 
+.volume-slider-div-1 .ui-slider-handle {
+    opacity: 0;
+}
+
 .volume-slider-1 {
     height: 100%;
     width: 0; 

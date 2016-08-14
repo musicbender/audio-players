@@ -133,6 +133,7 @@
     font-size: 2.5em;
     color: rgba(255,255,255,0.3);
     z-index: 20;
+    transition: 0.25s;
     &:hover {
         cursor: pointer;
         color: darken($color2, 30%);
