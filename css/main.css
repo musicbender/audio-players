@@ -433,7 +433,7 @@ header {
   background: #804399;
   top: 0;
   width: 0.25em;
-  height: 3em; }
+  height: 0; }
   .volume-slider-2 .ui-slider-handle:hover {
     cursor: pointer; }
 
@@ -461,6 +461,12 @@ header {
   position: relative;
   top: -1.75em;
   left: 8em; }
+
+.handle-3-2 {
+  position: absolute;
+  top: -0.7em;
+  color: #804399;
+  z-index: 12; }
 
 .js-show-volume-2 {
   opacity: 1; }

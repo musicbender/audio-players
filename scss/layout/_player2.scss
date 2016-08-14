@@ -115,7 +115,7 @@
     background: darken($color2, 15%);
     top: 0;
     width: 0.25em;
-    height: 3em;
+    height: 0;
     &:hover {
         cursor: pointer;
     }
@@ -150,6 +150,13 @@
     position: relative;
     top: -1.75em;
     left: 8em;
+}
+
+.handle-3-2 {
+    position: absolute; 
+    top: -0.7em;
+    color: darken($color2, 15%);
+    z-index: 12;
 }
 
 .js-show-volume-2 {
