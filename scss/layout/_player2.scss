@@ -13,7 +13,7 @@
     height: 80px;
     width: 600px;
     @extend %notselectable;
-}
+} 
 
 .player-2-container {
     position: relative;
@@ -72,6 +72,7 @@
 }
 
 .track-2 {
+    display: none;
     position: absolute;
     margin: 10px;
     font-size: 1.3em;
@@ -95,7 +96,7 @@
 /*******Volume Slider*******/
 
 .volume-slider-div-2 {
-    opacity: 0;
+    opacity: 1;
     position: relative;
     left: 5em;
     top: -3.18em;
@@ -111,12 +112,13 @@
 
 .volume-slider-2 .ui-slider-handle {
     border: 0;
-    background: #fff;
-    font-weight: 400;
-    color: #454545;
+    background: darken($color2, 5%);
     top: 0.75em;
-    width: 3px;
-    height: 4em;
+    width: 4px;
+    height: 3em;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .volume-slider-div-2 .ui-slider-range {
@@ -149,33 +151,3 @@
 }
 
 /*******Animation*******/ 
-
-@keyframes show-animate-2 {
-    0% {
-        opacity: 0;
-        top: -80px;
-    }
-    100% {
-        opacity: 1;
-        top: 0;
-    }
-}
-
-@keyframes hide-animate-2 {
-    0% {
-        opacity: 1;
-        top: 0;
-    }
-    100% {
-        opacity: 0;
-        top: -80px;
-    }
-}
-
-.volume-hidden-2 {
-    @include animate(hide-animate-2, 0.25s);
-}
-
-.volume-shown-2 {
-    @include animate(show-animate-2, 0.25s);
-} 

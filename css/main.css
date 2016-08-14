@@ -210,7 +210,7 @@ header {
   position: relative;
   left: 80px;
   top: -80px;
-  width: 440px;
+  width: calc(100% - 161px);
   height: 80px;
   background-color: #e6f9ee; }
 
@@ -219,7 +219,8 @@ header {
   width: 0; }
 
 .plus-1, .minus-1 {
-  position: relative;
+  position: absolute;
+  top: 21px;
   display: inline-block;
   font-size: 2.5em;
   color: #25a25a;
@@ -229,14 +230,12 @@ header {
     color: #176437; }
 
 .minus-1 {
-  position: relative;
-  top: -58px;
   left: 20px; }
 
 .plus-1 {
-  position: relative;
-  top: -58px;
-  left: 330px; }
+  position: absolute;
+  top: 21px;
+  left: calc(86% + 1px); }
 
 /*******Animation*******/
 @keyframes show-animate-1 {
@@ -263,6 +262,32 @@ header {
   animation-duration: 0.25s;
   animation-fill-mode: forwards; }
 
+/*******Media Queries*******/
+@media only screen and (max-width: 650px) {
+  .player-1 {
+    width: 95%; }
+
+  .track-1 {
+    font-size: 1em; }
+
+  .plus-1 {
+    left: calc(86% + -20px); } }
+@media only screen and (max-width: 450px) {
+  .player-1 {
+    width: 100%; }
+
+  .play-div-1, .volume-div-1 {
+    width: 60.3px; }
+
+  .track-1 {
+    font-size: 0.9em; }
+
+  .progress-div-1 {
+    width: calc(100% - 120.93px); }
+
+  .volume-slider-div-1 {
+    position: relative;
+    left: 61px; } }
 /*******Player 2*******/
 .player-2-section {
   background-color: #A66BBE; }
@@ -323,6 +348,7 @@ header {
   pointer-events: none; }
 
 .track-2 {
+  display: none;
   position: absolute;
   margin: 10px;
   font-size: 1.3em;
@@ -361,7 +387,7 @@ header {
 
 .progress-2 .ui-slider-handle {
   opacity: 1;
-  height: 6em;
+  height: 3em;
   top: -3em;
   width: 3px;
   margin-left: 0.01px; }
@@ -378,7 +404,7 @@ header {
 
 /*******Volume Slider*******/
 .volume-slider-div-2 {
-  opacity: 0;
+  opacity: 1;
   position: relative;
   left: 5em;
   top: -3.18em;
@@ -392,12 +418,12 @@ header {
 
 .volume-slider-2 .ui-slider-handle {
   border: 0;
-  background: #fff;
-  font-weight: 400;
-  color: #454545;
+  background: #9b59b6;
   top: 0.75em;
-  width: 3px;
-  height: 4em; }
+  width: 4px;
+  height: 3em; }
+  .volume-slider-2 .ui-slider-handle:hover {
+    cursor: pointer; }
 
 .volume-slider-div-2 .ui-slider-range {
   background-color: transparent; }
@@ -423,30 +449,6 @@ header {
   left: 330px; }
 
 /*******Animation*******/
-@keyframes show-animate-2 {
-  0% {
-    opacity: 0;
-    top: -80px; }
-  100% {
-    opacity: 1;
-    top: 0; } }
-@keyframes hide-animate-2 {
-  0% {
-    opacity: 1;
-    top: 0; }
-  100% {
-    opacity: 0;
-    top: -80px; } }
-.volume-hidden-2 {
-  animation-name: hide-animate-2;
-  animation-duration: 0.25s;
-  animation-fill-mode: forwards; }
-
-.volume-shown-2 {
-  animation-name: show-animate-2;
-  animation-duration: 0.25s;
-  animation-fill-mode: forwards; }
-
 /*******Player 3*******/
 .player-3-section {
   background-color: #EA6153; }
