@@ -98,8 +98,8 @@
 .volume-slider-div-2 {
     opacity: 1;
     position: relative;
-    left: 5em;
-    top: -3.18em;
+    left: 5.5em;
+    top: -2.4em;
     width: 440px;
     height: 80px;
     background-color: transparent;
@@ -112,8 +112,8 @@
 
 .volume-slider-2 .ui-slider-handle {
     border: 0;
-    background: darken($color2, 5%);
-    top: 0.75em;
+    background: darken($color2, 15%);
+    top: 0;
     width: 4px;
     height: 3em;
     &:hover {
@@ -134,20 +134,20 @@
     z-index: 20;
     &:hover {
         cursor: pointer;
-        color: darken($color2, 25%);
+        color: darken($color2, 20%);
     }
 }
 
 .minus-2 {
     position: relative;
-    top: -58px;
-    left: 20px;  
+    top: -1.75em;
+    left: 0.21em;  
 }
 
 .plus-2 {
     position: relative;
-    top: -58px;
-    left: 330px;
+    top: -1.75em;
+    left: 8em;
 }
 
 /*******Animation*******/ 

@@ -20,8 +20,8 @@ $(document).ready(function(){
         getSound.responseType = "arraybuffer";
         getSound.onload = function() {
             context.decodeAudioData(getSound.response, function(buffer) {
+                
                 //after file is loaded into the memory buffer, do these things
-
                 soundObj.soundToPlay = buffer;
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
@@ -238,7 +238,8 @@ $(document).ready(function(){
                     }
                 });
             },
-            //when clicking show volume button
+            //when clicking show volume button. 
+            //---!!!some players don't have this!!!
             showVolume: function() {
                 $('.volume-div-' + track.num).on('click', function(e) {
                     e.preventDefault();

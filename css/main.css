@@ -17,6 +17,11 @@ html, body {
   -o-user-select: none;
   user-select: none; }
 
+.progress-div-1 .ui-slider-range, .volume-slider-div-1 .ui-slider-range, .progress-div-2 .ui-slider-range, .volume-slider-div-2 .ui-slider-range, .progress-div-3 .ui-slider-range, .volume-slider-div-3 .ui-slider-range {
+  height: 100%;
+  width: 0%;
+  overflow: hidden; }
+
 @keyframes show-animate-1 {
   0% {
     opacity: 0;
@@ -182,16 +187,10 @@ header {
   z-index: 1; }
 
 .progress-div-1 .ui-slider-range {
-  height: 100%;
-  width: 0%;
-  background-color: #4cd787;
-  overflow: hidden; }
+  background-color: #4cd787; }
 
 .volume-slider-div-1 .ui-slider-range {
-  height: 100%;
-  width: 0%;
-  background-color: #cdf4de;
-  overflow: hidden; }
+  background-color: #cdf4de; }
 
 /*******Jquiry UI Slider Overrides*******/
 .ui-widget-content {
@@ -374,16 +373,7 @@ header {
   z-index: 1; }
 
 .progress-div-2 .ui-slider-range {
-  height: 100%;
-  width: 0%;
-  background-color: #b787ca;
-  overflow: hidden; }
-
-.volume-slider-div-2 .ui-slider-range {
-  height: 100%;
-  width: 0%;
-  background-color: #f9f5fb;
-  overflow: hidden; }
+  background-color: #8948a4; }
 
 .progress-2 .ui-slider-handle {
   opacity: 1;
@@ -406,8 +396,8 @@ header {
 .volume-slider-div-2 {
   opacity: 1;
   position: relative;
-  left: 5em;
-  top: -3.18em;
+  left: 5.5em;
+  top: -2.4em;
   width: 440px;
   height: 80px;
   background-color: transparent; }
@@ -418,8 +408,8 @@ header {
 
 .volume-slider-2 .ui-slider-handle {
   border: 0;
-  background: #9b59b6;
-  top: 0.75em;
+  background: #804399;
+  top: 0;
   width: 4px;
   height: 3em; }
   .volume-slider-2 .ui-slider-handle:hover {
@@ -436,17 +426,17 @@ header {
   z-index: 20; }
   .plus-2:hover, .minus-2:hover {
     cursor: pointer;
-    color: #633476; }
+    color: #723c87; }
 
 .minus-2 {
   position: relative;
-  top: -58px;
-  left: 20px; }
+  top: -1.75em;
+  left: 0.21em; }
 
 .plus-2 {
   position: relative;
-  top: -58px;
-  left: 330px; }
+  top: -1.75em;
+  left: 8em; }
 
 /*******Animation*******/
 /*******Player 3*******/
@@ -536,16 +526,10 @@ header {
   z-index: 1; }
 
 .progress-div-3 .ui-slider-range {
-  height: 100%;
-  width: 0%;
-  background-color: #ee8277;
-  overflow: hidden; }
+  background-color: #ee8277; }
 
 .volume-slider-div-3 .ui-slider-range {
-  height: 100%;
-  width: 0%;
-  background-color: white;
-  overflow: hidden; }
+  background-color: white; }
 
 /*******Jquiry UI Slider Overrides*******/
 .ui-widget-content {

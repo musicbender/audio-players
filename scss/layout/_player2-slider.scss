@@ -9,11 +9,12 @@
 }
 
 .progress-div-2 .ui-slider-range {
-    @include slider-range(8%, $color2);
+    @extend %slider-range;
+    background-color: darken($color2, 12%);
 }
 
 .volume-slider-div-2 .ui-slider-range {
-    @include slider-range(39%, $color2);
+    @extend %slider-range;
 }
 
 .progress-2 .ui-slider-handle {
