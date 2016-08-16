@@ -212,15 +212,27 @@ $(document).ready(function(){
             clickPlay: function() {
                 $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
-
+                    var $a = $('.play-svg-a-2');
+                    var $b = $('.play-svg-b-2');
+                    
                     if (!track.playState) {
-                        track.playBtn.hide();
-                        track.pauseBtn.show();
+                        if (track.num === 2) {
+                            $b.removeClass('to-play-b-2');
+                            $b.addClass('to-pause-b-2');
+                        } else {
+                            track.playBtn.hide();
+                            track.pauseBtn.show();
+                        }
                         track.play();
                         track.playState = true;
                     } else {
-                        track.pauseBtn.hide();
-                        track.playBtn.show();
+                        if (track.num === 2) {
+                            $b.removeClass('to-pause-b-2');
+                            $b.addClass('to-play-b-2');
+                        } else {
+                            track.pauseBtn.hide();
+                            track.playBtn.show();
+                        }
                         track.stop();
                         track.playState = false;
                     }    

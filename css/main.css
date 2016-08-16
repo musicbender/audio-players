@@ -316,6 +316,7 @@ header {
   z-index: 2; }
 
 .play-div-2 {
+  position: relative;
   margin: 0 -4px 0 0; }
   .play-div-2:hover {
     cursor: pointer; }
@@ -332,10 +333,12 @@ header {
   margin: 0 0 0 -5px; }
 
 .play-2 {
+  position: absolute;
+  top: -0.75em;
+  left: 1.5em;
   margin: 0 auto;
-  line-height: 80px;
+  line-height: 0;
   vertical-align: middle;
-  font-family: themify;
   font-size: 3em;
   font-weight: lighter;
   color: #ffffff; }
@@ -346,14 +349,12 @@ header {
 .control-pause-2 {
   display: none; }
 
-.volume-2 {
-  margin: 0 auto;
-  line-height: 80px;
-  vertical-align: middle;
-  font-family: themify;
-  font-size: 3em;
-  color: #ffffff;
-  pointer-events: none; }
+.play-svg-2 {
+  position: relative;
+  transform: rotate(90deg); }
+
+.play-svg-2 svg {
+  position: absolute; }
 
 .track-2 {
   display: none;
@@ -382,7 +383,7 @@ header {
   vertical-align: middle;
   background-color: #fff;
   border-right: 3em solid #fff;
-  z-index: 1; }
+  z-index: 10; }
 
 .progress-div-2 .ui-slider-range {
   background-color: #8948a4; }
@@ -419,7 +420,7 @@ header {
   opacity: 1;
   position: relative;
   left: 5.5em;
-  top: -2.4em;
+  top: -0.5em;
   width: 440px;
   height: 80px;
   background-color: transparent; }
@@ -464,14 +465,35 @@ header {
 
 .handle-3-2 {
   position: absolute;
-  top: -0.7em;
+  top: -1em;
   color: #804399;
-  z-index: 12; }
+  transform: rotate(180deg);
+  z-index: 1; }
 
 .js-show-volume-2 {
   opacity: 1; }
 
 /*******Animation*******/
+@keyframes pause-animate-b-2 {
+  0% {
+    transform: rotate(0deg) translate(0, 0); }
+  100% {
+    transform: rotate(57deg) translate(-22px, 0); } }
+@keyframes play-animate-b-2 {
+  0% {
+    transform: rotate(57deg) translate(-22px, 0); }
+  100% {
+    transform: rotate(0deg) translate(0, 0); } }
+.to-pause-b-2 {
+  animation-name: pause-animate-p2-2;
+  animation-duration: 3s;
+  animation-fill-mode: forwards; }
+
+.to-play-b-2 {
+  animation-name: play-animate-p2-2;
+  animation-duration: 3s;
+  animation-fill-mode: forwards; }
+
 /*******Player 3*******/
 .player-3-section {
   background-color: #EA6153; }

@@ -24,6 +24,7 @@
 }
 
 .play-div-2 {
+    position: relative;
     margin: 0 -4px 0 0;
     &:hover {
         cursor: pointer;
@@ -44,10 +45,12 @@
 }
 
 .play-2 {
+    position: absolute;
+    top: -0.75em;
+    left: 1.5em;
     margin: 0 auto;
-    line-height: 80px;
+    line-height: 0;
     vertical-align: middle;
-    font-family: themify;
     font-size: 3em;
     font-weight: lighter;
     color: $white;
@@ -61,14 +64,13 @@
     display: none;
 }
 
-.volume-2 {
-    margin: 0 auto;
-    line-height: 80px;
-    vertical-align: middle;
-    font-family: themify;
-    font-size: 3em;
-    color: $white;
-    pointer-events: none;
+.play-svg-2 {
+    position: relative;
+    transform: rotate(90deg);
+} 
+
+.play-svg-2 svg {
+    position: absolute;
 }
 
 .track-2 {
@@ -99,7 +101,7 @@
     opacity: 1;
     position: relative;
     left: 5.5em;
-    top: -2.4em;
+    top: -0.5em;
     width: 440px;
     height: 80px;
     background-color: transparent;
@@ -154,9 +156,10 @@
 
 .handle-3-2 {
     position: absolute; 
-    top: -0.7em;
+    top: -1em;
     color: darken($color2, 15%);
-    z-index: 12;
+    transform: rotate(180deg);
+    z-index: 1;
 }
 
 .js-show-volume-2 {
@@ -164,3 +167,32 @@
 }
 
 /*******Animation*******/ 
+
+@keyframes pause-animate-b-2 {
+    0% {
+        transform: rotate(0deg) translate(0, 0);
+    }
+    
+    100% {
+        transform: rotate(57deg) translate(-22px, 0);
+    }
+}
+
+@keyframes play-animate-b-2 {
+    0% {
+        transform: rotate(57deg) translate(-22px, 0);;
+    }
+    
+    100% {
+        transform: rotate(0deg) translate(0, 0)
+    }
+}
+
+.to-pause-b-2 {
+    @include animate(pause-animate-p2-2, 3s);
+}
+
+.to-play-b-2 {
+    @include animate(play-animate-p2-2, 3s);
+}
+
