@@ -478,20 +478,40 @@ header {
   0% {
     transform: rotate(0deg) translate(0, 0); }
   100% {
-    transform: rotate(57deg) translate(-22px, 0); } }
+    transform: rotate(124deg) translate(-12px, 0); } }
 @keyframes play-animate-b-2 {
   0% {
-    transform: rotate(57deg) translate(-22px, 0); }
+    transform: rotate(124deg) translate(-12px, 0); }
+  100% {
+    transform: rotate(0deg) translate(0, 0); } }
+@keyframes pause-animate-a-2 {
+  0% {
+    transform: rotate(0deg) translate(0, 0); }
+  100% {
+    transform: rotate(57deg) translate(-1px, -8px); } }
+@keyframes play-animate-a-2 {
+  0% {
+    transform: rotate(57deg) translate(-1px, -8px); }
   100% {
     transform: rotate(0deg) translate(0, 0); } }
 .to-pause-b-2 {
-  animation-name: pause-animate-p2-2;
-  animation-duration: 3s;
+  animation-name: pause-animate-b-2;
+  animation-duration: 1s;
   animation-fill-mode: forwards; }
 
 .to-play-b-2 {
-  animation-name: play-animate-p2-2;
-  animation-duration: 3s;
+  animation-name: play-animate-b-2;
+  animation-duration: 1s;
+  animation-fill-mode: forwards; }
+
+.to-pause-a-2 {
+  animation-name: pause-animate-a-2;
+  animation-duration: 1s;
+  animation-fill-mode: forwards; }
+
+.to-play-a-2 {
+  animation-name: play-animate-a-2;
+  animation-duration: 1s;
   animation-fill-mode: forwards; }
 
 /*******Player 3*******/

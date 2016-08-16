@@ -217,8 +217,10 @@ $(document).ready(function(){
                     
                     if (!track.playState) {
                         if (track.num === 2) {
+                            $a.removeClass('to-play-a-2');
                             $b.removeClass('to-play-b-2');
-                            $b.addClass('to-pause-b-2');
+                            $a.addClass('to-pause-a-2');
+                            $b.addClass('to-pause-b-2');         
                         } else {
                             track.playBtn.hide();
                             track.pauseBtn.show();
@@ -227,7 +229,9 @@ $(document).ready(function(){
                         track.playState = true;
                     } else {
                         if (track.num === 2) {
+                            $a.removeClass('to-pause-a-2');
                             $b.removeClass('to-pause-b-2');
+                            $a.addClass('to-play-a-2');
                             $b.addClass('to-play-b-2');
                         } else {
                             track.pauseBtn.hide();
