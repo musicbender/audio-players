@@ -319,10 +319,6 @@ $(document).ready(function(){
         return track;
     }
 
-    
-    ///////*******PLAYER SPECIFIC EVENTS*******///////
-
-    
     ///////*******OTHER FUNCTIONS*******///////
 
     //turn seconds into minutes/seconds format
@@ -332,14 +328,4 @@ $(document).ready(function(){
 
         return minutes + ':' + seconds;
     }
-
-    //shows tracks while hiding the loading placeholder
-    function showTracks() {
-        $('.loading-placeholder').hide();
-        $('.player').show();
-    }
 });
-
-
-//a = M10 46 L13 48 L35 14 L32 12 Z
-//b = M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z
