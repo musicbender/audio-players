@@ -29,9 +29,6 @@ $(document).ready(function(){
 
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
-
-                //show tracks after audio files load into memory
-                showTracks();
             });
         }
         getSound.send();
@@ -107,7 +104,7 @@ $(document).ready(function(){
         track.pDiv = $('.progress-div-' + track.num);
         track.playBtn = $('.control-play-' + track.num);
         track.pauseBtn = $('.control-pause-' + track.num);
-
+        
         //functions
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
@@ -152,6 +149,11 @@ $(document).ready(function(){
             track.playInit = false;
             track.audio.stop();
         };
+        
+        track.show = function() {
+            $('.lp-' + track.num).hide();
+            $('.player-' + track.num).show();
+        }
 
         //objects
         track.volume = {
@@ -300,6 +302,10 @@ $(document).ready(function(){
             }
         }
 
+        //show track
+        
+        track.show();
+        
         //calling event listener and initializing functions
         track.volume.init();
         track.slider.init();
@@ -315,10 +321,7 @@ $(document).ready(function(){
 
     
     ///////*******PLAYER SPECIFIC EVENTS*******///////
-    
-    //player2
-    
-    
+
     
     ///////*******OTHER FUNCTIONS*******///////
 
