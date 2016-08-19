@@ -216,11 +216,12 @@ $(document).ready(function(){
                     var $b = $('.play-svg-b-2');
                     
                     if (!track.playState) {
+                        //(if player 2)
                         if (track.num === 2) {
-                            $a.removeClass('to-play-a-2');
-                            $b.removeClass('to-play-b-2');
-                            $a.addClass('to-pause-a-2');
-                            $b.addClass('to-pause-b-2');         
+                            $a.removeClass('to-play-a-2').addClass('to-pause-a-2');
+                            $b.removeClass('to-play-b-2').addClass('to-pause-b-2');  
+                            $a.children().attr('d', 'M10 46 L13 48 L35 14 L32 12 Z');
+                            $b.children().attr('d', 'M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z');
                         } else {
                             track.playBtn.hide();
                             track.pauseBtn.show();
@@ -228,11 +229,12 @@ $(document).ready(function(){
                         track.play();
                         track.playState = true;
                     } else {
+                        //(if player 2)
                         if (track.num === 2) {
-                            $a.removeClass('to-pause-a-2');
-                            $b.removeClass('to-pause-b-2');
-                            $a.addClass('to-play-a-2');
-                            $b.addClass('to-play-b-2');
+                            $a.removeClass('to-pause-a-2').addClass('to-play-a-2');
+                            $b.removeClass('to-pause-b-2').addClass('to-play-b-2');
+                            $a.children().attr('d', 'M9 48 L13 48 L32 18 L32 12 Z');
+                            $b.children().attr('d', 'M32 18 L52 48 L56 48 L32 12 Z');
                         } else {
                             track.pauseBtn.hide();
                             track.playBtn.show();
@@ -314,17 +316,7 @@ $(document).ready(function(){
     
     ///////*******PLAYER SPECIFIC EVENTS*******///////
     
-    //player 2 show volume
-//    $('.volume-slider-div-2').on('mouseenter', function(e) {
-//        e.preventDefault();
-//        $('.plus-2').addClass('js-show-volume-2');
-//        $('.minus-2').addClass('js-show-volume-2');
-//    });
-//    $('.volume-slider-div-2').on('mouseleave', function(e) {
-//        e.preventDefault();
-//        $('.plus-2').removeClass('js-show-volume-2');
-//        $('.minus-2').removeClass('js-show-volume-2');
-//    });
+    //player2
     
     
     
@@ -344,3 +336,7 @@ $(document).ready(function(){
         $('.player').show();
     }
 });
+
+
+//a = M10 46 L13 48 L35 14 L32 12 Z
+//b = M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z
