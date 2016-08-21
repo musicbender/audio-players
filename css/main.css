@@ -442,9 +442,8 @@ header {
   background-color: transparent; }
 
 .plus-2, .minus-2 {
-  opacity: 0;
+  display: none;
   position: relative;
-  display: inline-block;
   font-size: 2.5em;
   color: rgba(255, 255, 255, 0.3);
   z-index: 20;
@@ -466,6 +465,7 @@ header {
 .handle-3-2 {
   position: absolute;
   top: -1em;
+  left: -0.3em;
   color: #804399;
   transform: rotate(180deg);
   z-index: 1; }
@@ -496,27 +496,28 @@ header {
     transform: rotate(0deg) translate(0, 0); } }
 .to-pause-b-2 {
   animation-name: pause-animate-b-2;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-fill-mode: forwards; }
 
 .to-play-b-2 {
   animation-name: play-animate-b-2;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-fill-mode: forwards; }
 
 .to-pause-a-2 {
   animation-name: pause-animate-a-2;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-fill-mode: forwards; }
 
 .to-play-a-2 {
   animation-name: play-animate-a-2;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-fill-mode: forwards; }
 
 /*******Player 3*******/
 .player-3-section {
-  background-color: #EA6153; }
+  background-color: #EA6153;
+  display: none; }
 
 /*******Player*******/
 .player-3 {

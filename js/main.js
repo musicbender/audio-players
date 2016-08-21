@@ -26,7 +26,8 @@ $(document).ready(function(){
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 soundObj.duration = Math.round(playSound.buffer.duration); 
-
+                
+                console.log('LOADED: ' + soundObj.path);
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
             });
@@ -50,7 +51,14 @@ $(document).ready(function(){
 
         //stop sound
         soundObj.stop = function() {
+            console.log(playSound);
             playSound.stop();
+            
+//            if (typeof context.stop === "function") {
+//                playSound.stop();
+//            } else {
+//                console.error('stop not a function :(');
+//            }
         }
 
         //pause
@@ -78,10 +86,6 @@ $(document).ready(function(){
         track2: {
             num: 2,
             audio: 'audio/track2.mp3'
-        },
-        track3: {
-            num: 3,
-            audio: 'audio/track3.mp3'
         }
     });
 
@@ -133,12 +137,14 @@ $(document).ready(function(){
         };
 
         track.switchTracks = function() {
-            var oldTrack = 'sound.track' + currentTrack,
+//            var oldTrack = 'sound.track' + currentTrack;
+            var oldTrack = sound["track" + currentTrack],
                 oldPlayBtn = trackList[currentTrack]["playBtn"],
                 oldPauseBtn = trackList[currentTrack]["pauseBtn"];
 
             //stop previous track
-            eval(oldTrack).stop();
+//            eval(oldTrack).stop();
+            oldTrack["stop"]();
             trackList[currentTrack]["playInit"] = false;
             trackList[currentTrack]["playState"] = false;
             trackList[currentTrack]["slider"]["stop"]();

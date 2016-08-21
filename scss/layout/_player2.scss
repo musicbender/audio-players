@@ -129,9 +129,8 @@
 
 
 .plus-2, .minus-2 {
-    opacity: 0;
+    display: none;
     position: relative;
-    display: inline-block;
     font-size: 2.5em;
     color: rgba(255,255,255,0.3);
     z-index: 20;
@@ -157,6 +156,7 @@
 .handle-3-2 {
     position: absolute; 
     top: -1em;
+    left: -0.3em;
     color: darken($color2, 15%);
     transform: rotate(180deg);
     z-index: 1;
@@ -210,18 +210,18 @@
 
 
 .to-pause-b-2 {
-    @include animate(pause-animate-b-2, 1s);
+    @include animate(pause-animate-b-2, 0.8s);
 }
 
 .to-play-b-2 {
-    @include animate(play-animate-b-2, 1s);
+    @include animate(play-animate-b-2, 0.8s);
 }
 
 .to-pause-a-2 {
-    @include animate(pause-animate-a-2, 1s);
+    @include animate(pause-animate-a-2, 0.8s);
 }
 
 .to-play-a-2 {
-    @include animate(play-animate-a-2, 1s);
+    @include animate(play-animate-a-2, 0.8s);
 }
 
