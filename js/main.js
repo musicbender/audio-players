@@ -134,8 +134,9 @@ $(document).ready(function(){
         };
 
         track.switchTracks = function() {
-            var oldAudio = sound["track" + currentTrack],
-                oldTrack = trackList[currentTrack];
+            var oldTrack = trackList[currentTrack],
+                oldAudio = oldTrack["audio"];
+//                oldAudio = sound["track" + currentTrack];
 
             //stop previous track
             oldAudio["stop"]();
