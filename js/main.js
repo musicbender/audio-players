@@ -28,7 +28,7 @@ $(document).ready(function(){
                 soundObj.duration = Math.round(playSound.buffer.duration); 
         
                 //add new track to list object
-                trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
+                trackList[soundObj.num] = newTrack(fileDirectory);
             });
         }
         getSound.send();
@@ -85,7 +85,7 @@ $(document).ready(function(){
     
     ///////*******AUDIO PLAYER FACTORY FUNCTION*******////////
 
-    var newTrack = function(obj, path) {
+    var newTrack = function(obj) {
 
         var track = {};
         
@@ -134,19 +134,15 @@ $(document).ready(function(){
         };
 
         track.switchTracks = function() {
-//            var oldTrack = 'sound.track' + currentTrack;
-            var oldTrack = sound["track" + currentTrack],
-                oldPlayBtn = trackList[currentTrack]["playBtn"],
-                oldPauseBtn = trackList[currentTrack]["pauseBtn"];
+            var oldAudio = sound["track" + currentTrack],
+                oldTrack = trackList[currentTrack];
 
             //stop previous track
-//            eval(oldTrack).stop();
-            oldTrack["stop"]();
-            trackList[currentTrack]["playInit"] = false;
-            trackList[currentTrack]["playState"] = false;
-            trackList[currentTrack]["slider"]["stop"]();
-            oldPlayBtn.show();
-            oldPauseBtn.hide();
+            oldAudio["stop"]();
+            oldTrack["playInit"] = false;
+            oldTrack["playState"] = false;
+            oldTrack["slider"]["stop"]();
+            oldTrack["togglePlayBtn"]();
 
             //put the now current track in stop-mode in cause it was paused
             track.playInit = false;
@@ -156,6 +152,36 @@ $(document).ready(function(){
         track.show = function() {
             $('.lp-' + track.num).hide();
             $('.player-' + track.num).show();
+        };
+        
+        track.togglePauseBtn = function() {
+            var $a = $('.play-svg-a-2');
+            var $b = $('.play-svg-b-2');
+            
+            if (track.num === 2) {
+                $a.removeClass('to-play-a-2').addClass('to-pause-a-2');
+                $b.removeClass('to-play-b-2').addClass('to-pause-b-2');  
+                $a.children().attr('d', 'M10 46 L13 48 L35 14 L32 12 Z');
+                $b.children().attr('d', 'M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z');
+            } else {
+                track.playBtn.hide();
+                track.pauseBtn.show();
+            }
+        };
+        
+        track.togglePlayBtn = function() {
+            var $a = $('.play-svg-a-2');
+            var $b = $('.play-svg-b-2');
+            
+            if (track.num === 2) {
+                $a.removeClass('to-pause-a-2').addClass('to-play-a-2');
+                $b.removeClass('to-pause-b-2').addClass('to-play-b-2');
+                $a.children().attr('d', 'M9 48 L13 48 L32 18 L32 12 Z');
+                $b.children().attr('d', 'M32 18 L52 48 L56 48 L32 12 Z');
+            } else {
+                track.pauseBtn.hide();
+                track.playBtn.show();
+            }
         }
 
         //objects
@@ -217,33 +243,13 @@ $(document).ready(function(){
             clickPlay: function() {
                 $('.play-' + track.num).on('click', function(e) {
                     e.preventDefault();
-                    var $a = $('.play-svg-a-2');
-                    var $b = $('.play-svg-b-2');
                     
                     if (!track.playState) {
-                        //(if player 2)
-                        if (track.num === 2) {
-                            $a.removeClass('to-play-a-2').addClass('to-pause-a-2');
-                            $b.removeClass('to-play-b-2').addClass('to-pause-b-2');  
-                            $a.children().attr('d', 'M10 46 L13 48 L35 14 L32 12 Z');
-                            $b.children().attr('d', 'M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z');
-                        } else {
-                            track.playBtn.hide();
-                            track.pauseBtn.show();
-                        }
+                        track.togglePauseBtn();
                         track.play();
                         track.playState = true;
                     } else {
-                        //(if player 2)
-                        if (track.num === 2) {
-                            $a.removeClass('to-pause-a-2').addClass('to-play-a-2');
-                            $b.removeClass('to-pause-b-2').addClass('to-play-b-2');
-                            $a.children().attr('d', 'M9 48 L13 48 L32 18 L32 12 Z');
-                            $b.children().attr('d', 'M32 18 L52 48 L56 48 L32 12 Z');
-                        } else {
-                            track.pauseBtn.hide();
-                            track.playBtn.show();
-                        }
+                        track.togglePlayBtn();
                         track.stop();
                         track.playState = false;
                     }    
