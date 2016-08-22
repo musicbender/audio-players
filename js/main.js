@@ -26,8 +26,7 @@ $(document).ready(function(){
                 playSound = context.createBufferSource();
                 playSound.buffer = soundObj.soundToPlay;
                 soundObj.duration = Math.round(playSound.buffer.duration); 
-                
-                console.log('LOADED: ' + soundObj.path);
+        
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory, soundObj.path);
             });
@@ -44,6 +43,7 @@ $(document).ready(function(){
             context.suspend();
             context.resume();
         }
+        
         //resume from pause
         soundObj.resume = function() {
             context.resume();
@@ -51,14 +51,7 @@ $(document).ready(function(){
 
         //stop sound
         soundObj.stop = function() {
-            console.log(playSound);
             playSound.stop();
-            
-//            if (typeof context.stop === "function") {
-//                playSound.stop();
-//            } else {
-//                console.error('stop not a function :(');
-//            }
         }
 
         //pause
@@ -95,10 +88,11 @@ $(document).ready(function(){
     var newTrack = function(obj, path) {
 
         var track = {};
-
+        
         //properties
-        track.audio = eval(path);
+        
         track.num = obj.num; 
+        track.audio = sound["track" + track.num];
         track.playInit = false;
         track.clickState = false;
         track.playState = false;
@@ -111,6 +105,8 @@ $(document).ready(function(){
         
         //functions
         track.play = function() {
+            console.log('before: ' + currentTrack + ' / ' + track.num);
+            
             if (currentTrack !== track.num && currentTrack !== 0) {
                 //if switching to another track
                 track.switchTracks();
@@ -121,6 +117,7 @@ $(document).ready(function(){
                 track.audio.play(track.slider.getValue());
                 track.playInit = true;
                 track.volume.gainNodeInit();
+                console.log('before: ' + currentTrack + ' / ' + track.num);
             } else {
                 track.audio.resume();
             }   
