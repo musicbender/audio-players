@@ -41,7 +41,6 @@ $(document).ready(function(){
             playSound.buffer = soundObj.soundToPlay; 
             soundObj.duration = Math.round(playSound.buffer.duration); 
             playSound.connect(context.destination);
-            console.log('PLAYING');
             playSound.start(0, startTime);
             context.suspend();
             context.resume();
@@ -54,7 +53,6 @@ $(document).ready(function(){
 
         //stop sound
         soundObj.stop = function() {
-            console.log('STOPPING');
             playSound.stop();
         }
 
@@ -166,7 +164,7 @@ $(document).ready(function(){
                 track.pauseBtn.show();
             }
             
-            var togglePlayer2 = function() {
+            function togglePlayer2() {
                 var $a = $('.play-svg-a-2'),
                     $b = $('.play-svg-b-2');
                 
@@ -183,9 +181,9 @@ $(document).ready(function(){
             } else {
                 track.pauseBtn.hide();
                 track.playBtn.show();
-            }
+            } 
             
-            var togglePlayer2() {
+            function togglePlayer2() {
                 var $a = $('.play-svg-a-2'),
                     $b = $('.play-svg-b-2');
                 
