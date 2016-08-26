@@ -29,6 +29,8 @@ $(document).ready(function(){
         
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory);
+                playSound.start();
+                playSound.stop();
             });
         }
         getSound.send();
@@ -39,6 +41,7 @@ $(document).ready(function(){
             playSound.buffer = soundObj.soundToPlay; 
             soundObj.duration = Math.round(playSound.buffer.duration); 
             playSound.connect(context.destination);
+            console.log('PLAYING');
             playSound.start(0, startTime);
             context.suspend();
             context.resume();
@@ -51,12 +54,17 @@ $(document).ready(function(){
 
         //stop sound
         soundObj.stop = function() {
+            console.log('STOPPING');
             playSound.stop();
         }
 
         //pause
         soundObj.suspend = function() {
             context.suspend();
+        }
+        
+        soundObj.onEnd = function(callback) {
+            playSound.onended = callback();
         }
 
         return soundObj;
@@ -105,8 +113,6 @@ $(document).ready(function(){
         
         //functions
         track.play = function() {
-            console.log('before: ' + currentTrack + ' / ' + track.num);
-            
             if (currentTrack !== track.num && currentTrack !== 0) {
                 //if switching to another track
                 track.switchTracks();
@@ -117,17 +123,15 @@ $(document).ready(function(){
                 track.audio.play(track.slider.getValue());
                 track.playInit = true;
                 track.volume.gainNodeInit();
-                console.log('before: ' + currentTrack + ' / ' + track.num);
             } else {
                 track.audio.resume();
             }   
-        }; 
+        };
 
         track.stop = function() {
             track.slider.stop();
             if (!track.playInit) {
                 track.audio.stop();
-
             } else {
                 track.audio.suspend();
             }
@@ -136,7 +140,6 @@ $(document).ready(function(){
         track.switchTracks = function() {
             var oldTrack = trackList[currentTrack],
                 oldAudio = oldTrack["audio"];
-//                oldAudio = sound["track" + currentTrack];
 
             //stop previous track
             oldAudio["stop"]();
@@ -146,8 +149,8 @@ $(document).ready(function(){
             oldTrack["togglePlayBtn"]();
 
             //put the now current track in stop-mode in cause it was paused
-            track.playInit = false;
-            track.audio.stop();
+//            track.playInit = false;
+//            track.audio.stop();
         };
         
         track.show = function() {
@@ -156,32 +159,40 @@ $(document).ready(function(){
         };
         
         track.togglePauseBtn = function() {
-            var $a = $('.play-svg-a-2');
-            var $b = $('.play-svg-b-2');
-            
             if (track.num === 2) {
-                $a.removeClass('to-play-a-2').addClass('to-pause-a-2');
-                $b.removeClass('to-play-b-2').addClass('to-pause-b-2');  
-                $a.children().attr('d', 'M10 46 L13 48 L35 14 L32 12 Z');
-                $b.children().attr('d', 'M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z');
+                togglePlayer2();
             } else {
                 track.playBtn.hide();
                 track.pauseBtn.show();
             }
+            
+            var togglePlayer2 = function() {
+                var $a = $('.play-svg-a-2'),
+                    $b = $('.play-svg-b-2');
+                
+                $a.removeClass('to-play-a-2').addClass('to-pause-a-2');
+                $b.removeClass('to-play-b-2').addClass('to-pause-b-2');  
+                $a.children().attr('d', 'M10 46 L13 48 L35 14 L32 12 Z');
+                $b.children().attr('d', 'M29.5 14.5 L52 48 L55 46 L32.5 12.5 Z');
+            }
         };
         
         track.togglePlayBtn = function() {
-            var $a = $('.play-svg-a-2');
-            var $b = $('.play-svg-b-2');
-            
             if (track.num === 2) {
+                togglePlayer2()
+            } else {
+                track.pauseBtn.hide();
+                track.playBtn.show();
+            }
+            
+            var togglePlayer2() {
+                var $a = $('.play-svg-a-2'),
+                    $b = $('.play-svg-b-2');
+                
                 $a.removeClass('to-pause-a-2').addClass('to-play-a-2');
                 $b.removeClass('to-pause-b-2').addClass('to-play-b-2');
                 $a.children().attr('d', 'M9 48 L13 48 L32 18 L32 12 Z');
                 $b.children().attr('d', 'M32 18 L52 48 L56 48 L32 12 Z');
-            } else {
-                track.pauseBtn.hide();
-                track.playBtn.show();
             }
         }
 
@@ -198,10 +209,10 @@ $(document).ready(function(){
             gain: 0,
             gainNodeInit: function() {
                 var value = track.volume.getValue() / 10;
-                this.gain = context.createGain();
+                track.volume.gain = context.createGain();
                 playSound.connect(this.gain);
-                this.gain.connect(context.destination);
-                this.gain.gain.value = value;
+                track.volume.gain.connect(context.destination);
+                track.volume.gain.gain.value = value;
             },
             getValue: function() {
                 return track.vDiv.slider('value');
@@ -311,9 +322,8 @@ $(document).ready(function(){
                 }); 
             }
         }
-
-        //show track
         
+        //show track
         track.show();
         
         //calling event listener and initializing functions
