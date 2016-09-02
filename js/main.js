@@ -29,8 +29,8 @@ $(document).ready(function(){
         
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory);
-                playSound.start();
-                playSound.stop();
+//                playSound.start();
+//                playSound.stop();
             });
         }
         getSound.send();
@@ -43,10 +43,10 @@ $(document).ready(function(){
             playSound.connect(context.destination);
             playSound.start(0, startTime);
             console.log(context);
-            context.suspend();
-            context.resume();
-            context.suspend();
-            context.resume();
+            if (context.state == "suspended") {
+                context.suspend();
+                context.resume();
+            } 
             console.log('PLAY: ' + startTime);
         }
         
@@ -59,7 +59,6 @@ $(document).ready(function(){
         //stop sound
         soundObj.stop = function() {
             console.log('STOP');
-            context.suspend();
             playSound.stop();
         }
 
