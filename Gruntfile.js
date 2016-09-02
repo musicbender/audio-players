@@ -88,16 +88,6 @@ module.exports = function(grunt) {
           'css/main.css': ['index.html']
         }
       }
-    },
-    imagemin: {
-        dynamic: {
-            files: [{
-                expand: true,
-                cwd: 'images/',
-                src: ['**/*.{png,jpg,gif}'],
-                dest: 'build/images'
-            }]
-        }
     }
   });
 

@@ -42,22 +42,30 @@ $(document).ready(function(){
             soundObj.duration = Math.round(playSound.buffer.duration); 
             playSound.connect(context.destination);
             playSound.start(0, startTime);
+            console.log(context);
             context.suspend();
             context.resume();
+            context.suspend();
+            context.resume();
+            console.log('PLAY: ' + startTime);
         }
         
         //resume from pause
         soundObj.resume = function() {
+            console.log('RESUME');
             context.resume();
         }
 
         //stop sound
         soundObj.stop = function() {
+            console.log('STOP');
+            context.suspend();
             playSound.stop();
         }
 
         //pause
         soundObj.suspend = function() {
+            console.log('SUSPEND');
             context.suspend();
         }
         
@@ -114,6 +122,7 @@ $(document).ready(function(){
             if (currentTrack !== track.num && currentTrack !== 0) {
                 //if switching to another track
                 track.switchTracks();
+                console.log('switching tracks...');
             }
             track.slider.play(); 
             if (!track.playInit) {
@@ -145,10 +154,6 @@ $(document).ready(function(){
             oldTrack["playState"] = false;
             oldTrack["slider"]["stop"]();
             oldTrack["togglePlayBtn"]();
-
-            //put the now current track in stop-mode in cause it was paused
-//            track.playInit = false;
-//            track.audio.stop();
         };
         
         track.show = function() {
