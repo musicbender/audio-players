@@ -301,7 +301,18 @@ header {
 
   .volume-slider-div-1 {
     position: relative;
-    left: 61px; } }
+    left: 61px;
+    width: calc(100% - 123px); }
+
+  .plus-1, .minus-1 {
+    font-size: 2em;
+    top: 27px; }
+
+  .plus-1 {
+    left: calc(86% + -12px); }
+
+  .minus-1 {
+    left: 12px; } }
 /*******Player 2*******/
 .player-2-section {
   background-color: #A66BBE; }
