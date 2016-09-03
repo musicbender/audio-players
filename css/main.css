@@ -96,7 +96,7 @@ body {
 /*******Header*******/
 header {
   margin: 0 auto;
-  height: 110px;
+  height: 10em;
   background-color: #ffffff;
   text-align: center;
   overflow: hidden; }
@@ -105,6 +105,10 @@ header {
   margin: 30px auto 0 auto;
   color: #a7a7a7;
   font-size: 2em; }
+
+.sub-title {
+  color: #a7a7a7;
+  padding: 0 1em; }
 
 /*******Player 1*******/
 .player-1-section {
@@ -293,7 +297,7 @@ header {
     font-size: 0.9em; }
 
   .progress-div-1 {
-    width: calc(100% - 120.93px); }
+    width: calc(100% - 121.93px); }
 
   .volume-slider-div-1 {
     position: relative;
@@ -683,5 +687,19 @@ progress-div-3.ui-widget-content {
   animation-fill-mode: forwards; }
 
 /*******Media Queries*******/
+@media only screen and (max-width: 650px) {
+  .loading-placeholder {
+    width: 95%; } }
+@media only screen and (max-width: 450px) {
+  .loading-placeholder {
+    width: 100%; }
+    .loading-placeholder h5 {
+      font-size: 1.5em; } }
+@media only screen and (max-width: 400px) {
+  header {
+    height: 12em; } }
+@media only screen and (max-width: 334px) {
+  header {
+    height: 14em; } }
 
 /*# sourceMappingURL=main.css.map */

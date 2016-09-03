@@ -1,6 +1,6 @@
 header {
     margin: 0 auto;
-    height: 110px;
+    height: 10em;
     background-color: $white;
     text-align: center;
     overflow: hidden;
@@ -11,3 +11,8 @@ header {
     color: $grey;
     font-size: 2em;
 } 
+
+.sub-title {
+    color: $grey;
+    padding: 0 1em;
+}

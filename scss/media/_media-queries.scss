@@ -1,0 +1,24 @@
+@media only screen and (max-width: 650px) {
+    .loading-placeholder {
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .loading-placeholder {
+        width: 100%;
+        h5 { font-size: 1.5em }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    header {
+        height: 12em;
+    }
+}
+
+@media only screen and (max-width: 334px) {
+    header {
+        height: 14em;
+    }
+}
