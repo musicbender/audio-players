@@ -212,8 +212,6 @@ $(document).ready(function(){
                 playSound.connect(this.gain);
                 track.volume.gain.connect(context.destination);
                 track.volume.gain.gain.value = value;
-                console.log('volume initiated');
-                console.log(playSound);
             },
             getValue: function() {
                 return track.$volDiv.slider('value');
@@ -254,7 +252,9 @@ $(document).ready(function(){
         track.onEvent = {
             //when clicking play/pause button
             clickPlay: function() {
-                $('.play-' + track.num).on('click', function(e) {
+                var $play = $('.play-' + track.num);
+                
+                $play.on('click', function(e) {
                     e.preventDefault();
                     
                     if (!track.playState) {
@@ -303,7 +303,7 @@ $(document).ready(function(){
             
             //when scrubbing volume slider
             slideVolume: function() {
-                var $v = $('.volume-btn');
+                var $v = $('.volume-btn-' + track.num);
                 
                 track.$volDiv.on('slide', function(event, ui) {
                     track.volume.gain.gain.value = (ui.value / 10) - 1;

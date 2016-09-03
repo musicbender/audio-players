@@ -1,0 +1,30 @@
+@media only screen and (max-width: 650px) {
+    .player-1 {
+        width: 95%;
+    }
+    .track-1 {
+        font-size: 1em;
+    }
+    .plus-1 {
+        left: calc(86% + -20px);
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .player-1 {
+        width: 100%;
+    }
+    .play-div-1, .volume-div-1 {
+        width: 60.3px;
+    }
+    .track-1 {
+        font-size: 0.9em;
+    }
+    .progress-div-1 {
+        width: calc(100% - 120.93px);
+    }
+    .volume-slider-div-1 {
+        position: relative;
+        left: 61px;
+    }
+}
