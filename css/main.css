@@ -390,7 +390,6 @@ header {
   z-index: 100; }
 
 /*******Progress Slider*******/
-/*******jQuery UI override*******/
 /*******Slider*******/
 .progress-div-2 {
   display: inline-block;
@@ -531,6 +530,16 @@ header {
   animation-duration: 0.8s;
   animation-fill-mode: forwards; }
 
+/*******Media Queries*******/
+@media only screen and (max-width: 650px) {
+  .player-2 {
+    width: 95%; }
+
+  .volume-slider-div-2 {
+    width: calc(100% - 158px); } }
+@media only screen and (max-width: 450px) {
+  .player-2 {
+    width: 100%; } }
 /*******Player 3*******/
 .player-3-section {
   background-color: #EA6153;

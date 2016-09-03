@@ -225,3 +225,7 @@
     @include animate(play-animate-a-2, 0.8s);
 }
 
+/*******Media Queries*******/
+
+@import '_player2-media-queries.scss';
+
