@@ -42,7 +42,6 @@ $(document).ready(function(){
             soundObj.duration = Math.round(playSound.buffer.duration); 
             playSound.connect(context.destination);
             playSound.start(0, startTime);
-            console.log(context);
             if (context.state == "suspended") {
                 context.suspend();
                 context.resume();
@@ -62,6 +61,10 @@ $(document).ready(function(){
         //pause
         soundObj.suspend = function() {
             context.suspend();
+        }
+        
+        soundObj.gainInit = function() {
+            
         }
         
         soundObj.onEnd = function(callback) {
@@ -99,7 +102,6 @@ $(document).ready(function(){
         var track = {};
         
         //properties
-        
         track.num = obj.num; 
         track.audio = sound["track" + track.num];
         track.playInit = false;
@@ -210,6 +212,8 @@ $(document).ready(function(){
                 playSound.connect(this.gain);
                 track.volume.gain.connect(context.destination);
                 track.volume.gain.gain.value = value;
+                console.log('volume initiated');
+                console.log(playSound);
             },
             getValue: function() {
                 return track.$volDiv.slider('value');
@@ -264,6 +268,7 @@ $(document).ready(function(){
                     }    
                 });
             }, 
+            
             //when scrubbing audio
             onScrub: function() {
                 track.$progressDiv.on('slidestart', function(event, ui) {
@@ -276,8 +281,9 @@ $(document).ready(function(){
                     }
                 });
             },
-            //when clicking show volume button. 
-            //---!!!some players don't have this!!!
+            
+            //when clicking show volume button
+            //--some players don't have this
             showVolume: function() {
                 var $div = $('.volume-div-' + track.num),
                     $show = 'volume-shown-' + track.num,
@@ -294,6 +300,7 @@ $(document).ready(function(){
                     }  
                 });
             },
+            
             //when scrubbing volume slider
             slideVolume: function() {
                 var $v = $('.volume-btn');
@@ -309,6 +316,7 @@ $(document).ready(function(){
                 });
 
             },
+            
             //when clicking plus/minus volume buttons
             clickVolume: function() {
                 var $plus = $('.plus-' + track.num),
@@ -340,8 +348,9 @@ $(document).ready(function(){
         track.onEvent.showVolume();
         track.onEvent.slideVolume();
         track.onEvent.clickVolume();
+        track.volume.gainNodeInit();
 
-        //return this entire track object
+        //return the track object
         return track;
     }
 
