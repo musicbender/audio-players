@@ -29,8 +29,8 @@ $(document).ready(function(){
         
                 //add new track to list object
                 trackList[soundObj.num] = newTrack(fileDirectory);
-//                playSound.start();
-//                playSound.stop();
+                playSound.start(); 
+                playSound.stop();
             });
         }
         getSound.send();
@@ -47,24 +47,20 @@ $(document).ready(function(){
                 context.suspend();
                 context.resume();
             } 
-            console.log('PLAY: ' + startTime);
         }
         
         //resume from pause
         soundObj.resume = function() {
-            console.log('RESUME');
             context.resume();
         }
 
         //stop sound
         soundObj.stop = function() {
-            console.log('STOP');
             playSound.stop();
         }
 
         //pause
         soundObj.suspend = function() {
-            console.log('SUSPEND');
             context.suspend();
         }
         
@@ -111,17 +107,16 @@ $(document).ready(function(){
         track.playState = false;
 
         //DOM selectors
-        track.vDiv = $('.volume-slider-div-' + track.num);
-        track.pDiv = $('.progress-div-' + track.num);
-        track.playBtn = $('.control-play-' + track.num);
-        track.pauseBtn = $('.control-pause-' + track.num);
+        track.$volDiv = $('.volume-slider-div-' + track.num);
+        track.$progressDiv = $('.progress-div-' + track.num);
+        track.$playBtn = $('.control-play-' + track.num);
+        track.$pauseBtn = $('.control-pause-' + track.num);
         
         //functions
         track.play = function() {
             if (currentTrack !== track.num && currentTrack !== 0) {
                 //if switching to another track
                 track.switchTracks();
-                console.log('switching tracks...');
             }
             track.slider.play(); 
             if (!track.playInit) {
@@ -164,8 +159,8 @@ $(document).ready(function(){
             if (track.num === 2) {
                 togglePlayer2();
             } else {
-                track.playBtn.hide();
-                track.pauseBtn.show();
+                track.$playBtn.hide();
+                track.$pauseBtn.show();
             }
             
             function togglePlayer2() {
@@ -183,8 +178,8 @@ $(document).ready(function(){
             if (track.num === 2) {
                 togglePlayer2()
             } else {
-                track.pauseBtn.hide();
-                track.playBtn.show();
+                track.$pauseBtn.hide();
+                track.$playBtn.show();
             } 
             
             function togglePlayer2() {
@@ -201,7 +196,7 @@ $(document).ready(function(){
         //objects
         track.volume = {
             init: function() {
-                track.vDiv.slider({
+                track.$volDiv.slider({
                     max: 100,
                     value: 75,
                     range: 'min',
@@ -217,16 +212,16 @@ $(document).ready(function(){
                 track.volume.gain.gain.value = value;
             },
             getValue: function() {
-                return track.vDiv.slider('value');
+                return track.$volDiv.slider('value');
             },
             setValue: function(v) {
-                track.vDiv.slider('value', v);
+                track.$volDiv.slider('value', v);
             }
         };
 
         track.slider = {
             init: function() {
-                track.pDiv.slider({
+                track.$progressDiv.slider({
                     max: track.audio.duration,
                     range: 'min',
                     step: 0.25
@@ -234,10 +229,10 @@ $(document).ready(function(){
             },
             progress: 0,
             getValue: function() {
-                return track.pDiv.slider('value');
+                return track.$progressDiv.slider('value');
             },
             setValue: function(v) {
-                track.pDiv.slider('value', v);
+                track.$progressDiv.slider('value', v);
             },
             play: function() {
                 var value = this.getValue();
@@ -271,11 +266,11 @@ $(document).ready(function(){
             }, 
             //when scrubbing audio
             onScrub: function() {
-                track.pDiv.on('slidestart', function(event, ui) {
+                track.$progressDiv.on('slidestart', function(event, ui) {
                     track.playInit = false; 
                     track.stop();
                 });
-                track.pDiv.on('slidestop', function(event, ui) {
+                track.$progressDiv.on('slidestop', function(event, ui) {
                     if (track.playState) {
                         track.play();
                     }
@@ -284,39 +279,48 @@ $(document).ready(function(){
             //when clicking show volume button. 
             //---!!!some players don't have this!!!
             showVolume: function() {
-                $('.volume-div-' + track.num).on('click', function(e) {
+                var $div = $('.volume-div-' + track.num),
+                    $show = 'volume-shown-' + track.num,
+                    $hide = 'volume-hidden-' + track.num;
+                
+                $div.on('click', function(e) {
                     e.preventDefault();
                     if (!track.clickState) {
-                        track.vDiv.addClass('volume-shown-' + track.num).removeClass('volume-hidden-' + track.num);
+                        track.$volDiv.addClass($show).removeClass($hide);
                         track.clickState = true;
                     } else {
-                        track.vDiv.addClass('volume-hidden-' + track.num).removeClass('volume-shown-' + track.num);
+                        track.$volDiv.addClass($hide).removeClass($show);
                         track.clickState = false;
                     }  
                 });
             },
             //when scrubbing volume slider
             slideVolume: function() {
-                track.vDiv.on('slide', function(event, ui) {
+                var $v = $('.volume-btn');
+                
+                track.$volDiv.on('slide', function(event, ui) {
                     track.volume.gain.gain.value = (ui.value / 10) - 1;
                 });
-                $('.volume-btn').on('mouseenter', function() {
-                    track.vDiv.slider('disable');
+                $v.on('mouseenter', function() {
+                    track.$volDiv.slider('disable');
                 });
-                $('.volume-btn').on('mouseleave', function() {
-                    track.vDiv.slider('enable');
+                $v.on('mouseleave', function() {
+                    track.$volDiv.slider('enable');
                 });
 
             },
             //when clicking plus/minus volume buttons
             clickVolume: function() {
-                $('.plus-' + track.num).on('click', function(e) {
+                var $plus = $('.plus-' + track.num),
+                    $minus = $('.minus-' + track.num);
+                
+                $plus.on('click', function(e) {
                     if (track.volume.getValue() < 100) {
                         track.volume.setValue(track.volume.getValue() + 5);
                         track.volume.gain.gain.value = (track.volume.getValue() / 10) - 1;
                     } 
                 });
-                $('.minus-' + track.num).on('click', function(e) {
+                $minus.on('click', function(e) {
                     if (track.volume.getValue() > 0) {
                         track.volume.setValue(track.volume.getValue() - 5);
                         track.volume.gain.gain.value = (track.volume.getValue() / 10) - 1;

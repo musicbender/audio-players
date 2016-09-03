@@ -220,6 +220,8 @@ header {
   background-color: #e6f9ee; }
 
 .volume-slider-div-1 .ui-slider-handle {
+  cursor: pointer;
+  height: 6em;
   opacity: 0; }
 
 .volume-slider-1 {
